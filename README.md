@@ -53,7 +53,7 @@ When I run `ruby lint.rb`
 Then it should pass with exactly:
 """
 """
-## Feature Background does more than setup (features/background_does_more_than_setup.feature)
+### Feature Background does more than setup (features/background_does_more_than_setup.feature)
 As a Business Analyst
 I want to be warned if there is more than setup in background
 so that tests stay understandable
@@ -486,7 +486,7 @@ Then it should fail with exactly:
 MissingVerification - No verification step
   lint.feature (2): Test.A
 """
-### Scenario: Passes for valid feature
+#### Scenario: Passes for valid feature
 Given a file named "lint.feature" with:
 """
 Feature: Test
@@ -538,11 +538,11 @@ When I run `ruby lint.rb`
 Then it should pass with exactly:
 """
 """
-## Feature Unused Variable (features/unused_variable.feature)
+### Feature Unused Variable (features/unused_variable.feature)
 As a Business Analyst
 I want to be warned about unused variables
 so that I can delete them if they are not used any more or refer them again
-### Background: 
+#### Background: 
 Given a file named "lint.rb" with:
 """
 $LOAD_PATH << '../../lib'
