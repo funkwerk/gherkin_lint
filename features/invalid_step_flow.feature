@@ -3,7 +3,7 @@ Feature: Invalid Step Flow
   I want to be warned about invalid step flow
   so that all my tests make sense
 
-  Background:
+  Background: Prepare Testee
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
@@ -16,7 +16,7 @@ Feature: Invalid Step Flow
 
       """
 
-  Scenario: Verification before Action
+  Scenario: Missing Action
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -27,12 +27,12 @@ Feature: Invalid Step Flow
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      InvalidStepFlow - Verification before action
+      InvalidStepFlow - Missing Action
         lint.feature (4): Test.A step: verify
 
       """
 
-  Scenario: Setup after Action
+  Scenario: Setup After Action
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -49,7 +49,7 @@ Feature: Invalid Step Flow
 
       """
 
-  Scenario: Action as last step
+  Scenario: Action As Last Step
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -67,7 +67,7 @@ Feature: Invalid Step Flow
 
       """
 
-  Scenario: Passes for Test
+  Scenario: Valid Example
     Given a file named "lint.feature" with:
       """
       Feature: Test

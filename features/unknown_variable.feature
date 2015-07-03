@@ -1,7 +1,7 @@
-Feature: Unused Variable
+Feature: Unknown Variable
   As a Business Analyst
-  I want to be warned about unused variables
-  so that I can delete them if they are not used anymore or refer them again
+  I want to be warned about unknown variables
+  so that I can delete them if they are not defined anymore
 
   Background: Prepare Testee
     Given a file named "lint.rb" with:
@@ -10,70 +10,73 @@ Feature: Unused Variable
       require 'gherkin_lint'
 
       linter = GherkinLint.new
-      linter.enable %w(UnusedVariable)
+      linter.enable %w(UnknownVariable)
       linter.analyze 'lint.feature'
       exit linter.report
 
       """
 
-  Scenario: Unused Step Variable
+  @skip
+  Scenario: Unknown Step Variable
     Given a file named "lint.feature" with:
       """
       Feature: Test
         Scenario Outline: A
-          When <bar>
+          When <baz>
 
           Examples: Values
-            | bar | foo |
-            | 1   | 2   |
+            | bar |
+            | 1   |
       """
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnusedVariable - '<foo>' is unused
+      UnknownVariable - '<foo>' is unknown
         lint.feature (2): Test.A
 
       """
 
-  Scenario: Unused Table Variable
+  @skip
+  Scenario: Unknown Table Variable
     Given a file named "lint.feature" with:
       """
       Feature: Test
         Scenario Outline: A
           When test
            | value |
-           | <bar> |
+           | <baz> |
 
           Examples: Values
-            | bar | foo |
-            | 1   | 2   |
+            | bar |
+            | 1   |
       """
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnusedVariable - '<foo>' is unused
+      UnknownVariable - '<foo>' is unknown
         lint.feature (2): Test.A
 
       """
 
-  Scenario: Unused Pystring Variable
+  @skip
+  Scenario: Unknown Pystring Variable
     Given a file named "lint.feature" with:
       """
       Feature: Test
         Scenario Outline: A
           When test
           \"\"\"
-            <bar>
+            <baz>
           \"\"\"
 
           Examples: Values
-            | bar | foo |
-            | 1   | 2   |
+            | bar |
+            | 1   |
       """
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnusedVariable - '<foo>' is unused
+      UnknownVariable - '<foo>' is unknown
         lint.feature (2): Test.A
 
       """

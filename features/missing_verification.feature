@@ -3,7 +3,7 @@ Feature: Missing Verification
   I want that each test contains at least one verification
   so that I'm sure that the behavior of the system is tested
 
-  Background:
+  Background: Prepare Testee
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
@@ -16,7 +16,7 @@ Feature: Missing Verification
 
       """
 
-  Scenario: Warns for missing verification
+  Scenario: Missing Verification
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -32,7 +32,7 @@ Feature: Missing Verification
 
       """
 
-  Scenario: Passes for valid feature
+  Scenario: Valid Example
     Given a file named "lint.feature" with:
       """
       Feature: Test

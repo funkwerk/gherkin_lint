@@ -1,7 +1,7 @@
-Feature: Background Does More Than Setup
+Feature: Background requires multiple scenarios
   As a Business Analyst
-  I want to be warned if there is more than setup in background
-  so that tests stay understandable
+  I want to be warned if I'm using a background for just one scenario
+  so that I am just using background steps if it improves readability
 
   Background: Prepare Testee
     Given a file named "lint.rb" with:
@@ -10,19 +10,23 @@ Feature: Background Does More Than Setup
       require 'gherkin_lint'
 
       linter = GherkinLint.new
-      linter.enable %w(BackgroundDoesMoreThanSetup)
+      linter.enable %w(BackgroundRequiresMultipleScenarios)
       linter.analyze 'lint.feature'
       exit linter.report
 
       """
 
-  Scenario: Background With Action
+  @skip
+  Scenario: Background With Insufficient Scenarios
     Given a file named "lint.feature" with:
       """
       Feature: Test
         Background: Preparation
           Given setup
-          When test
+
+        Scenario: A
+          When action
+          Then verification
       """
     When I run `ruby lint.rb`
     Then it should fail with exactly:
@@ -38,6 +42,14 @@ Feature: Background Does More Than Setup
       Feature: Test
         Background: Preparation
           Given setup
+
+        Scenario: A
+          When action
+          Then verification
+
+        Scenario: B
+          When another action
+          Then verification
       """
     When I run `ruby lint.rb`
     Then it should pass with exactly:

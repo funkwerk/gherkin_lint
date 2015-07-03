@@ -3,7 +3,7 @@ Feature: Avoid period
   I do not want a period at the end of the scenario
   so that it's easier to reuse verification steps
 
-  Background:
+  Background: Prepare Testee
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
@@ -16,7 +16,7 @@ Feature: Avoid period
 
       """
 
-  Scenario: Warns for period
+  Scenario: Steps With Period
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -33,7 +33,7 @@ Feature: Avoid period
 
       """
 
-  Scenario: Passes for Test
+  Scenario: Valid Example
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -44,6 +44,6 @@ Feature: Avoid period
       """
     When I run `ruby lint.rb`
     Then it should pass with exactly:
-    """
+      """
 
-    """
+      """

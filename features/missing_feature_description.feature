@@ -3,7 +3,7 @@ Feature: Missing Feature Description
   I want feature descriptions
   so that I know why the features exist
 
-  Background:
+  Background: Prepare Testee
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
@@ -16,7 +16,7 @@ Feature: Missing Feature Description
 
       """
 
-  Scenario: Warns for missing feature name
+  Scenario: Missing Description
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -29,7 +29,7 @@ Feature: Missing Feature Description
 
       """
 
-  Scenario: Passes for valid feature
+  Scenario: Valid Example
     Given a file named "lint.feature" with:
       """
       Feature: Test

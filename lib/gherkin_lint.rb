@@ -241,14 +241,14 @@ class GherkinLint
       steps.each do |step|
         break if step['keyword'] == 'When '
         references = [reference(file, feature, scenario, step)]
-        description = 'Verification before action'
+        description = 'Missing Action'
         add_issue(references, description) if step['keyword'] == 'Then '
       end
     end
   end
 
-  # service class to lint for invalid scenario names
-  class InvalidScenarioName < Linter
+  # service class to lint for bad scenario names
+  class BadScenarioName < Linter
     def lint
       scenarios do |file, feature, scenario|
         next if scenario['name'].empty?
@@ -330,6 +330,7 @@ class GherkinLint
   LINTER = [
     AvoidPeriod,
     BackgroundDoesMoreThanSetup,
+    BadScenarioName,
     MissingExampleName,
     MissingFeatureDescription,
     MissingFeatureName,
@@ -337,7 +338,6 @@ class GherkinLint
     MissingTestAction,
     MissingVerification,
     InvalidFileName,
-    InvalidScenarioName,
     InvalidStepFlow,
     UniqueScenarioNames,
     UnusedVariable

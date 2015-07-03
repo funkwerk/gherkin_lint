@@ -3,7 +3,7 @@ Feature: Missing Scenario Name
   I want named scenarios
   so that I know what this scenario is about without reading it
 
-  Background:
+  Background: Prepare Testee
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
@@ -16,7 +16,7 @@ Feature: Missing Scenario Name
 
       """
 
-  Scenario: Warns for missing scenario name
+  Scenario: Missing Scenario Name
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -30,7 +30,7 @@ Feature: Missing Scenario Name
 
       """
 
-  Scenario: Warns for missing scenario outline name
+  Scenario: Missing Scenario Outline Name
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -44,7 +44,7 @@ Feature: Missing Scenario Name
 
       """
 
-  Scenario: Passes for valid feature
+  Scenario: Valid Example
     Given a file named "lint.feature" with:
       """
       Feature: Test

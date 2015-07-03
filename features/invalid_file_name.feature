@@ -1,9 +1,9 @@
 Feature: Invalid File Name
   As a Business Analyst
-  I want to be warned about invalid file named
+  I want to be warned about invalid file name
   so that I name all features consistently
 
-  Background:
+  Background: Prepare Testee
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
@@ -19,7 +19,7 @@ Feature: Invalid File Name
 
       """
 
-  Scenario Outline: Warns for "verification" within scenario name
+  Scenario Outline: Invalid File Names
     Given a file named "<invalid name>.feature" with:
       """
       Feature: Test
@@ -31,13 +31,13 @@ Feature: Invalid File Name
         <invalid name>.feature
 
       """
-    
+
     Examples: Invalid Names
       | invalid name |
       | Lint         |
       | lintMe       |
 
-  Scenario: Passes for unique scenario names
+  Scenario: Valid Example
     Given a file named "lint.feature" with:
       """
       Feature: Test

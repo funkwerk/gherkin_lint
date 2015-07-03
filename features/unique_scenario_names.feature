@@ -3,7 +3,7 @@ Feature: Unique Scenario Names
   I want unique scenario names
   so that I can refer to them in case of issues
 
-  Background:
+  Background: Prepare Testee
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
@@ -16,7 +16,7 @@ Feature: Unique Scenario Names
 
       """
 
-  Scenario: Warns for non unique scenario name
+  Scenario: Non Unique Scenario Name
     Given a file named "lint.feature" with:
       """
       Feature: Unique Scenario Names
@@ -32,7 +32,7 @@ Feature: Unique Scenario Names
 
       """
 
-  Scenario: Passes for unique scenario names
+  Scenario: Valid Example
     Given a file named "lint.feature" with:
       """
       Feature: Unique Scenario Names

@@ -3,7 +3,7 @@ Feature: Missing Test Action
   I want to be warned if I missed an action to test
   so that all my scenarios actually stimulate the system and provoke a behavior
 
-  Background:
+  Background: Prepare Testee
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
@@ -16,7 +16,7 @@ Feature: Missing Test Action
 
       """
 
-  Scenario: Warns for missing action
+  Scenario: Missing Action
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -32,7 +32,7 @@ Feature: Missing Test Action
 
       """
 
-  Scenario: Passes for valid feature
+  Scenario: Valid Example
     Given a file named "lint.feature" with:
       """
       Feature: Test

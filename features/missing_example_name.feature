@@ -3,7 +3,7 @@ Feature: Missing Example Name
   I want examples to be named
   so that I'm able to understand why this example exists
 
-  Background:
+  Background: Prepare Testee
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
@@ -16,7 +16,7 @@ Feature: Missing Example Name
 
       """
 
-  Scenario: Warns for missing example name
+  Scenario: Missing Example Name
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -35,7 +35,7 @@ Feature: Missing Example Name
 
       """
 
-  Scenario: Passes for valid feature
+  Scenario: Valid Example
     Given a file named "lint.feature" with:
       """
       Feature: Test

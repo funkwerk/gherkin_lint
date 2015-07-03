@@ -3,7 +3,7 @@ Feature: Missing Feature Name
   I want named features
   so that I know what the feature is about just by reading the name
 
-  Background:
+  Background: Prepare Testee
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
@@ -16,7 +16,7 @@ Feature: Missing Feature Name
 
       """
 
-  Scenario: Warns for missing feature name
+  Scenario: Missing Feature Name
     Given a file named "lint.feature" with:
       """
       Feature:
@@ -29,7 +29,7 @@ Feature: Missing Feature Name
 
       """
 
-  Scenario: Passes for valid feature
+  Scenario: Valid Example
     Given a file named "lint.feature" with:
       """
       Feature: Test
