@@ -313,8 +313,8 @@ class GherkinLint
     end
   end
 
-  # service class to lint for avoiding colons
-  class AvoidColon < Linter
+  # service class to lint for avoiding periods
+  class AvoidPeriod < Linter
     def lint
       scenarios do |file, feature, scenario|
         next unless scenario.key? 'steps'
@@ -328,7 +328,7 @@ class GherkinLint
   end
 
   LINTER = [
-    AvoidColon,
+    AvoidPeriod,
     BackgroundDoesMoreThanSetup,
     MissingExampleName,
     MissingFeatureDescription,

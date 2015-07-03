@@ -1,0 +1,49 @@
+Feature: Avoid period
+  As a Business Analyst
+  I do not want a period at the end of the scenario
+  so that it's easier to reuse verification steps
+
+  Background:
+    Given a file named "lint.rb" with:
+      """
+      $LOAD_PATH << '../../lib'
+      require 'gherkin_lint'
+
+      linter = GherkinLint.new
+      linter.enable %w(AvoidPeriod)
+      linter.analyze 'lint.feature'
+      exit linter.report
+
+      """
+
+  Scenario: Warns for period
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        Scenario: A
+          Given setup
+          When test
+          Then verification.
+      """
+    When I run `ruby lint.rb`
+    Then it should fail with exactly:
+      """
+      AvoidPeriod
+        lint.feature (5): Test.A step: verification.
+
+      """
+
+  Scenario: Passes for Test
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        Scenario: A
+          Given setup
+          When test
+          Then verification
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+    """
+
+    """
