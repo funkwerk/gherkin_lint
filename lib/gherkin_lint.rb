@@ -146,7 +146,7 @@ class GherkinLint
     end
   end
 
-  # service class to lint for backgrond that does more than setup
+  # service class to lint for background that does more than setup
   class BackgroundDoesMoreThanSetup < Linter
     def lint
       backgrounds do |file, feature, background|
@@ -155,6 +155,19 @@ class GherkinLint
         next if invalid_steps.empty?
         references = [reference(file, feature, background, invalid_steps[0])]
         add_issue(references, 'Just Given Steps allowed')
+      end
+    end
+  end
+
+  # service class to lint for background requires multiple scenario
+  class BackgroundRequiresMultipleScenarios < Linter
+    def lint
+      backgrounds do |file, feature, background|
+        scenarios = feature['elements'].select { |element| element['keyword'] != 'Background' }
+        next if scenarios.length >= 2
+
+        references = [reference(file, feature, background)]
+        add_issue(references, "There are just #{scenarios.length} scenarios")
       end
     end
   end
@@ -267,10 +280,49 @@ class GherkinLint
     def lint
       files do |file|
         base = File.basename file
-        next if base == base.downcase
+        next unless base != base.downcase || base =~ /[ -]/
         references = [reference(file)]
         add_issue(references, 'Feature files should be snake_cased')
       end
+    end
+  end
+
+  # service class to lint for unknown variables
+  class UnknownVariable < Linter
+    def lint
+      scenarios do |file, feature, scenario|
+        known_vars = known_variables scenario
+        scenario['steps'].each do |step|
+          step_vars(step).each do |used_var|
+            next if known_vars.include? used_var
+            references = [reference(file, feature, scenario)]
+            add_issue(references, "'<#{used_var}>' is unknown")
+          end
+        end
+      end
+    end
+
+    def step_vars(step)
+      vars = gather_vars step['name']
+      vars += gather_vars step['doc_string']['value'] if step.key? 'doc_string'
+      if step.key? 'rows'
+        vars += step['rows'].map do |row|
+          row['cells'].map { |value| gather_vars value }.flatten
+        end.flatten
+      end
+      vars
+    end
+
+    def gather_vars(string)
+      string.scan(/<.+>/).map { |val| val[1..-2] }
+    end
+
+    def known_variables(scenario)
+      return Set.new unless scenario.key? 'examples'
+      Set.new(scenario['examples'].map do |example|
+        next unless example.key? 'rows'
+        example['rows'].first['cells'].map(&:strip)
+      end.flatten)
     end
   end
 
@@ -330,6 +382,7 @@ class GherkinLint
   LINTER = [
     AvoidPeriod,
     BackgroundDoesMoreThanSetup,
+    BackgroundRequiresMultipleScenarios,
     BadScenarioName,
     MissingExampleName,
     MissingFeatureDescription,
@@ -340,6 +393,7 @@ class GherkinLint
     InvalidFileName,
     InvalidStepFlow,
     UniqueScenarioNames,
+    UnknownVariable,
     UnusedVariable
   ]
 

@@ -23,6 +23,7 @@ Feature: Missing Example Name
         Scenario Outline: A
           When test
           Then <value>
+
           Examples:
             | value |
             | test  |
@@ -40,11 +41,20 @@ Feature: Missing Example Name
       """
       Feature: Test
         Scenario Outline: A
-          When test
-          Then <value>
-          Examples: Table
-            | value |
-            | test  |
+          When stress with <list>
+          And with <character>
+          Then program does not crash
+
+          Examples: Cardinality
+            | list        |
+            | A           |
+            | A and B     |
+            | A, B, and C |
+
+          Examples: Non Ascii Characters
+            | character |
+            | ä         |
+            | ß         |
       """
     When I run `ruby lint.rb`
     Then it should pass with exactly:

@@ -35,7 +35,7 @@ Feature: Missing Feature Description
       Feature: Test
         As a feature
         I want to have a description,
-        so that everybody know why I exist
+        so that everybody knows why I exist
       """
     When I run `ruby lint.rb`
     Then it should pass with exactly:

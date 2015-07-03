@@ -20,22 +20,24 @@ Feature: Invalid File Name
       """
 
   Scenario Outline: Invalid File Names
-    Given a file named "<invalid name>.feature" with:
+    Given a file named "<name>.feature" with:
       """
       Feature: Test
       """
-    When I run `ruby lint.rb <invalid name>.feature`
+    When I run `ruby lint.rb "<name>.feature"`
     Then it should fail with exactly:
       """
       InvalidFileName - Feature files should be snake_cased
-        <invalid name>.feature
+        <name>.feature
 
       """
 
     Examples: Invalid Names
-      | invalid name |
-      | Lint         |
-      | lintMe       |
+      | name    |
+      | Lint    |
+      | lintMe  |
+      | lint me |
+      | lint-me |
 
   Scenario: Valid Example
     Given a file named "lint.feature" with:

@@ -16,8 +16,7 @@ Feature: Background requires multiple scenarios
 
       """
 
-  @skip
-  Scenario: Background With Insufficient Scenarios
+  Scenario: Background With Insufficient Number Of Scenarios
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -31,8 +30,8 @@ Feature: Background requires multiple scenarios
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      BackgroundDoesMoreThanSetup - Just Given Steps allowed
-        lint.feature (4): Test.Preparation step: test
+      BackgroundRequiresMultipleScenarios - There are just 1 scenarios
+        lint.feature (2): Test.Preparation
 
       """
 

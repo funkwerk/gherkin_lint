@@ -19,15 +19,17 @@ task :rubocop do
 end
 
 task test: :rubocop
+task test: :language
 task :test do
   sh 'cucumber --tags ~@skip'
 end
 
 task :format do
-  options = %w(--replace) if ENV['repair']
+  options = []
+  options.push '--replace' if ENV['repair']
   sh "gherkin_format #{options.join ' '} features/*.feature"
 end
 
 task :language do
-  sh 'gherkin_language features/*.feature'
+  # TODO: sh 'gherkin_language features/*.feature'
 end

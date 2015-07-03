@@ -16,7 +16,6 @@ Feature: Unknown Variable
 
       """
 
-  @skip
   Scenario: Unknown Step Variable
     Given a file named "lint.feature" with:
       """
@@ -31,12 +30,11 @@ Feature: Unknown Variable
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnknownVariable - '<foo>' is unknown
+      UnknownVariable - '<baz>' is unknown
         lint.feature (2): Test.A
 
       """
 
-  @skip
   Scenario: Unknown Table Variable
     Given a file named "lint.feature" with:
       """
@@ -53,12 +51,11 @@ Feature: Unknown Variable
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnknownVariable - '<foo>' is unknown
+      UnknownVariable - '<baz>' is unknown
         lint.feature (2): Test.A
 
       """
 
-  @skip
   Scenario: Unknown Pystring Variable
     Given a file named "lint.feature" with:
       """
@@ -76,7 +73,7 @@ Feature: Unknown Variable
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnknownVariable - '<foo>' is unknown
+      UnknownVariable - '<baz>' is unknown
         lint.feature (2): Test.A
 
       """
