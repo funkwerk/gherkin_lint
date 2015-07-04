@@ -3,8 +3,6 @@ Feature: Use Outline
   I want to be warned if I'm using a background for just one scenario
   so that I am using background to improve readability
 
-  if tests are too similar
-
   Background: Prepare Testee
     Given a file named "lint.rb" with:
       """
@@ -18,7 +16,6 @@ Feature: Use Outline
 
       """
 
-  @skip
   Scenario: Similar Scenarios
     Given a file named "lint.feature" with:
       """
@@ -27,14 +24,19 @@ Feature: Use Outline
           Given setup
 
         Scenario: A
-          When action
+          When action 1
+          Then verification
+
+        Scenario: B
+          When action 2
           Then verification
       """
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UseOutline - Scenarios are too similar
-        lint.feature (4): Test.Preparation step: test
+      UseOutline - Scenarios are similar by 97.8 %
+        lint.feature (5): Test.A
+        lint.feature (9): Test.B
 
       """
 

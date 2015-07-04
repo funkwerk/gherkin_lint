@@ -1,7 +1,7 @@
-Feature: Use Background
+Feature: Too Many Steps
   As a Business Analyst
-  I want to be warned if I'm using a background for just one scenario
-  so that I am using background to improve readability
+  I want to write short scenarios
+  so that they are attractive enough to read
 
   Background: Prepare Testee
     Given a file named "lint.rb" with:
@@ -10,31 +10,35 @@ Feature: Use Background
       require 'gherkin_lint'
 
       linter = GherkinLint.new
-      linter.enable %w(UseBackground)
+      linter.enable %w(TooManySteps)
       linter.analyze 'lint.feature'
       exit linter.report
 
       """
 
-  Scenario: Redundant Given Steps
+  Scenario: Long Scenario
     Given a file named "lint.feature" with:
       """
       Feature: Test
         Scenario: A
-          Given setup
-          When action
-          Then verification
-
-        Scenario: B
-          Given setup
-          When another action
-          Then verification
+          Given something
+          And another thing
+          And maybe still something
+          But not that this
+          When execute it
+          And wait some time
+          And then execute it again
+          Then it should be executed
+          And verification should be possible
+          But result shouldn't be 23
+          And also not 42
+          And probably also not 1337
       """
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UseBackground - Step 'setup' should be part of background
-        lint.feature (1): Test
+      TooManySteps - Used 12 Steps
+        lint.feature (2): Test.A
 
       """
 
@@ -43,13 +47,7 @@ Feature: Use Background
       """
       Feature: Test
         Scenario: A
-          Given setup
           When action
-          Then verification
-
-        Scenario: B
-          Given another setup
-          When another action
           Then verification
       """
     When I run `ruby lint.rb`

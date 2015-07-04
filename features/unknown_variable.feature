@@ -21,7 +21,7 @@ Feature: Unknown Variable
       """
       Feature: Test
         Scenario Outline: A
-          When <baz>
+          When <baz> and <bar>
 
           Examples: Values
             | bar |

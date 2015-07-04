@@ -1,3 +1,4 @@
+require 'amatch'
 require 'gherkin/formatter/json_formatter'
 require 'gherkin/parser/parser'
 require 'stringio'
@@ -54,6 +55,31 @@ class GherkinLint
           feature['elements'].each do |scenario|
             next if scenario['keyword'] == 'Background'
             yield(file, feature, scenario)
+          end
+        end
+      end
+    end
+
+    def filled_scenarios
+      @files.each do |file, content|
+        content.each do |feature|
+          next unless feature.key? 'elements'
+          feature['elements'].each do |scenario|
+            next if scenario['keyword'] == 'Background'
+            next unless scenario.include? 'steps'
+            yield(file, feature, scenario)
+          end
+        end
+      end
+    end
+
+    def steps
+      @files.each do |file, content|
+        content.each do |feature|
+          next unless feature.key? 'elements'
+          feature['elements'].each do |scenario|
+            next unless scenario.include? 'steps'
+            scenario['steps'].each { |step| yield(file, feature, scenario, step) }
           end
         end
       end
@@ -129,6 +155,17 @@ class GherkinLint
         next if when_steps.length > 0
         references = [reference(file, feature, scenario)]
         add_issue(references, 'No \'When\'-Step')
+      end
+    end
+  end
+
+  # service class to lint for too long steps
+  class TooLongStep < Linter
+    def lint
+      steps do |file, feature, scenario, step|
+        next if step['name'].length < 80
+        references = [reference(file, feature, scenario, step)]
+        add_issue(references, "Used #{step['name'].length} characters")
       end
     end
   end
@@ -254,8 +291,7 @@ class GherkinLint
       steps.each do |step|
         break if step['keyword'] == 'When '
         references = [reference(file, feature, scenario, step)]
-        description = 'Missing Action'
-        add_issue(references, description) if step['keyword'] == 'Then '
+        add_issue(references, 'Missing Action') if step['keyword'] == 'Then '
       end
     end
   end
@@ -275,6 +311,31 @@ class GherkinLint
     end
   end
 
+  # service class to lint for too clumsy scenarios
+  class TooClumsy < Linter
+    def lint
+      scenarios do |file, feature, scenario|
+        next unless scenario.include? 'steps'
+        characters = scenario['steps'].map { |step| step['name'].length }.inject(0, :+)
+        next if characters < 400
+        references = [reference(file, feature, scenario)]
+        add_issue(references, "Used #{characters} Characters")
+      end
+    end
+  end
+
+  # service class to lint for too many steps
+  class TooManySteps < Linter
+    def lint
+      scenarios do |file, feature, scenario|
+        next unless scenario.include? 'steps'
+        next if scenario['steps'].length < 10
+        references = [reference(file, feature, scenario)]
+        add_issue(references, "Used #{scenario['steps'].length} Steps")
+      end
+    end
+  end
+
   # service class to lint for invalid file names
   class InvalidFileName < Linter
     def lint
@@ -290,7 +351,7 @@ class GherkinLint
   # service class to lint for unknown variables
   class UnknownVariable < Linter
     def lint
-      scenarios do |file, feature, scenario|
+      filled_scenarios do |file, feature, scenario|
         known_vars = known_variables scenario
         scenario['steps'].each do |step|
           step_vars(step).each do |used_var|
@@ -314,7 +375,7 @@ class GherkinLint
     end
 
     def gather_vars(string)
-      string.scan(/<.+>/).map { |val| val[1..-2] }
+      string.scan(/<.+?>/).map { |val| val[1..-2] }
     end
 
     def known_variables(scenario)
@@ -379,6 +440,85 @@ class GherkinLint
     end
   end
 
+  # service class to lint for using background
+  class UseBackground < Linter
+    def lint
+      features do |file, feature|
+        givens = gather_givens feature
+        next if givens.length <= 1
+        next if givens.uniq.length > 1
+        references = [reference(file, feature)]
+        add_issue(references, "Step '#{givens.uniq.first}' should be part of background")
+      end
+    end
+
+    def gather_givens(feature)
+      result = []
+      return result unless feature.include? 'elements'
+      feature['elements'].each do |scenario|
+        next if scenario['keyword'] == 'Background'
+        next unless scenario.include? 'steps'
+        return [] unless scenario['steps'].first['keyword'] == 'Given '
+        result.push scenario['steps'].first['name']
+      end
+      result
+    end
+  end
+
+  # service class to lint for using outline
+  class UseOutline < Linter
+    def lint
+      features do |file, feature|
+        check_similarity gather_scenarios(file, feature)
+      end
+    end
+
+    def check_similarity(scenarios)
+      scenarios.product(scenarios) do |lhs, rhs|
+        next if lhs == rhs
+        next if lhs[:reference] > rhs[:reference]
+        similarity = determine_similarity(lhs[:text], rhs[:text])
+        next unless similarity >= 0.95
+        references = [lhs[:reference], rhs[:reference]]
+        add_issue(references, "Scenarios are similar by #{similarity.round(3) * 100} %")
+      end
+    end
+
+    def determine_similarity(lhs, rhs)
+      matcher = Amatch::Jaro.new lhs
+      matcher.match rhs
+    end
+
+    def gather_scenarios(file, feature)
+      scenarios = []
+      return scenarios unless feature.include? 'elements'
+      feature['elements'].each do |scenario|
+        next unless scenario['keyword'] == 'Scenario'
+        next unless scenario.include? 'steps'
+        scenarios.push generate_reference(file, feature, scenario)
+      end
+      scenarios
+    end
+
+    def generate_reference(file, feature, scenario)
+      reference = {}
+      reference[:reference] = reference(file, feature, scenario)
+      reference[:text] = scenario['steps'].map { |step| render(step) }.join ' '
+      reference
+    end
+
+    def render(step)
+      value = "#{step['keyword']}#{step['name']}"
+      value += "\n#{step['doc_string']['value']}" if step.include? 'doc_string'
+      if step.include? 'rows'
+        value += step['rows'].map do |row|
+          row['cells'].join '|'
+        end.join "|\n"
+      end
+      value
+    end
+  end
+
   LINTER = [
     AvoidPeriod,
     BackgroundDoesMoreThanSetup,
@@ -392,9 +532,14 @@ class GherkinLint
     MissingVerification,
     InvalidFileName,
     InvalidStepFlow,
+    TooClumsy,
+    TooManySteps,
+    TooLongStep,
     UniqueScenarioNames,
     UnknownVariable,
-    UnusedVariable
+    UnusedVariable,
+    UseBackground,
+    UseOutline
   ]
 
   def initialize

@@ -1,7 +1,7 @@
-Feature: Use Background
+Feature: Too Long Step
   As a Business Analyst
-  I want to be warned if I'm using a background for just one scenario
-  so that I am using background to improve readability
+  I want to write short steps
+  so that they are attractive enough to read
 
   Background: Prepare Testee
     Given a file named "lint.rb" with:
@@ -10,31 +10,25 @@ Feature: Use Background
       require 'gherkin_lint'
 
       linter = GherkinLint.new
-      linter.enable %w(UseBackground)
+      linter.enable %w(TooLongStep)
       linter.analyze 'lint.feature'
       exit linter.report
 
       """
 
-  Scenario: Redundant Given Steps
+  Scenario: Long Step
     Given a file named "lint.feature" with:
       """
       Feature: Test
         Scenario: A
-          Given setup
-          When action
-          Then verification
-
-        Scenario: B
-          Given setup
-          When another action
+          When action is quite long so that is not very readable and people even need to scroll because it does not fit on the screen
           Then verification
       """
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UseBackground - Step 'setup' should be part of background
-        lint.feature (1): Test
+      TooLongStep - Used 118 characters
+        lint.feature (3): Test.A step: action is quite long so that is not very readable and people even need to scroll because it does not fit on the screen
 
       """
 
@@ -43,13 +37,7 @@ Feature: Use Background
       """
       Feature: Test
         Scenario: A
-          Given setup
           When action
-          Then verification
-
-        Scenario: B
-          Given another setup
-          When another action
           Then verification
       """
     When I run `ruby lint.rb`
