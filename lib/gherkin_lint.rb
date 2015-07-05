@@ -133,6 +133,17 @@ class GherkinLint
       return [] unless element.include? 'tags'
       element['tags'].map { |tag| tag['name'][1..-1] }
     end
+
+    def render_step(step)
+      value = "#{step['keyword']}#{step['name']}"
+      value += "\n#{step['doc_string']['value']}" if step.include? 'doc_string'
+      if step.include? 'rows'
+        value += step['rows'].map do |row|
+          row['cells'].join '|'
+        end.join "|\n"
+      end
+      value
+    end
   end
 
   # service class to lint for unique scenario names
@@ -511,7 +522,7 @@ class GherkinLint
         next if scenario['keyword'] == 'Background'
         next unless scenario.include? 'steps'
         return [] unless scenario['steps'].first['keyword'] == 'Given '
-        result.push scenario['steps'].first['name']
+        result.push render_step scenario['steps'].first
       end
       result
     end
@@ -555,19 +566,8 @@ class GherkinLint
     def generate_reference(file, feature, scenario)
       reference = {}
       reference[:reference] = reference(file, feature, scenario)
-      reference[:text] = scenario['steps'].map { |step| render(step) }.join ' '
+      reference[:text] = scenario['steps'].map { |step| render_step(step) }.join ' '
       reference
-    end
-
-    def render(step)
-      value = "#{step['keyword']}#{step['name']}"
-      value += "\n#{step['doc_string']['value']}" if step.include? 'doc_string'
-      if step.include? 'rows'
-        value += step['rows'].map do |row|
-          row['cells'].join '|'
-        end.join "|\n"
-      end
-      value
     end
   end
 

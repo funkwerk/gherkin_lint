@@ -4,6 +4,7 @@ task default: :build
 
 desc 'Builds the Gem.'
 task build: :format
+task build: :self_check
 task build: :test do
   sh 'gem build gherkin_lint.gemspec'
 end
@@ -32,4 +33,8 @@ end
 
 task :language do
   # TODO: sh 'gherkin_language features/*.feature'
+end
+
+task :self_check do
+  sh 'RUBYLIB=lib ./bin/gherkin_lint --disable UnknownVariable,BadScenarioName features/*.feature'
 end

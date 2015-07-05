@@ -33,7 +33,7 @@ Feature: Use Background
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UseBackground - Step 'setup' should be part of background
+      UseBackground - Step 'Given setup' should be part of background
         lint.feature (1): Test
 
       """
