@@ -1,4 +1,4 @@
-Feature: Invalid File Name
+Feature: File Name Differs Feature Name
   As a Business Analyst
   I want to be if file and feature names differ
   so that reader understand the feature just by the file name

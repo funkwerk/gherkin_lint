@@ -1,4 +1,4 @@
-Feature: Background requires multiple scenarios
+Feature: Background Requires Scenario
   As a Business Analyst
   I want to be warned if I'm using a background for just one scenario
   so that I am just using background steps if it improves readability

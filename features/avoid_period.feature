@@ -1,4 +1,4 @@
-Feature: Avoid period
+Feature: Avoid Period
   As a Business Analyst
   I do not want a period at the end of the scenario
   so that it's easier to reuse verification steps

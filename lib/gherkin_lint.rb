@@ -297,7 +297,7 @@ class GherkinLint
     end
 
     def title_case(value)
-      value = value.gsub(/.feature/, '')
+      value = File.basename(value, '.feature')
       value.split('_').collect(&:capitalize).join(' ')
     end
   end
