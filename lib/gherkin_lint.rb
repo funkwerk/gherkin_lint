@@ -284,6 +284,24 @@ class GherkinLint
     end
   end
 
+  # service class to lint for file name differs feature name
+  class FileNameDiffersFeatureName < Linter
+    def lint
+      features do |file, feature|
+        next unless feature.include? 'name'
+        expected_feature_name = title_case file
+        next unless feature['name'] != expected_feature_name
+        references = [reference(file, feature)]
+        add_issue(references, "Feature name should be '#{expected_feature_name}'")
+      end
+    end
+
+    def title_case(value)
+      value = value.gsub(/.feature/, '')
+      value.split('_').collect(&:capitalize).join(' ')
+    end
+  end
+
   # service class to lint for missing feature descriptions
   class MissingFeatureDescription < Linter
     def lint
@@ -576,6 +594,7 @@ class GherkinLint
     BackgroundDoesMoreThanSetup,
     BackgroundRequiresMultipleScenarios,
     BadScenarioName,
+    FileNameDiffersFeatureName,
     MissingExampleName,
     MissingFeatureDescription,
     MissingFeatureName,
