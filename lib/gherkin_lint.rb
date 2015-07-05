@@ -128,6 +128,11 @@ class GherkinLint
     def add_issue(references, description = nil)
       @issues.push Issue.new(name, references, description)
     end
+
+    def gather_tags(element)
+      return [] unless element.include? 'tags'
+      element['tags'].map { |tag| tag['name'][1..-1] }
+    end
   end
 
   # service class to lint for unique scenario names
@@ -156,6 +161,53 @@ class GherkinLint
         references = [reference(file, feature, scenario)]
         add_issue(references, 'No \'When\'-Step')
       end
+    end
+  end
+
+  # service class to lint for too many tags
+  class TooManyTags < Linter
+    def lint
+      scenarios do |file, feature, scenario|
+        tags = gather_tags(feature) + gather_tags(scenario)
+        next unless tags.length >= 3
+        references = [reference(file, feature, scenario)]
+        add_issue(references, "Used #{tags.length} Tags")
+      end
+    end
+  end
+
+  # service class to lint for too many different tags
+  class TooManyDifferentTags < Linter
+    def lint
+      overall_tags = []
+      overall_references = []
+      features do |file, feature|
+        tags = tags_for_feature(feature)
+        overall_tags += tags
+        references = [reference(file, feature)]
+        overall_references += references unless tags.empty?
+        warn_single_feature(references, tags)
+      end
+      warn_across_all_features(overall_references, overall_tags)
+    end
+
+    def warn_single_feature(references, tags)
+      tags.uniq!
+      references.uniq!
+      return false unless tags.length >= 3
+      add_issue(references, "Used #{tags.length} Tags within single Feature")
+    end
+
+    def warn_across_all_features(references, tags)
+      tags.uniq!
+      references.uniq!
+      return false unless tags.length >= 10
+      add_issue(references, "Used #{tags.length} Tags across all Features")
+    end
+
+    def tags_for_feature(feature)
+      return [] unless feature.include? 'elements'
+      gather_tags(feature) + feature['elements'].map { |scenario| gather_tags(scenario) }.flatten
     end
   end
 
@@ -533,7 +585,9 @@ class GherkinLint
     InvalidFileName,
     InvalidStepFlow,
     TooClumsy,
+    TooManyDifferentTags,
     TooManySteps,
+    TooManyTags,
     TooLongStep,
     UniqueScenarioNames,
     UnknownVariable,
