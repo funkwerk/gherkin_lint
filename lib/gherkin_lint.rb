@@ -528,6 +528,7 @@ class GherkinLint
         tags = gather_same_tags feature
         next if tags.nil?
         next if tags.length < 1
+        next unless feature['elements'].length > 1
         references = [reference(file, feature)]
         tags.each do |tag|
           add_issue(references, "Tag '#{tag}' should be used at Feature level")
@@ -540,7 +541,7 @@ class GherkinLint
       return result unless feature.include? 'elements'
       feature['elements'].each do |scenario|
         next if scenario['keyword'] == 'Background'
-        next unless scenario.include? 'tags'
+        return nil unless scenario.include? 'tags'
         tags = scenario['tags'].map { |tag| tag['name'] }
         result = tags if result.nil?
         result &= tags

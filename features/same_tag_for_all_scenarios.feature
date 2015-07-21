@@ -47,3 +47,31 @@ Feature: Same Tag For All Scenarios
       """
 
       """
+
+  Scenario: Valid Example
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        @A
+        Scenario: A
+
+        Scenario: B
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+      """
+
+      """
+
+  Scenario: Tags for features with single scenario
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        @A
+        Scenario: A
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+      """
+
+      """
