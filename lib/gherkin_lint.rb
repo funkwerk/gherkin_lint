@@ -290,7 +290,7 @@ class GherkinLint
       features do |file, feature|
         next unless feature.include? 'name'
         expected_feature_name = title_case file
-        next unless feature['name'] != expected_feature_name
+        next unless feature['name'].downcase != expected_feature_name.downcase
         references = [reference(file, feature)]
         add_issue(references, "Feature name should be '#{expected_feature_name}'")
       end

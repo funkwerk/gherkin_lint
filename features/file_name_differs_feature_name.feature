@@ -39,3 +39,14 @@ Feature: File Name Differs Feature Name
       """
 
       """
+
+  Scenario: Acronyms
+    Given a file named "lint.feature" with:
+      """
+      Feature: LINT
+      """
+    When I run `ruby lint.rb lint.feature`
+    Then it should pass with exactly:
+      """
+
+      """
