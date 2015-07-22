@@ -521,6 +521,22 @@ class GherkinLint
     end
   end
 
+  # service class to lint for avoiding outline for single example
+  class AvoidOutlineForSingleExample < Linter
+    def lint
+      scenarios do |file, feature, scenario|
+        next unless scenario['keyword'] == 'Scenario Outline'
+
+        next unless scenario.key? 'examples'
+        next if scenario['examples'].length > 1
+        next if scenario['examples'].first['rows'].length > 2
+
+        references = [reference(file, feature, scenario)]
+        add_issue(references, 'Better write a scenario')
+      end
+    end
+  end
+
   # service class to lint for using same tag on all scenarios
   class SameTagForAllScenarios < Linter
     def lint
@@ -554,6 +570,7 @@ class GherkinLint
   class UseBackground < Linter
     def lint
       features do |file, feature|
+        next if scenarios_with_steps(feature) <= 1
         givens = gather_givens feature
         next if givens.nil?
         next if givens.length <= 1
@@ -563,17 +580,23 @@ class GherkinLint
       end
     end
 
-    def gather_givens(feature)
-      return unless feature.include? 'elements'
-      has_non_given_step = false
+    def scenarios_with_steps(feature)
       scenarios = 0
       feature['elements'].each do |scenario|
         next unless scenario.include? 'steps'
         scenarios += 1
+      end
+      scenarios
+    end
+
+    def gather_givens(feature)
+      return unless feature.include? 'elements'
+      has_non_given_step = false
+      feature['elements'].each do |scenario|
+        next unless scenario.include? 'steps'
         has_non_given_step = true unless scenario['steps'].first['keyword'] == 'Given '
       end
       return if has_non_given_step
-      return if scenarios <= 1
 
       result = []
       expanded_steps(feature) { |given| result.push given }
@@ -654,6 +677,7 @@ class GherkinLint
 
   LINTER = [
     AvoidPeriod,
+    AvoidOutlineForSingleExample,
     BackgroundDoesMoreThanSetup,
     BackgroundRequiresMultipleScenarios,
     BadScenarioName,

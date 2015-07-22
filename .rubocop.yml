@@ -8,7 +8,7 @@
 # Offense count: 1
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
-  Max: 110
+  Max: 112
 
 # Offense count: 16
 # Configuration parameters: AllowURI, URISchemes.

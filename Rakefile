@@ -11,7 +11,7 @@ end
 
 desc 'Publishes the Gem'
 task :push do
-  sh 'gem push gherkin_lint-0.0.9.gem'
+  sh 'gem push gherkin_lint-0.0.10.gem'
 end
 
 desc 'Checks ruby style'
