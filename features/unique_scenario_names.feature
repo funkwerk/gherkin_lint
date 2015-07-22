@@ -16,7 +16,7 @@ Feature: Unique Scenario Names
 
       """
 
-  Scenario: Non Unique Scenario Name
+  Scenario: Unique Scenario Name for empty scenarios
     Given a file named "lint.feature" with:
       """
       Feature: Unique Scenario Names

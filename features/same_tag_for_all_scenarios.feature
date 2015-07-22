@@ -33,7 +33,7 @@ Feature: Same Tag For All Scenarios
 
       """
 
-  Scenario: Valid Example
+  Scenario: Valid Example with different Tags
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -48,7 +48,7 @@ Feature: Same Tag For All Scenarios
 
       """
 
-  Scenario: Valid Example
+  Scenario: Valid Example with single Tag
     Given a file named "lint.feature" with:
       """
       Feature: Test

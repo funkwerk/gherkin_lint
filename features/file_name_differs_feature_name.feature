@@ -29,10 +29,10 @@ Feature: File Name Differs Feature Name
 
       """
 
-  Scenario: Valid Example
+  Scenario Outline: Valid Example
     Given a file named "lint.feature" with:
       """
-      Feature: Lint
+      Feature: <name>
       """
     When I run `ruby lint.rb lint.feature`
     Then it should pass with exactly:
@@ -40,13 +40,8 @@ Feature: File Name Differs Feature Name
 
       """
 
-  Scenario: Acronyms
-    Given a file named "lint.feature" with:
-      """
-      Feature: LINT
-      """
-    When I run `ruby lint.rb lint.feature`
-    Then it should pass with exactly:
-      """
-
-      """
+    Examples: Valid Names
+      | name |
+      | lint |
+      | Lint |
+      | LINT |
