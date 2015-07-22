@@ -582,6 +582,7 @@ class GherkinLint
 
     def scenarios_with_steps(feature)
       scenarios = 0
+      return 0 unless feature.key? 'elements'
       feature['elements'].each do |scenario|
         next unless scenario.include? 'steps'
         scenarios += 1
