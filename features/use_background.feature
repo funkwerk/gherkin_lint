@@ -96,7 +96,7 @@ Feature: Use Background
           Given setup
           When <action>
           Then verification
-          
+
           Examples:
             | action |
             | A      |
