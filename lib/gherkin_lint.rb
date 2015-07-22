@@ -566,11 +566,14 @@ class GherkinLint
     def gather_givens(feature)
       return unless feature.include? 'elements'
       has_non_given_step = false
+      scenarios = 0
       feature['elements'].each do |scenario|
         next unless scenario.include? 'steps'
+        scenarios += 1
         has_non_given_step = true unless scenario['steps'].first['keyword'] == 'Given '
       end
       return if has_non_given_step
+      return if scenarios <= 1
 
       result = []
       expanded_steps(feature) { |given| result.push given }

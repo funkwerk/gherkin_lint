@@ -87,3 +87,23 @@ Feature: Use Background
       """
 
       """
+
+  Scenario: Valid Single Scenario
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        Scenario Outline: A
+          Given setup
+          When <action>
+          Then verification
+          
+          Examples:
+            | action |
+            | A      |
+            | B      |
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+      """
+
+      """
