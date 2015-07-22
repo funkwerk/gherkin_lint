@@ -38,6 +38,36 @@ Feature: Use Background
 
       """
 
+  Scenario: Same Given in Outlines
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        Scenario Outline: A
+          Given <setup>
+          When action
+          Then verification
+
+          Examples: setup
+            | setup |
+            | A     |
+
+        Scenario Outline: B
+          Given <setup>
+          When another action
+          Then verification
+
+          Examples: setup
+            | setup |
+            | A     |
+      """
+    When I run `ruby lint.rb`
+    Then it should fail with exactly:
+      """
+      UseBackground - Step 'Given A' should be part of background
+        lint.feature (1): Test
+
+      """
+
   Scenario: Valid Example
     Given a file named "lint.feature" with:
       """

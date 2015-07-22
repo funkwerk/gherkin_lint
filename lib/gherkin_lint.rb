@@ -555,6 +555,7 @@ class GherkinLint
     def lint
       features do |file, feature|
         givens = gather_givens feature
+        next if givens.nil?
         next if givens.length <= 1
         next if givens.uniq.length > 1
         references = [reference(file, feature)]
@@ -563,13 +564,43 @@ class GherkinLint
     end
 
     def gather_givens(feature)
-      result = []
-      return result unless feature.include? 'elements'
+      return unless feature.include? 'elements'
+      has_non_given_step = false
       feature['elements'].each do |scenario|
-        next if scenario['keyword'] == 'Background'
         next unless scenario.include? 'steps'
-        return [] unless scenario['steps'].first['keyword'] == 'Given '
-        result.push render_step scenario['steps'].first
+        has_non_given_step = true unless scenario['steps'].first['keyword'] == 'Given '
+      end
+      return if has_non_given_step
+
+      result = []
+      expanded_steps(feature) { |given| result.push given }
+      result
+    end
+
+    def expanded_steps(feature)
+      feature['elements'].each do |scenario|
+        next unless scenario['keyword'] != 'Background'
+        next unless scenario.include? 'steps'
+        prototypes = [render_step(scenario['steps'].first)]
+        prototypes = expand_examples(scenario['examples'], prototypes) if scenario.key? 'examples'
+        prototypes.each { |prototype| yield prototype }
+      end
+    end
+
+    def expand_examples(examples, prototypes)
+      examples.each do |example|
+        prototypes = prototypes.map { |prototype| expand_outlines(prototype, example) }.flatten
+      end
+      prototypes
+    end
+
+    def expand_outlines(sentence, example)
+      result = []
+      headers = example['rows'][0]['cells']
+      example['rows'].slice(1, example['rows'].length).each do |row|
+        modified_sentence = sentence.dup
+        headers.zip(row['cells']).map { |key, value| modified_sentence.gsub!("<#{key}>", value) }
+        result.push modified_sentence
       end
       result
     end
