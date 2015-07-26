@@ -9,7 +9,7 @@ Feature: Too Many Steps
       $LOAD_PATH << '../../lib'
       require 'gherkin_lint'
 
-      linter = GherkinLint.new
+      linter = GherkinLint::GherkinLint.new
       linter.enable %w(TooManySteps)
       linter.analyze 'lint.feature'
       exit linter.report

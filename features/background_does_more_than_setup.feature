@@ -9,7 +9,7 @@ Feature: Background Does More Than Setup
       $LOAD_PATH << '../../lib'
       require 'gherkin_lint'
 
-      linter = GherkinLint.new
+      linter = GherkinLint::GherkinLint.new
       linter.enable %w(BackgroundDoesMoreThanSetup)
       linter.analyze 'lint.feature'
       exit linter.report

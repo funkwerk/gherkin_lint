@@ -9,7 +9,7 @@ Feature: Missing Scenario Name
       $LOAD_PATH << '../../lib'
       require 'gherkin_lint'
 
-      linter = GherkinLint.new
+      linter = GherkinLint::GherkinLint.new
       linter.enable %w(MissingScenarioName)
       linter.analyze 'lint.feature'
       exit linter.report

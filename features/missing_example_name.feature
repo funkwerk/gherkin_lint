@@ -9,7 +9,7 @@ Feature: Missing Example Name
       $LOAD_PATH << '../../lib'
       require 'gherkin_lint'
 
-      linter = GherkinLint.new
+      linter = GherkinLint::GherkinLint.new
       linter.enable %w(MissingExampleName)
       linter.analyze 'lint.feature'
       exit linter.report

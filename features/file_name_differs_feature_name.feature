@@ -9,7 +9,7 @@ Feature: File Name Differs Feature Name
       $LOAD_PATH << '../../lib'
       require 'gherkin_lint'
 
-      linter = GherkinLint.new
+      linter = GherkinLint::GherkinLint.new
       linter.enable %w(FileNameDiffersFeatureName)
       linter.analyze 'lint.feature'
       exit linter.report

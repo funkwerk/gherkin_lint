@@ -1,0 +1,42 @@
+require 'gherkin_lint/linter'
+
+module GherkinLint
+  # service class to lint for unknown variables
+  class UnknownVariable < Linter
+    def lint
+      filled_scenarios do |file, feature, scenario|
+        known_vars = known_variables scenario
+        scenario['steps'].each do |step|
+          step_vars(step).each do |used_var|
+            next if known_vars.include? used_var
+            references = [reference(file, feature, scenario)]
+            add_issue(references, "'<#{used_var}>' is unknown")
+          end
+        end
+      end
+    end
+
+    def step_vars(step)
+      vars = gather_vars step['name']
+      vars += gather_vars step['doc_string']['value'] if step.key? 'doc_string'
+      if step.key? 'rows'
+        vars += step['rows'].map do |row|
+          row['cells'].map { |value| gather_vars value }.flatten
+        end.flatten
+      end
+      vars
+    end
+
+    def gather_vars(string)
+      string.scan(/<.+?>/).map { |val| val[1..-2] }
+    end
+
+    def known_variables(scenario)
+      return Set.new unless scenario.key? 'examples'
+      Set.new(scenario['examples'].map do |example|
+        next unless example.key? 'rows'
+        example['rows'].first['cells'].map(&:strip)
+      end.flatten)
+    end
+  end
+end

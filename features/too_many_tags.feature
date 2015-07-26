@@ -9,7 +9,7 @@ Feature: Too Many Tags
       $LOAD_PATH << '../../lib'
       require 'gherkin_lint'
 
-      linter = GherkinLint.new
+      linter = GherkinLint::GherkinLint.new
       linter.enable %w(TooManyTags)
       linter.analyze 'lint.feature'
       exit linter.report

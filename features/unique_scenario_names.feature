@@ -9,7 +9,7 @@ Feature: Unique Scenario Names
       $LOAD_PATH << '../../lib'
       require 'gherkin_lint'
 
-      linter = GherkinLint.new
+      linter = GherkinLint::GherkinLint.new
       linter.enable %w(UniqueScenarioNames)
       linter.analyze 'lint.feature'
       exit linter.report

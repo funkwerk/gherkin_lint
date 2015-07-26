@@ -9,7 +9,7 @@ Feature: Background Requires Scenario
       $LOAD_PATH << '../../lib'
       require 'gherkin_lint'
 
-      linter = GherkinLint.new
+      linter = GherkinLint::GherkinLint.new
       linter.enable %w(BackgroundRequiresMultipleScenarios)
       linter.analyze 'lint.feature'
       exit linter.report

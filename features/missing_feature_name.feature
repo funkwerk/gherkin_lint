@@ -9,7 +9,7 @@ Feature: Missing Feature Name
       $LOAD_PATH << '../../lib'
       require 'gherkin_lint'
 
-      linter = GherkinLint.new
+      linter = GherkinLint::GherkinLint.new
       linter.enable %w(MissingFeatureName)
       linter.analyze 'lint.feature'
       exit linter.report

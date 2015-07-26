@@ -12,7 +12,7 @@ Feature: Invalid File Name
       options = {}
       OptionParser.new { |opts| }.parse!
 
-      linter = GherkinLint.new
+      linter = GherkinLint::GherkinLint.new
       linter.enable %w(InvalidFileName)
       ARGV.each { |file| linter.analyze file }
       exit linter.report

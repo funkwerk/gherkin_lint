@@ -16,7 +16,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-linter = GherkinLint.new
+linter = GherkinLint::GherkinLint.new
 
 linter.disable options[:disable] if options.key? :disable
 linter.enable options[:enable] if options.key? :enable
