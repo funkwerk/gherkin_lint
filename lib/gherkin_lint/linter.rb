@@ -24,14 +24,9 @@ module GherkinLint
     end
 
     def scenarios
-      @files.each do |file, content|
-        content.each do |feature|
-          next unless feature.key? 'elements'
-          feature['elements'].each do |scenario|
-            next if scenario['keyword'] == 'Background'
-            yield(file, feature, scenario)
-          end
-        end
+      elements do |file, feature, scenario|
+        next if scenario['keyword'] == 'Background'
+        yield(file, feature, scenario)
       end
     end
 
@@ -43,27 +38,28 @@ module GherkinLint
     end
 
     def steps
-      @files.each do |file, content|
-        content.each do |feature|
-          next unless feature.key? 'elements'
-          feature['elements'].each do |scenario|
-            next unless scenario.include? 'steps'
-            scenario['steps'].each { |step| yield(file, feature, scenario, step) }
-          end
-        end
+      elements do |file, feature, scenario|
+        next unless scenario.include? 'steps'
+        scenario['steps'].each { |step| yield(file, feature, scenario, step) }
       end
     end
 
     def backgrounds
+      elements do |file, feature, scenario|
+        next unless scenario['keyword'] == 'Background'
+        yield(file, feature, scenario)
+      end
+    end
+
+    def elements
       @files.each do |file, content|
         content.each do |feature|
           next unless feature.key? 'elements'
           feature['elements'].each do |scenario|
-            next unless scenario['keyword'] == 'Background'
             yield(file, feature, scenario)
           end
         end
-      end
+      end    
     end
 
     def name
