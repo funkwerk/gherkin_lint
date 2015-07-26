@@ -32,8 +32,7 @@ module GherkinLint
     end
 
     def known_variables(scenario)
-      return Set.new unless scenario.key? 'examples'
-      Set.new(scenario['examples'].map do |example|
+      Set.new((scenario['examples'] || []).map do |example|
         next unless example.key? 'rows'
         example['rows'].first['cells'].map(&:strip)
       end.flatten)

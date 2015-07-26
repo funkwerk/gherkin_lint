@@ -35,6 +35,23 @@ Feature: Unknown Variable
 
       """
 
+  Scenario: Unknown Step Variable Even For Missing Examples
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        Scenario Outline: A
+          When <baz> and <bar>
+      """
+    When I run `ruby lint.rb`
+    Then it should fail with exactly:
+      """
+      UnknownVariable - '<baz>' is unknown
+        lint.feature (2): Test.A
+      UnknownVariable - '<bar>' is unknown
+        lint.feature (2): Test.A
+
+      """
+
   Scenario: Unknown Table Variable
     Given a file named "lint.feature" with:
       """
