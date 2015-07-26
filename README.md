@@ -1,6 +1,7 @@
 # Lint Gherkin Files
 
 [![Build Status](https://travis-ci.org/funkwerk/gherkin_lint.svg)](https://travis-ci.org/funkwerk/gherkin_lint)
+[![Code Climate](https://codeclimate.com/github/funkwerk/gherkin_lint/badges/gpa.svg)](https://codeclimate.com/github/funkwerk/gherkin_lint)
 
 This tool lints gherkin files.
 
