@@ -5,7 +5,7 @@ module GherkinLint
   class UnknownVariable < Linter
     def lint
       filled_scenarios do |file, feature, scenario|
-        known_vars = known_variables scenario
+        known_vars = Set.new known_variables scenario
         scenario['steps'].each do |step|
           step_vars(step).each do |used_var|
             next if known_vars.include? used_var
@@ -29,10 +29,10 @@ module GherkinLint
     end
 
     def known_variables(scenario)
-      Set.new((scenario['examples'] || []).map do |example|
+      (scenario['examples'] || []).map do |example|
         next unless example.key? 'rows'
         example['rows'].first['cells'].map(&:strip)
-      end.flatten)
+      end.flatten
     end
   end
 end
