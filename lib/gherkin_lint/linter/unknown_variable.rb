@@ -19,12 +19,9 @@ module GherkinLint
     def step_vars(step)
       vars = gather_vars step['name']
       vars += gather_vars step['doc_string']['value'] if step.key? 'doc_string'
-      if step.key? 'rows'
-        vars += step['rows'].map do |row|
-          row['cells'].map { |value| gather_vars value }.flatten
-        end.flatten
-      end
-      vars
+      vars + (step['rows'] || []).map do |row|
+        row['cells'].map { |value| gather_vars value }.flatten
+      end.flatten
     end
 
     def gather_vars(string)
