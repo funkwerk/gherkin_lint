@@ -71,27 +71,24 @@ module GherkinLint
     end
 
     def enable(enabled_linter)
-      @linter = []
-      enabled_linter = Set.new enabled_linter
-      LINTER.each do |linter|
-        new_linter = linter.new
-        next unless enabled_linter.include? new_linter.class.name.split('::').last
-        register_linter new_linter
-      end
+      set_linter(enabled_linter)
     end
 
     def disable(disabled_linter)
+      set_linter([], disabled_linter)
+    end
+
+    def set_linter(enabled_linter, disabled_linter = [])
       @linter = []
+      enabled_linter = Set.new enabled_linter
       disabled_linter = Set.new disabled_linter
       LINTER.each do |linter|
         new_linter = linter.new
-        next if disabled_linter.include? new_linter.class.name.split('::').last
-        register_linter new_linter
+        name = new_linter.class.name.split('::').last
+        next unless enabled_linter.include? name
+        next if disabled_linter.include? name
+        @linter.push new_linter
       end
-    end
-
-    def register_linter(linter)
-      @linter.push linter
     end
 
     def analyze(file)

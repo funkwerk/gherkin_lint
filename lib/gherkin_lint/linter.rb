@@ -33,7 +33,7 @@ module GherkinLint
     def filled_scenarios
       scenarios do |file, feature, scenario|
         next unless scenario.include? 'steps'
-        yield(file, feature, scenario)  
+        yield(file, feature, scenario)
       end
     end
 
@@ -59,7 +59,7 @@ module GherkinLint
             yield(file, feature, scenario)
           end
         end
-      end    
+      end
     end
 
     def name
