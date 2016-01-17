@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'gherkin_lint'
-  s.version     = '0.0.13'
+  s.version     = '0.0.14'
   s.date        = '2016-01-17'
   s.summary     = 'Gherkin Lint'
   s.description = 'Lint Gherkin Files'
@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://github.com/funkwerk/gherkin_lint/'
   s.files       = `git ls-files`.split("\n")
   s.executables = s.files.grep(%r{^bin/}) { |file| File.basename(file) }
-  s.add_runtime_dependency 'gherkin', ['>= 2.12.2']
+  s.add_runtime_dependency 'gherkin', ['= 2.12.2']
   s.add_runtime_dependency 'term-ansicolor', ['>= 1.3.2']
   s.add_runtime_dependency 'amatch', ['>= 0.3.0']
   s.add_development_dependency 'aruba', ['>= 0.6.2']
