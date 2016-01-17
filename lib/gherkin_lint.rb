@@ -1,3 +1,5 @@
+gem 'gherkin', '=2.12.2'
+
 require 'gherkin/formatter/json_formatter'
 require 'gherkin/parser/parser'
 require 'gherkin_lint/linter/avoid_outline_for_single_example'
@@ -58,7 +60,7 @@ module GherkinLint
       UnusedVariable,
       UseBackground,
       UseOutline
-    ]
+    ].freeze
 
     def initialize
       @files = {}
