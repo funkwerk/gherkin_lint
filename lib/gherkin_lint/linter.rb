@@ -66,9 +66,43 @@ module GherkinLint
       self.class.name.split('::').last
     end
 
-    def lint_files(files)
+    def lint_files(files, tags_to_suppress)
       @files = files
+      @files = filter_tag(@files, "disable#{name}")
+      @files = suppress_tags(@files, tags_to_suppress)
       lint
+    end
+
+    def tag?(data, tag)
+      return false if data.class != Hash
+      return false unless data.key? 'tags'
+      data['tags'].map { |item| item['name'] }.include? "@#{tag}"
+    end
+
+    def filter_tag(data, tag)
+      return data.select { |item| !tag?(item, tag) }.map { |item| filter_tag(item, tag) } if data.class == Array
+      return data unless data.class == Hash
+      result = {}
+
+      data.each_pair { |key, value| result[key] = filter_tag(value, tag) }
+      result
+    end
+
+    def suppress(data, tags)
+      data.select { |item| !tags.map { |tag| "@#{tag}" }.include? item['name'] }
+    end
+
+    def suppress_tags(data, tags)
+      return data.map { |item| suppress_tags(item, tags) } if data.class == Array
+      return data unless data.class == Hash
+      result = {}
+
+      data.each_pair do |key, value|
+        value = suppress(value, tags) if key == 'tags'
+
+        result[key] = suppress_tags(value, tags)
+      end
+      result
     end
 
     def lint

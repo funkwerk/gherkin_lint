@@ -11,6 +11,10 @@ run `gherkin_lint` on a list of files
 
     gherkin_lint FEATURE_FILES
 
+With `--disable CHECK` or `--enable CHECK` it's possible to disable respectivly enable program wide checks.
+
+Checks could be disabled using tags within Feature Files. To do so, add @disableCHECK. Detailed usage within the disable_tags feature.
+
 ## Checks
 
 ### Feature Avoid colon (features/avoid_colon.feature)

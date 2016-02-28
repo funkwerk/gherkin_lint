@@ -77,7 +77,7 @@ module GherkinLint
     end
 
     def disable(disabled_linter)
-      set_linter([], disabled_linter)
+      set_linter(LINTER.map { |linter| linter.new.name.split('::').last }, disabled_linter)
     end
 
     def set_linter(enabled_linter, disabled_linter = [])
@@ -104,13 +104,14 @@ module GherkinLint
 
     def report
       issues = @linter.map do |linter|
-        linter.lint_files @files
+        tags_to_suppress = LINTER.map { |lint| "disable#{lint.new.class.name.split('::').last}" }
+        linter.lint_files(@files, tags_to_suppress)
         linter.issues
       end.flatten
 
       issues.each { |issue| puts issue.render }
-      return 0 if issues.length == 0
-      -1
+
+      issues.empty? ? 0 : -1
     end
 
     def to_json(input, file = 'generated.feature')
