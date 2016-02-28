@@ -7,7 +7,7 @@ module GherkinLint
       features do |file, feature|
         next unless feature.include? 'name'
         expected_feature_name = title_case file
-        next unless feature['name'].casecmp expected_feature_name
+        next if feature['name'].casecmp(expected_feature_name) == 0
         references = [reference(file, feature)]
         add_issue(references, "Feature name should be '#{expected_feature_name}'")
       end
