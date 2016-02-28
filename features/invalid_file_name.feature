@@ -9,7 +9,6 @@ Feature: Invalid File Name
       $LOAD_PATH << '../../lib'
       require 'gherkin_lint'
       require 'optparse'
-      options = {}
       OptionParser.new { |opts| }.parse!
 
       linter = GherkinLint::GherkinLint.new

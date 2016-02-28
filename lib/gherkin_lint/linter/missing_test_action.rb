@@ -6,7 +6,7 @@ module GherkinLint
     def lint
       filled_scenarios do |file, feature, scenario|
         when_steps = scenario['steps'].select { |step| step['keyword'] == 'When ' }
-        next if when_steps.length > 0
+        next unless when_steps.empty?
         references = [reference(file, feature, scenario)]
         add_issue(references, 'No \'When\'-Step')
       end
