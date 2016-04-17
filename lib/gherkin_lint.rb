@@ -4,6 +4,7 @@ require 'gherkin/formatter/json_formatter'
 require 'gherkin/parser/parser'
 require 'gherkin_lint/linter/avoid_outline_for_single_example'
 require 'gherkin_lint/linter/avoid_period'
+require 'gherkin_lint/linter/avoid_scripting'
 require 'gherkin_lint/linter/background_does_more_than_setup'
 require 'gherkin_lint/linter/background_requires_multiple_scenarios'
 require 'gherkin_lint/linter/bad_scenario_name'
@@ -36,6 +37,7 @@ module GherkinLint
   class GherkinLint
     LINTER = [
       AvoidPeriod,
+      AvoidScripting,
       AvoidOutlineForSingleExample,
       BackgroundDoesMoreThanSetup,
       BackgroundRequiresMultipleScenarios,
