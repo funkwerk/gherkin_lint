@@ -7,7 +7,7 @@ module GherkinLint
       features do |file, feature|
         tags = gather_same_tags feature
         next if tags.nil?
-        next if tags.length < 1
+        next if tags.empty?
         next unless feature['elements'].length > 1
         references = [reference(file, feature)]
         tags.each do |tag|
