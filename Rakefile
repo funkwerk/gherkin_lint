@@ -37,7 +37,6 @@ end
 
 task :self_check do
   disabled_checks = %w(
-    BeDeclarative
     UnknownVariable
     BadScenarioName
   )
