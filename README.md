@@ -20,6 +20,7 @@ Detailed usage within the [disable_tags](https://github.com/funkwerk/gherkin_lin
 ## Checks
 
 | Name                             | Details                                                                                                           |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | avoid outline for single example | [Details](https://github.com/funkwerk/gherkin_lint/blob/master/features/avoid_outline_for_single_example.feature) |
 | avoid period                     | [Details](https://github.com/funkwerk/gherkin_lint/blob/master/features/avoid_period.feature)                     |
 | avoid scripting                  | [Details](https://github.com/funkwerk/gherkin_lint/blob/master/features/avoid_scripting.feature                   |
