@@ -11,7 +11,7 @@ end
 
 desc 'Publishes the Gem'
 task :push do
-  sh 'gem push gherkin_lint-0.1.2.gem'
+  sh 'gem push gherkin_lint-0.2.0.gem'
 end
 
 desc 'Checks ruby style'
@@ -36,5 +36,9 @@ task :language do
 end
 
 task :self_check do
-  sh 'RUBYLIB=lib ./bin/gherkin_lint --disable UnknownVariable,BadScenarioName features/*.feature'
+  disabled_checks = %w(
+    UnknownVariable
+    BadScenarioName
+  )
+  sh "RUBYLIB=lib ./bin/gherkin_lint --disable #{disabled_checks.join ','} features/*.feature"
 end

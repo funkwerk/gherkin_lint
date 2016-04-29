@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'gherkin_lint'
-  s.version     = '0.1.2'
+  s.version     = '0.2.0'
   s.date        = '2016-04-17'
   s.summary     = 'Gherkin Lint'
   s.description = 'Lint Gherkin Files'
@@ -11,5 +11,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'gherkin', ['= 2.12.2']
   s.add_runtime_dependency 'term-ansicolor', ['>= 1.3.2']
   s.add_runtime_dependency 'amatch', ['>= 0.3.0']
+  s.add_runtime_dependency 'engtagger', ['>=0.2.0']
   s.add_development_dependency 'aruba', ['>= 0.6.2']
 end

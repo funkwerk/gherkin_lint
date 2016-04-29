@@ -8,6 +8,7 @@ require 'gherkin_lint/linter/avoid_scripting'
 require 'gherkin_lint/linter/background_does_more_than_setup'
 require 'gherkin_lint/linter/background_requires_multiple_scenarios'
 require 'gherkin_lint/linter/bad_scenario_name'
+require 'gherkin_lint/linter/be_declarative'
 require 'gherkin_lint/linter/file_name_differs_feature_name'
 require 'gherkin_lint/linter/invalid_file_name'
 require 'gherkin_lint/linter/invalid_step_flow'
@@ -36,9 +37,10 @@ module GherkinLint
   # gherkin linter
   class GherkinLint
     LINTER = [
+      AvoidOutlineForSingleExample,
       AvoidPeriod,
       AvoidScripting,
-      AvoidOutlineForSingleExample,
+      BeDeclarative,
       BackgroundDoesMoreThanSetup,
       BackgroundRequiresMultipleScenarios,
       BadScenarioName,
