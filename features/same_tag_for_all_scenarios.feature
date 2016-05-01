@@ -16,7 +16,7 @@ Feature: Same Tag For All Scenarios
 
       """
 
-  Scenario: Many Tags
+  Scenario: Tags used multiple times for scenario
     Given a file named "lint.feature" with:
       """
       Feature: Test
@@ -33,7 +33,7 @@ Feature: Same Tag For All Scenarios
 
       """
 
-  Scenario: Many Tags
+  Scenario: Tags used multiple times for example
     Given a file named "lint.feature" with:
       """
       Feature: Test
