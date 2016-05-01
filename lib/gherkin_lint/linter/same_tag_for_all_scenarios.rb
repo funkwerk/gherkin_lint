@@ -15,7 +15,7 @@ module GherkinLint
     def lint_scenarios(file, feature)
       tags = gather_same_tags feature
       return if tags.nil?
-      return if tags.length < 1
+      return if tags.empty?
       return unless feature['elements'].length > 1
       references = [reference(file, feature)]
       tags.each do |tag|

@@ -106,7 +106,7 @@ module GherkinLint
     end
 
     def lint
-      fail 'not implemented'
+      raise 'not implemented'
     end
 
     def reference(file, feature = nil, scenario = nil, step = nil)
