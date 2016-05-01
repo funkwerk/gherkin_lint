@@ -22,6 +22,7 @@ Detailed usage within the [disable_tags](https://github.com/funkwerk/gherkin_lin
  - [avoid outline for single example](https://github.com/funkwerk/gherkin_lint/blob/master/features/avoid_outline_for_single_example.feature)
  - [avoid period](https://github.com/funkwerk/gherkin_lint/blob/master/features/avoid_period.feature)
  - [avoid scripting](https://github.com/funkwerk/gherkin_lint/blob/master/features/avoid_scripting.feature)
+ - [be declarative](https://github.com/funkwerk/gherkin_lint/blob/master/features/be_declarative.feature)
  - [background does more than setup](https://github.com/funkwerk/gherkin_lint/blob/master/features/background_does_more_than_setup.feature)
  - [background requires scenario](https://github.com/funkwerk/gherkin_lint/blob/master/features/background_requires_scenario.feature)
  - [bad scenario name](https://github.com/funkwerk/gherkin_lint/blob/master/features/bad_scenario_name.feature)
@@ -44,3 +45,16 @@ Detailed usage within the [disable_tags](https://github.com/funkwerk/gherkin_lin
  - [unknown variable](https://github.com/funkwerk/gherkin_lint/blob/master/features/unknown_variable.feature)
  - [use background](https://github.com/funkwerk/gherkin_lint/blob/master/features/use_background.feature)
  - [use outline](https://github.com/funkwerk/gherkin_lint/blob/master/features/use_outline.feature)
+
+## Errors and Warnings
+
+There are errors and warnings.
+
+### Warnings
+
+Warnings are for issues that do not influence the returncode. These issues are also for introducing new checks.
+These new checks will stay some releases as warning and will be later declared as error, to give users the possibility to adapt their codebase.
+
+### Errors
+
+If there is at least one error, the returncode will be set to ERROR (!= 0).

@@ -12,7 +12,7 @@ module GherkinLint
         next if scenario['examples'].first['rows'].length > 2
 
         references = [reference(file, feature, scenario)]
-        add_issue(references, 'Better write a scenario')
+        add_error(references, 'Better write a scenario')
       end
     end
   end

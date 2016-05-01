@@ -8,7 +8,7 @@ module GherkinLint
         name = scenario.key?('name') ? scenario['name'].strip : ''
         references = [reference(file, feature, scenario)]
         next unless name.empty?
-        add_issue(references, 'No Scenario Name')
+        add_error(references, 'No Scenario Name')
       end
     end
   end

@@ -31,6 +31,7 @@ Feature: Avoid Scripting
       """
       AvoidScripting - Multiple Actions
         lint.feature (2): Test.A
+
       """
 
   Scenario: Repeat Action-Verfication Steps
@@ -49,6 +50,7 @@ Feature: Avoid Scripting
       """
       AvoidScripting - Multiple Actions
         lint.feature (2): Test.A
+
       """
 
   Scenario: Valid Example

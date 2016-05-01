@@ -8,7 +8,7 @@ module GherkinLint
         tags = gather_tags(feature) + gather_tags(scenario)
         next unless tags.length >= 3
         references = [reference(file, feature, scenario)]
-        add_issue(references, "Used #{tags.length} Tags")
+        add_error(references, "Used #{tags.length} Tags")
       end
     end
   end

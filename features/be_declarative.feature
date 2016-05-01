@@ -27,11 +27,11 @@ Feature: Be Declarative
           Then the result is 3
       """
     When I run `ruby lint.rb`
-    Then it should fail with exactly:
+    Then it should pass with exactly:
       """
-      BeDeclarative - no verb
+      BeDeclarative (Warning) - no verb
         lint.feature (3): Test.A step: a number 1
-      BeDeclarative - no verb
+      BeDeclarative (Warning) - no verb
         lint.feature (4): Test.A step: another number 2
 
       """

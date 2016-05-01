@@ -10,7 +10,7 @@ module GherkinLint
           step_vars(step).each do |used_var|
             next if known_vars.include? used_var
             references = [reference(file, feature, scenario)]
-            add_issue(references, "'<#{used_var}>' is unknown")
+            add_error(references, "'<#{used_var}>' is unknown")
           end
         end
       end

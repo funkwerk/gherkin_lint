@@ -9,7 +9,7 @@ module GherkinLint
 
         next if steps.length <= 1
         references = [reference(file, feature, scenario)]
-        add_issue(references, 'Multiple Actions')
+        add_error(references, 'Multiple Actions')
       end
     end
 

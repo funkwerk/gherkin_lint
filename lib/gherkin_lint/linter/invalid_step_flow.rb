@@ -14,7 +14,7 @@ module GherkinLint
 
     def last_step_is_an_action(file, feature, scenario, steps)
       references = [reference(file, feature, scenario, steps.last)]
-      add_issue(references, 'Last step is an action') if steps.last['keyword'] == 'When '
+      add_error(references, 'Last step is an action') if steps.last['keyword'] == 'When '
     end
 
     def given_after_non_given(file, feature, scenario, steps)
@@ -22,7 +22,7 @@ module GherkinLint
       steps.each do |step|
         references = [reference(file, feature, scenario, step)]
         description = 'Given after Action or Verification'
-        add_issue(references, description) if step['keyword'] == 'Given ' && last_step['keyword'] != 'Given '
+        add_error(references, description) if step['keyword'] == 'Given ' && last_step['keyword'] != 'Given '
         last_step = step
       end
     end
@@ -31,7 +31,7 @@ module GherkinLint
       steps.each do |step|
         break if step['keyword'] == 'When '
         references = [reference(file, feature, scenario, step)]
-        add_issue(references, 'Missing Action') if step['keyword'] == 'Then '
+        add_error(references, 'Missing Action') if step['keyword'] == 'Then '
       end
     end
   end

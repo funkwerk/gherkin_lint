@@ -11,7 +11,7 @@ module GherkinLint
         next if givens.length <= 1
         next if givens.uniq.length > 1
         references = [reference(file, feature)]
-        add_issue(references, "Step '#{givens.uniq.first}' should be part of background")
+        add_error(references, "Step '#{givens.uniq.first}' should be part of background")
       end
     end
 

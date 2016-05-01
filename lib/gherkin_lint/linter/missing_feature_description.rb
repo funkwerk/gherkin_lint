@@ -8,7 +8,7 @@ module GherkinLint
         name = feature.key?('description') ? feature['description'].strip : ''
         next unless name.empty?
         references = [reference(file, feature)]
-        add_issue(references, 'Favor a user story as description')
+        add_error(references, 'Favor a user story as description')
       end
     end
   end

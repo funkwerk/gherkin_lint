@@ -12,7 +12,7 @@ module GherkinLint
       end
       references_by_name.each do |name, references|
         next if references.length <= 1
-        add_issue(references, "'#{name}' used #{references.length} times")
+        add_error(references, "'#{name}' used #{references.length} times")
       end
     end
   end

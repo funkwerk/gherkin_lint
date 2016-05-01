@@ -11,9 +11,22 @@ module GherkinLint
       @references = references
       @description = description
     end
+  end
 
+  # entity value class for errors
+  class Error < Issue
     def render
       result = red(@name)
+      result += " - #{@description}" unless @description.nil?
+      result += "\n  " + green(@references.uniq * "\n  ")
+      result
+    end
+  end
+
+  # entity value class for warnings
+  class Warning < Issue
+    def render
+      result = "#{yellow(@name)} (Warning)"
       result += " - #{@description}" unless @description.nil?
       result += "\n  " + green(@references.uniq * "\n  ")
       result

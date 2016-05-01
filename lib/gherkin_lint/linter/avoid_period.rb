@@ -9,7 +9,7 @@ module GherkinLint
 
         scenario['steps'].each do |step|
           references = [reference(file, feature, scenario, step)]
-          add_issue(references) if step['name'].strip.end_with? '.'
+          add_error(references) if step['name'].strip.end_with? '.'
         end
       end
     end

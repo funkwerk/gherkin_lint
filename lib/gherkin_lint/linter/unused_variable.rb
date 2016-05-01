@@ -10,7 +10,7 @@ module GherkinLint
           next unless example.key? 'rows'
           example['rows'].first['cells'].each do |variable|
             references = [reference(file, feature, scenario)]
-            add_issue(references, "'<#{variable}>' is unused") unless used?(variable, scenario)
+            add_error(references, "'<#{variable}>' is unused") unless used?(variable, scenario)
           end
         end
       end

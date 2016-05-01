@@ -40,10 +40,10 @@ module GherkinLint
       AvoidOutlineForSingleExample,
       AvoidPeriod,
       AvoidScripting,
-      BeDeclarative,
       BackgroundDoesMoreThanSetup,
       BackgroundRequiresMultipleScenarios,
       BadScenarioName,
+      BeDeclarative,
       FileNameDiffersFeatureName,
       MissingExampleName,
       MissingFeatureDescription,
@@ -108,14 +108,18 @@ module GherkinLint
 
     def report
       issues = @linter.map do |linter|
-        tags_to_suppress = LINTER.map { |lint| "disable#{lint.new.class.name.split('::').last}" }
-        linter.lint_files(@files, tags_to_suppress)
+        linter.lint_files(@files, disable_tags)
         linter.issues
       end.flatten
 
       issues.each { |issue| puts issue.render }
 
-      issues.empty? ? 0 : -1
+      return 0 if issues.select { |issue| issue.class == Error }.empty?
+      -1
+    end
+
+    def disable_tags
+      LINTER.map { |lint| "disable#{lint.new.class.name.split('::').last}" }
     end
 
     def to_json(input, file = 'generated.feature')

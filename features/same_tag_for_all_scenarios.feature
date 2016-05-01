@@ -33,6 +33,46 @@ Feature: Same Tag For All Scenarios
 
       """
 
+  Scenario: Many Tags
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        Scenario Outline: A
+          When test
+
+          @A
+          Examples: First
+            | field |
+            | value |
+
+          @A
+          Examples: Second
+            | field |
+            | value |
+      """
+    When I run `ruby lint.rb`
+    Then it should fail with exactly:
+      """
+      SameTagForAllScenarios - Tag '@A' should be used at Scenario Outline level
+        lint.feature (2): Test.A
+
+      """
+
+  Scenario: @skip is an exception
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        @skip
+        Scenario: A
+        @skip
+        Scenario: B
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+      """
+
+      """
+
   Scenario: Valid Example with different Tags
     Given a file named "lint.feature" with:
       """

@@ -9,7 +9,7 @@
 # Offense count: 1
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
-  Max: 116
+  Max: 119
 
 # Offense count: 28
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes.

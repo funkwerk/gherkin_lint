@@ -7,7 +7,7 @@ module GherkinLint
       steps do |file, feature, scenario, step|
         next if step['name'].length < 80
         references = [reference(file, feature, scenario, step)]
-        add_issue(references, "Used #{step['name'].length} characters")
+        add_error(references, "Used #{step['name'].length} characters")
       end
     end
   end

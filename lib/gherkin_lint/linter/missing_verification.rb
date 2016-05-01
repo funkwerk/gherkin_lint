@@ -8,7 +8,7 @@ module GherkinLint
         then_steps = scenario['steps'].select { |step| step['keyword'] == 'Then ' }
         next unless then_steps.empty?
         references = [reference(file, feature, scenario)]
-        add_issue(references, 'No verification step')
+        add_error(references, 'No verification step')
       end
     end
   end

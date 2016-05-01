@@ -9,7 +9,7 @@ module GherkinLint
         next if scenarios.length >= 2
 
         references = [reference(file, feature, background)]
-        add_issue(references, "There are just #{scenarios.length} scenarios")
+        add_error(references, "There are just #{scenarios.length} scenarios")
       end
     end
   end
