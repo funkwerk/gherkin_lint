@@ -5,6 +5,8 @@ module GherkinLint
   class SameTagForAllScenarios < Linter
     def lint
       features do |file, feature|
+        next unless feature.include? 'elements'
+
         lint_scenarios file, feature
         lint_examples file, feature
       end
@@ -39,7 +41,6 @@ module GherkinLint
 
     def gather_same_tags(feature)
       result = nil
-      return result unless feature.include? 'elements'
       feature['elements'].each do |scenario|
         next if scenario['keyword'] == 'Background'
         return nil unless scenario.include? 'tags'

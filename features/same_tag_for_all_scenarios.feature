@@ -115,3 +115,20 @@ Feature: Same Tag For All Scenarios
       """
 
       """
+
+  Scenario: Outline even without Examples
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        Scenario Outline: A
+          When test
+
+        Scenario: B
+          When test
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+      """
+
+      """
+
