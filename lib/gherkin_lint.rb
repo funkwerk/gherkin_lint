@@ -100,7 +100,7 @@ module GherkinLint
     end
 
     def parse(file)
-      to_json(File.read file)
+      to_json File.read(file)
     end
 
     def report
