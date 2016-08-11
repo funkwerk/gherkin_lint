@@ -28,7 +28,7 @@ end
 task :format do
   options = []
   options.push '--replace' if ENV['repair']
-  sh "gherkin_format #{options.join ' '} features/*.feature"
+  # TODO: sh "gherkin_format #{options.join ' '} features/*.feature"
 end
 
 task :language do
