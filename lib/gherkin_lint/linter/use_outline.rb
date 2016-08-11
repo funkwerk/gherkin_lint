@@ -28,10 +28,10 @@ module GherkinLint
 
     def gather_scenarios(file, feature)
       scenarios = []
-      return scenarios unless feature.include? 'elements'
-      feature['elements'].each do |scenario|
-        next unless scenario['keyword'] == 'Scenario'
-        next unless scenario.include? 'steps'
+      return scenarios unless feature.include? :children
+      feature[:children].each do |scenario|
+        next unless scenario[:type] == :Scenario
+        next unless scenario.include? :steps
         scenarios.push generate_reference(file, feature, scenario)
       end
       scenarios
@@ -40,7 +40,7 @@ module GherkinLint
     def generate_reference(file, feature, scenario)
       reference = {}
       reference[:reference] = reference(file, feature, scenario)
-      reference[:text] = scenario['steps'].map { |step| render_step(step) }.join ' '
+      reference[:text] = scenario[:steps].map { |step| render_step(step) }.join ' '
       reference
     end
   end

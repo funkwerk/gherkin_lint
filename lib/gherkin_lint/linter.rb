@@ -13,9 +13,9 @@ module GherkinLint
 
     def features
       @files.each do |file, content|
-        content.each do |feature|
-          yield(file, feature)
-        end
+        feature = content[:feature]
+
+        yield(file, feature)
       end
     end
 
@@ -25,39 +25,40 @@ module GherkinLint
 
     def scenarios
       elements do |file, feature, scenario|
-        next if scenario['keyword'] == 'Background'
+        next if scenario[:type] == :Background
         yield(file, feature, scenario)
       end
     end
 
     def filled_scenarios
       scenarios do |file, feature, scenario|
-        next unless scenario.include? 'steps'
+        next unless scenario.include? :steps
         yield(file, feature, scenario)
       end
     end
 
     def steps
       elements do |file, feature, scenario|
-        next unless scenario.include? 'steps'
-        scenario['steps'].each { |step| yield(file, feature, scenario, step) }
+        next unless scenario.include? :steps
+        scenario[:steps].each { |step| yield(file, feature, scenario, step) }
       end
     end
 
     def backgrounds
       elements do |file, feature, scenario|
-        next unless scenario['keyword'] == 'Background'
+        next unless scenario[:type] == :Background
         yield(file, feature, scenario)
       end
     end
 
     def elements
       @files.each do |file, content|
-        content.each do |feature|
-          next unless feature.key? 'elements'
-          feature['elements'].each do |scenario|
-            yield(file, feature, scenario)
-          end
+        feature = content[:feature]
+
+        next if feature.nil?
+        next unless feature.key? :children
+        feature[:children].each do |scenario|
+          yield(file, feature, scenario)
         end
       end
     end
@@ -75,7 +76,8 @@ module GherkinLint
 
     def filter_tag(data, tag)
       return data.select { |item| !tag?(item, tag) }.map { |item| filter_tag(item, tag) } if data.class == Array
-      return data unless data.class == Hash
+      return {} if (data.class == Hash) && (data.include? :feature) && tag?(data[:feature], tag)
+      return data unless data.respond_to? :each_pair
       result = {}
 
       data.each_pair { |key, value| result[key] = filter_tag(value, tag) }
@@ -84,8 +86,8 @@ module GherkinLint
 
     def tag?(data, tag)
       return false if data.class != Hash
-      return false unless data.key? 'tags'
-      data['tags'].map { |item| item['name'] }.include? "@#{tag}"
+      return false unless data.include? :tags
+      data[:tags].map { |item| item[:name] }.include? "@#{tag}"
     end
 
     def suppress_tags(data, tags)
@@ -94,7 +96,7 @@ module GherkinLint
       result = {}
 
       data.each_pair do |key, value|
-        value = suppress(value, tags) if key == 'tags'
+        value = suppress(value, tags) if key == :tags
 
         result[key] = suppress_tags(value, tags)
       end
@@ -102,7 +104,7 @@ module GherkinLint
     end
 
     def suppress(data, tags)
-      data.select { |item| !tags.map { |tag| "@#{tag}" }.include? item['name'] }
+      data.select { |item| !tags.map { |tag| "@#{tag}" }.include? item[:name] }
     end
 
     def lint
@@ -110,17 +112,17 @@ module GherkinLint
     end
 
     def reference(file, feature = nil, scenario = nil, step = nil)
-      return file if feature.nil? || feature['name'].empty?
-      result = "#{file} (#{line(feature, scenario, step)}): #{feature['name']}"
-      result += ".#{scenario['name']}" unless scenario.nil? || scenario['name'].empty?
-      result += " step: #{step['name']}" unless step.nil?
+      return file if feature.nil? || feature[:name].empty?
+      result = "#{file} (#{line(feature, scenario, step)}): #{feature[:name]}"
+      result += ".#{scenario[:name]}" unless scenario.nil? || scenario[:name].empty?
+      result += " step: #{step[:text]}" unless step.nil?
       result
     end
 
     def line(feature, scenario, step)
-      line = feature.nil? ? nil : feature['line']
-      line = scenario['line'] unless scenario.nil?
-      line = step['line'] unless step.nil?
+      line = feature.nil? ? nil : feature[:location][:line]
+      line = scenario[:location][:line] unless scenario.nil?
+      line = step[:location][:line] unless step.nil?
       line
     end
 
@@ -133,19 +135,22 @@ module GherkinLint
     end
 
     def gather_tags(element)
-      return [] unless element.include? 'tags'
-      element['tags'].map { |tag| tag['name'][1..-1] }
+      return [] unless element.include? :tags
+      element[:tags].map { |tag| tag[:name][1..-1] }
     end
 
     def render_step(step)
-      value = "#{step['keyword']}#{step['name']}"
-      value += "\n#{step['doc_string']['value']}" if step.include? 'doc_string'
-      if step.include? 'rows'
-        value += step['rows'].map do |row|
-          row['cells'].join '|'
-        end.join "|\n"
-      end
+      value = "#{step[:keyword]}#{step[:text]}"
+      value += render_step_argument step[:argument] if step.include? :argument
       value
+    end
+
+    def render_step_argument(argument)
+      return "\n#{argument[:content]}" if argument[:type] == :DocString
+      result = argument[:rows].map do |row|
+        "|#{row[:cells].map { |cell| cell[:value] }.join '|'}|"
+      end.join "\n"
+      "\n#{result}"
     end
   end
 end

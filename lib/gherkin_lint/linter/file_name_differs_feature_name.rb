@@ -5,9 +5,9 @@ module GherkinLint
   class FileNameDiffersFeatureName < Linter
     def lint
       features do |file, feature|
-        next unless feature.include? 'name'
+        next unless feature.include? :name
         expected_feature_name = title_case file
-        next if feature['name'].casecmp(expected_feature_name) == 0
+        next if feature[:name].casecmp(expected_feature_name) == 0
         references = [reference(file, feature)]
         add_error(references, "Feature name should be '#{expected_feature_name}'")
       end

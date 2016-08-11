@@ -5,7 +5,7 @@ module GherkinLint
   class BackgroundRequiresMultipleScenarios < Linter
     def lint
       backgrounds do |file, feature, background|
-        scenarios = feature['elements'].select { |element| element['keyword'] != 'Background' }
+        scenarios = feature[:children].select { |element| element[:type] != :Background }
         next if scenarios.length >= 2
 
         references = [reference(file, feature, background)]

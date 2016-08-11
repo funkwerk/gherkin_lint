@@ -6,7 +6,7 @@ module GherkinLint
     def lint
       filled_scenarios do |file, feature, scenario|
         known_vars = Set.new known_variables scenario
-        scenario['steps'].each do |step|
+        scenario[:steps].each do |step|
           step_vars(step).each do |used_var|
             next if known_vars.include? used_var
             references = [reference(file, feature, scenario)]
@@ -17,10 +17,15 @@ module GherkinLint
     end
 
     def step_vars(step)
-      vars = gather_vars step['name']
-      vars += gather_vars step['doc_string']['value'] if step.key? 'doc_string'
-      vars + (step['rows'] || []).map do |row|
-        row['cells'].map { |value| gather_vars value }.flatten
+      vars = gather_vars step[:text]
+      return vars unless step.include? :argument
+      vars + gather_vars_from_argument(step[:argument])
+    end
+
+    def gather_vars_from_argument(argument)
+      return gather_vars argument[:content] if argument[:type] == :DocString
+      (argument[:rows] || []).map do |row|
+        row[:cells].map { |value| gather_vars value[:value] }.flatten
       end.flatten
     end
 
@@ -29,9 +34,9 @@ module GherkinLint
     end
 
     def known_variables(scenario)
-      (scenario['examples'] || []).map do |example|
-        next unless example.key? 'rows'
-        example['rows'].first['cells'].map(&:strip)
+      (scenario[:examples] || []).map do |example|
+        next unless example.key? :tableHeader
+        example[:tableHeader][:cells].map { |cell| cell[:value].strip }
       end.flatten
     end
   end

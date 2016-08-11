@@ -1,7 +1,6 @@
-gem 'gherkin', '=2.12.2'
+gem 'gherkin', '>=4.0.0'
 
-require 'gherkin/formatter/json_formatter'
-require 'gherkin/parser/parser'
+require 'gherkin/parser'
 require 'gherkin_lint/linter/avoid_outline_for_single_example'
 require 'gherkin_lint/linter/avoid_period'
 require 'gherkin_lint/linter/avoid_scripting'
@@ -29,7 +28,6 @@ require 'gherkin_lint/linter/unknown_variable'
 require 'gherkin_lint/linter/unused_variable'
 require 'gherkin_lint/linter/use_background'
 require 'gherkin_lint/linter/use_outline'
-require 'stringio'
 require 'multi_json'
 require 'set'
 
@@ -102,8 +100,7 @@ module GherkinLint
     end
 
     def parse(file)
-      content = File.read file
-      to_json(content, file)
+      to_json(File.read file)
     end
 
     def report
@@ -122,13 +119,11 @@ module GherkinLint
       LINTER.map { |lint| "disable#{lint.new.class.name.split('::').last}" }
     end
 
-    def to_json(input, file = 'generated.feature')
-      io = StringIO.new
-      formatter = Gherkin::Formatter::JSONFormatter.new(io)
-      parser = Gherkin::Parser::Parser.new(formatter, true)
-      parser.parse(input, file, 0)
-      formatter.done
-      MultiJson.load io.string
+    def to_json(input)
+      parser = Gherkin::Parser.new
+      scanner = Gherkin::TokenScanner.new input
+
+      parser.parse(scanner)
     end
 
     def print(issues)

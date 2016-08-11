@@ -17,20 +17,20 @@ module GherkinLint
 
     def scenarios_with_steps(feature)
       scenarios = 0
-      return 0 unless feature.key? 'elements'
-      feature['elements'].each do |scenario|
-        next unless scenario.include? 'steps'
+      return 0 unless feature.key? :children
+      feature[:children].each do |scenario|
+        next unless scenario.include? :steps
         scenarios += 1
       end
       scenarios
     end
 
     def gather_givens(feature)
-      return unless feature.include? 'elements'
+      return unless feature.include? :children
       has_non_given_step = false
-      feature['elements'].each do |scenario|
-        next unless scenario.include? 'steps'
-        has_non_given_step = true unless scenario['steps'].first['keyword'] == 'Given '
+      feature[:children].each do |scenario|
+        next unless scenario.include? :steps
+        has_non_given_step = true unless scenario[:steps].first[:keyword] == 'Given '
       end
       return if has_non_given_step
 
@@ -40,11 +40,11 @@ module GherkinLint
     end
 
     def expanded_steps(feature)
-      feature['elements'].each do |scenario|
-        next unless scenario['keyword'] != 'Background'
-        next unless scenario.include? 'steps'
-        prototypes = [render_step(scenario['steps'].first)]
-        prototypes = expand_examples(scenario['examples'], prototypes) if scenario.key? 'examples'
+      feature[:children].each do |scenario|
+        next unless scenario[:type] != :Background
+        next unless scenario.include? :steps
+        prototypes = [render_step(scenario[:steps].first)]
+        prototypes = expand_examples(scenario[:examples], prototypes) if scenario.key? :examples
         prototypes.each { |prototype| yield prototype }
       end
     end
@@ -58,10 +58,12 @@ module GherkinLint
 
     def expand_outlines(sentence, example)
       result = []
-      headers = example['rows'][0]['cells']
-      example['rows'].slice(1, example['rows'].length).each do |row|
+      headers = example[:tableHeader][:cells].map { |cell| cell[:value] }
+      example[:tableBody].each do |row| # .slice(1, example[:tableBody].length).each do |row|
         modified_sentence = sentence.dup
-        headers.zip(row['cells']).map { |key, value| modified_sentence.gsub!("<#{key}>", value) }
+        headers.zip(row[:cells].map { |cell| cell[:value] }).map do |key, value|
+          modified_sentence.gsub!("<#{key}>", value)
+        end
         result.push modified_sentence
       end
       result

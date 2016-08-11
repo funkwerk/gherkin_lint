@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 gem 'aruba'
 gem 'amatch'
-gem 'gherkin', '=2.12.2'
+gem 'gherkin', '>=4.0.0'
 gem 'gherkin_format'
 gem 'gherkin_language'
 gem 'rake'
