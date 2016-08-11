@@ -6,6 +6,7 @@ module GherkinLint
     def lint
       filled_scenarios do |file, feature, scenario|
         steps = scenario[:steps].select { |step| step[:keyword] != 'And ' && step[:keyword] != 'But ' }
+        next if steps.empty?
         last_step_is_an_action(file, feature, scenario, steps)
         given_after_non_given(file, feature, scenario, steps)
         verification_before_action(file, feature, scenario, steps)

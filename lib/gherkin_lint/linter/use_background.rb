@@ -30,6 +30,7 @@ module GherkinLint
       has_non_given_step = false
       feature[:children].each do |scenario|
         next unless scenario.include? :steps
+        next if scenario[:steps].empty?
         has_non_given_step = true unless scenario[:steps].first[:keyword] == 'Given '
       end
       return if has_non_given_step
@@ -43,6 +44,7 @@ module GherkinLint
       feature[:children].each do |scenario|
         next unless scenario[:type] != :Background
         next unless scenario.include? :steps
+        next if scenario[:steps].empty?
         prototypes = [render_step(scenario[:steps].first)]
         prototypes = expand_examples(scenario[:examples], prototypes) if scenario.key? :examples
         prototypes.each { |prototype| yield prototype }
