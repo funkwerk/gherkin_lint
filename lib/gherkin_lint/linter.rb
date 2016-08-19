@@ -14,7 +14,7 @@ module GherkinLint
     def features
       @files.each do |file, content|
         feature = content[:feature]
-
+        next if feature.nil?
         yield(file, feature)
       end
     end
