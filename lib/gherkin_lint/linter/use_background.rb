@@ -20,6 +20,7 @@ module GherkinLint
       return 0 unless feature.key? :children
       feature[:children].each do |scenario|
         next unless scenario.include? :steps
+        next if scenario[:steps].empty?
         scenarios += 1
       end
       scenarios
