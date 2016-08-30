@@ -40,6 +40,23 @@ Feature: Use Outline
 
       """
 
+  Scenario: Empty Scenarios
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        Background: Preparation
+          Given setup
+
+        Scenario: A
+
+        Scenario: B
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+      """
+
+      """
+
   Scenario: Valid Example
     Given a file named "lint.feature" with:
       """

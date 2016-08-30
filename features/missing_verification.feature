@@ -46,3 +46,15 @@ Feature: Missing Verification
       """
 
       """
+
+  Scenario: Empty Scenario
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        Scenario: A
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+      """
+
+      """

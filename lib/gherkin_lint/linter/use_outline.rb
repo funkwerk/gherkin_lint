@@ -32,6 +32,7 @@ module GherkinLint
       feature[:children].each do |scenario|
         next unless scenario[:type] == :Scenario
         next unless scenario.include? :steps
+        next if scenario[:steps].empty?
         scenarios.push generate_reference(file, feature, scenario)
       end
       scenarios
