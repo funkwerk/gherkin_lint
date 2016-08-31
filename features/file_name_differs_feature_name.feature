@@ -45,3 +45,31 @@ Feature: File Name Differs Feature Name
       | lint |
       | Lint |
       | LINT |
+
+  Scenario Outline: Valid Example for Snake Case
+    Given a file named "lint.rb" with:
+      """
+      $LOAD_PATH << '../../lib'
+      require 'gherkin_lint'
+
+      linter = GherkinLint::GherkinLint.new
+      linter.enable %w(FileNameDiffersFeatureName)
+      linter.analyze 'lint_test.feature'
+      exit linter.report
+
+      """
+    Given a file named "lint_test.feature" with:
+      """
+      Feature: <name>
+      """
+    When I run `ruby lint.rb lint_test.feature`
+    Then it should pass with exactly:
+      """
+
+      """
+
+    Examples: Valid Names
+      | name      |
+      | lint_test |
+      | lint-test |
+      | lint test |
