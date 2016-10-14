@@ -36,6 +36,7 @@ Detailed usage within the [disable_tags](https://github.com/funkwerk/gherkin_lin
  - [missing test action](https://github.com/funkwerk/gherkin_lint/blob/master/features/missing_test_action.feature)
  - [missing verification](https://github.com/funkwerk/gherkin_lint/blob/master/features/missing_verification.feature)
  - [same tag for all scenarios](https://github.com/funkwerk/gherkin_lint/blob/master/features/same_tag_for_all_scenarios.feature)
+ - [tag used multiple times](https://github.com/funkwerk/gherkin_lint/blob/master/features/tag_used_multiple_times.feature)
  - [too clumsy](https://github.com/funkwerk/gherkin_lint/blob/master/features/too_clumsy.feature)
  - [too long step](https://github.com/funkwerk/gherkin_lint/blob/master/features/too_long_step.feature)
  - [too many different tags](https://github.com/funkwerk/gherkin_lint/blob/master/features/too_many_different_tags.feature)
