@@ -18,6 +18,7 @@ require 'gherkin_lint/linter/missing_scenario_name'
 require 'gherkin_lint/linter/missing_test_action'
 require 'gherkin_lint/linter/missing_verification'
 require 'gherkin_lint/linter/same_tag_for_all_scenarios'
+require 'gherkin_lint/linter/tag_used_multiple_times'
 require 'gherkin_lint/linter/too_clumsy'
 require 'gherkin_lint/linter/too_long_step'
 require 'gherkin_lint/linter/too_many_different_tags'
@@ -52,6 +53,7 @@ module GherkinLint
       InvalidFileName,
       InvalidStepFlow,
       SameTagForAllScenarios,
+      TagUsedMultipleTimes,
       TooClumsy,
       TooManyDifferentTags,
       TooManySteps,

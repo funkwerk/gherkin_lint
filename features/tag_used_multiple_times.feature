@@ -27,8 +27,8 @@ Feature: Tag Used Multiple Times
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      TagUsedMultipleTimes - Used 401 Characters
-        lint.feature (2): Test.A
+      TagUsedMultipleTimes - Tag @tag used multiple times
+        lint.feature (4): Test.A
 
       """
 
@@ -42,8 +42,8 @@ Feature: Tag Used Multiple Times
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      TagUsedMultipleTimes - Used 401 Characters
-        lint.feature (2): Test.A
+      TagUsedMultipleTimes - Tag @tag used multiple times
+        lint.feature (3): Test.A
 
       """
 
