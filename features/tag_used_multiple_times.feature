@@ -16,12 +16,12 @@ Feature: Tag Used Multiple Times
 
       """
 
-  Scenario: Tag for Feature and Scenario
+  Scenario Outline: Tag used twice
     Given a file named "lint.feature" with:
       """
-      @tag
+      <feature tag>
       Feature: Test
-        @tag
+        @tag <scenario tag>
         Scenario: A
       """
     When I run `ruby lint.rb`
@@ -31,21 +31,11 @@ Feature: Tag Used Multiple Times
         lint.feature (4): Test.A
 
       """
-
-  Scenario: Tag twice for Scenario
-    Given a file named "lint.feature" with:
-      """
-      Feature: Test
-        @tag @tag
-        Scenario: A
-      """
-    When I run `ruby lint.rb`
-    Then it should fail with exactly:
-      """
-      TagUsedMultipleTimes - Tag @tag used multiple times
-        lint.feature (3): Test.A
-
-      """
+     
+    Examples: Invalid Tag Combinations
+      | feature tag | scenario tag |
+      | @tag        |              |
+      |             | @tag         |
 
   Scenario: Just unique tags
     Given a file named "lint.feature" with:
