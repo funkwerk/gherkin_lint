@@ -69,3 +69,11 @@ These new checks will stay some releases as warning and will be later declared a
 ### Errors
 
 If there is at least one error, the returncode will be set to ERROR (!= 0).
+
+## Installation
+
+Install it with:
+
+`sudo gem install gherkin_lint`
+
+After that `gherkin_lint` executable is available.
