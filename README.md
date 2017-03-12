@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/funkwerk/gherkin_lint.svg)](https://travis-ci.org/funkwerk/gherkin_lint)
 [![Code Climate](https://codeclimate.com/github/funkwerk/gherkin_lint/badges/gpa.svg)](https://codeclimate.com/github/funkwerk/gherkin_lint)
+[![Docker Build](https://img.shields.io/docker/automated/gherkin/lint.svg)](https://hub.docker.com/r/gherkin/lint/)
 [![Downloads](https://img.shields.io/gem/dt/gherkin_lint.svg)](https://rubygems.org/gems/gherkin_lint)
 [![Latest Tag](https://img.shields.io/github/tag/funkwerk/gherkin_lint.svg)](https://rubygems.org/gems/gherkin_lint)
 
