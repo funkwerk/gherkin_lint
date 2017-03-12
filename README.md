@@ -16,6 +16,13 @@ With `--disable CHECK` or `--enable CHECK` it's possible to disable respectivly 
 Checks could be disabled using tags within Feature Files. To do so, add @disableCHECK.
 Detailed usage within the [disable_tags](https://github.com/funkwerk/gherkin_lint/blob/master/features/disable_tags.feature) feature.
 
+### Usage with Docker
+
+Assume there are feature files in the current directory. Then call.
+
+`docker run -ti -v $(pwd):/src -w /src gherkin/lint *.feature`
+
+This will mount the current directory within the Gherkin Lint Docker Container and then check all feature files.
 
 ## Checks
 
