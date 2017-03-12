@@ -21,7 +21,7 @@ Detailed usage within the [disable_tags](https://github.com/funkwerk/gherkin_lin
 
 ### Usage with Docker
 
-Assume there are feature files in the current directory. Then call.
+Assuming there are feature files in the current directory. Then call.
 
 `docker run -ti -v $(pwd):/src -w /src gherkin/lint *.feature`
 
