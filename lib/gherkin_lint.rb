@@ -69,7 +69,6 @@ module GherkinLint
     def initialize
       @files = {}
       @linter = []
-      enable_all
     end
 
     def enable_all

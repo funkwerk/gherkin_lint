@@ -1,11 +1,35 @@
 require 'rspec'
-require_relative '../lib/gherkin_lint'
+require 'gherkin_lint'
+require 'gherkin_lint/linter/tag_used_multiple_times'
+
 describe GherkinLint::GherkinLint do
 
+  it 'should have the constant set' do
+    expect(GherkinLint::GherkinLint.const_defined? :LINTER).to be true
+  end
 
-  describe '#set_linter' do
-    it '#{should do something}set' do
-      expect(GherkinLint::GherkinLint.LINTER).not_to be_empty
+  subject { GherkinLint::GherkinLint.new }
+
+  describe '#initialize' do
+    it 'sets the files instance variable to empty' do
+      expect(subject.instance_variable_get(:@files)).to eq({})
+    end
+
+    it 'sets the linter instance variable to empty' do
+      expect(subject.instance_variable_get(:@linter).size).to eq(0)
+    end
+  end
+
+  describe '#enable_all' do
+    it 'enables all the linters in the LINTER constant' do
+      subject.enable_all
+      expect(subject.instance_variable_get(:@linter).size).to eq(GherkinLint::GherkinLint::LINTER.size)
+    end
+  end
+
+  describe '#enable' do
+    it 'enables the linter passed in' do
+      subject.enable(GherkinLint::Linter::TagUsedMultipleTimes)
     end
   end
 end
