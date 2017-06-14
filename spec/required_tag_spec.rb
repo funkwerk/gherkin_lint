@@ -28,7 +28,7 @@ describe GherkinLint::RequiredTags do
 
   describe '#issues' do
     it 'should have no issue before linting' do
-      expect(subject.issues.size).to be(0)
+      expect(subject.issues.size).to eq(0)
     end
   end
 
@@ -44,7 +44,7 @@ describe GherkinLint::RequiredTags do
       content
     }
     it 'should have no issues after linting a file with a PB tag at the feature level' do
-      expect(subject.issues.size).to be(0)
+      expect(subject.issues.size).to eq(0)
     end
   end
 
@@ -61,7 +61,7 @@ describe GherkinLint::RequiredTags do
     }
 
     it 'should have no issues after linting a file with a MCC tag at the scenario level' do
-      expect(subject.issues.size).to be(0)
+      expect(subject.issues.size).to eq(0)
     end
   end
   describe '#issues' do
