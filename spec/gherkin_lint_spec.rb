@@ -1,6 +1,6 @@
 require 'rspec'
 require 'gherkin_lint'
-require 'gherkin_lint/linter/tag_used_multiple_times'
+require 'gherkin_lint/linter/required_tags'
 
 describe GherkinLint::GherkinLint do
 
@@ -29,7 +29,9 @@ describe GherkinLint::GherkinLint do
 
   describe '#enable' do
     it 'enables the linter passed in' do
-      subject.enable(GherkinLint::Linter::TagUsedMultipleTimes)
+      subject.enable( [('RequiredTags')])
+      expect(subject.instance_variable_get(:@linter).size).to eq(1)
     end
   end
+
 end
