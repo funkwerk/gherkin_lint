@@ -1,5 +1,6 @@
 require 'yaml'
 module GherkinLint
+# gherkin_lint configuration object
   class Configuration
     attr_reader :config
 
