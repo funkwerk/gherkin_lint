@@ -3,7 +3,6 @@ require 'gherkin_lint'
 require 'gherkin_lint/linter/required_tags'
 
 describe GherkinLint::GherkinLint do
-
   it 'should have the constant set' do
     expect(GherkinLint::GherkinLint.const_defined?(:LINTER)).to be true
   end

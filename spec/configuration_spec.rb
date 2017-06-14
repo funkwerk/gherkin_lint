@@ -33,7 +33,7 @@ describe GherkinLint::Configuration do
 
   context 'when a non-YAML config file is present' do
     include_context 'a configuration file'
-    let(:file_content) {
+    let(:file_content) do
       <<-content
       foo: [
         ‘bar’, {
@@ -41,7 +41,7 @@ describe GherkinLint::Configuration do
          }
       ]'
       content
-    }
+    end
 
     it 'should load a file from the config path but fail to parse' do
       expect { subject.load_configuration }.to raise_error
@@ -50,13 +50,13 @@ describe GherkinLint::Configuration do
   end
   context 'when a valid YAML file is present' do
     include_context 'a configuration file'
-    let(:file_content) {
+    let(:file_content) do
       <<-content
       ---
       :parent_key: parent_value
       :child_key: child_value
       content
-    }
+    end
     before :each do
       subject.load_configuration
     end
@@ -67,13 +67,13 @@ describe GherkinLint::Configuration do
   end
   context 'when a valid YAML file is present' do
     include_context 'a configuration file'
-    let(:file_content) {
+    let(:file_content) do
       <<-content
       ---
       :parent_key: parent_value
       :child_key: child_value
       content
-    }
+    end
     before :each do
       subject.load_configuration
     end
