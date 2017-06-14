@@ -33,3 +33,12 @@ Metrics/MethodLength:
 Style/NumericPredicate:
   Exclude:
     - 'lib/gherkin_lint/linter/file_name_differs_feature_name.rb'
+
+
+Metrics/ModuleLength:
+  Exclude:
+    - "**/*_spec.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "**/*_spec.rb"

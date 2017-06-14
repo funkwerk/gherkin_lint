@@ -107,9 +107,5 @@ module GherkinLint
       puts "There are #{issues.length} Issues" unless issues.empty?
       issues.each { |issue| puts issue }
     end
-
-    def configure
-
-    end
   end
 end

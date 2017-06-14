@@ -1,4 +1,4 @@
-#needs file and file_content defined
+# needs file and file_content defined
 shared_context 'a file exists' do
   before :each do
     File.open(file, 'w') do |f|
@@ -10,4 +10,3 @@ shared_context 'a file exists' do
     File.delete(file) if File.exist?(file)
   end
 end
-

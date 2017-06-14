@@ -34,11 +34,9 @@ describe GherkinLint::GherkinLint do
     end
   end
   context '#configuration' do
-
     let(:file) { 'config/default.yml' }
-
     it 'should the expected values from the config file' do
-      expect(subject.instance_variable_get(:@config).config).to include({ 'AvoidOutlineForSingleExample' => { 'Enabled' => true} })
+      expect(subject.instance_variable_get(:@config).config).to include('AvoidOutlineForSingleExample' => { 'Enabled' => true })
     end
   end
 end
