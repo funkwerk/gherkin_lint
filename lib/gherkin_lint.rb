@@ -37,8 +37,7 @@ require 'set'
 module GherkinLint
   # gherkin linter
   class GherkinLint
-   LINTER = Linter.descendants
-
+    LINTER = Linter.descendants
 
     def initialize
       @files = {}

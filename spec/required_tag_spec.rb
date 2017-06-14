@@ -4,7 +4,7 @@ require 'gherkin_lint'
 
 shared_context 'a gherkin linter' do
   before :each do
-    File.open(file,'w') do |f|
+    File.open(file, 'w') do |f|
       f.write file_content
     end
   end
@@ -13,18 +13,17 @@ shared_context 'a gherkin linter' do
     File.delete(file) if File.exist?(file)
   end
 
-  let(:files) {linter.analyze file}
-  let(:disable_tags) {linter.disable_tags}
+  let(:files) { linter.analyze file }
+  let(:disable_tags) { linter.disable_tags }
 
   before :each do
-    subject.lint_files({file => files}, disable_tags)
+    subject.lint_files({ file: files }, disable_tags)
   end
 end
 
 describe GherkinLint::RequiredTags do
-
-  let(:linter) {GherkinLint::GherkinLint.new}
-  let(:file) {'lint.feature'}
+  let(:linter) { GherkinLint::GherkinLint.new }
+  let(:file) { 'lint.feature' }
 
   describe '#issues' do
     it 'should have no issue before linting' do
@@ -39,7 +38,7 @@ describe GherkinLint::RequiredTags do
       <<-content
       @PB
       Feature: Test
-        @scenario_tag 
+        @scenario_tag
         Scenario: A
       content
     }
@@ -50,7 +49,6 @@ describe GherkinLint::RequiredTags do
 
   describe '#issues' do
     include_context 'a gherkin linter'
-
     let(:file_content) {
       <<-content
       @feature)tag
@@ -66,17 +64,15 @@ describe GherkinLint::RequiredTags do
   end
   describe '#issues' do
     include_context 'a gherkin linter'
-
     let(:file_content) {
       <<-content
       @feature_tag
       Feature: Test
-        @scenario_tag 
+        @scenario_tag
         Scenario: A
       content
     }
-    
-    it_behaves_like 'a gherkin linter'
+
     it 'should have issues after linting a file without PB or MCC tags' do
       expect(subject.issues[0].name).to eq(subject.class.name.split('::').last)
     end

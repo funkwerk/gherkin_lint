@@ -5,7 +5,7 @@ require 'gherkin_lint/linter/required_tags'
 describe GherkinLint::GherkinLint do
 
   it 'should have the constant set' do
-    expect(GherkinLint::GherkinLint.const_defined? :LINTER).to be true
+    expect(GherkinLint::GherkinLint.const_defined?(:LINTER)).to be true
   end
 
   subject { GherkinLint::GherkinLint.new }
@@ -29,7 +29,7 @@ describe GherkinLint::GherkinLint do
 
   describe '#enable' do
     it 'enables the linter passed in' do
-      subject.enable( [('RequiredTags')])
+      subject.enable ['RequiredTags']
       expect(subject.instance_variable_get(:@linter).size).to eq(1)
     end
   end
