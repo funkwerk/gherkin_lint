@@ -32,7 +32,7 @@ describe GherkinLint::RequiredTags do
     end
   end
 
-  describe '#issues should have not issues after linting' do
+  describe '#issues' do
     include_context 'a gherkin linter'
 
     let(:file_content) {
@@ -43,11 +43,27 @@ describe GherkinLint::RequiredTags do
         Scenario: A
       content
     }
-    it 'should have no issues after linting' do
+    it 'should have no issues after linting a file with a PB tag at the feature level' do
       expect(subject.issues.size).to be(0)
     end
   end
 
+  describe '#issues' do
+    include_context 'a gherkin linter'
+
+    let(:file_content) {
+      <<-content
+      @feature)tag
+      Feature: Test
+        @MCC
+        Scenario: A
+      content
+    }
+
+    it 'should have no issues after linting a file with a MCC tag at the scenario level' do
+      expect(subject.issues.size).to be(0)
+    end
+  end
   describe '#issues' do
     include_context 'a gherkin linter'
 
@@ -59,8 +75,9 @@ describe GherkinLint::RequiredTags do
         Scenario: A
       content
     }
+    
     it_behaves_like 'a gherkin linter'
-    it 'should have issues after linting' do
+    it 'should have issues after linting a file without PB or MCC tags' do
       expect(subject.issues[0].name).to eq(subject.class.name.split('::').last)
     end
   end

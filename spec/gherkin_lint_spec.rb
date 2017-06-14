@@ -33,5 +33,4 @@ describe GherkinLint::GherkinLint do
       expect(subject.instance_variable_get(:@linter).size).to eq(1)
     end
   end
-
 end
