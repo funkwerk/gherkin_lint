@@ -37,12 +37,14 @@ require 'gherkin_lint/configuration'
 module GherkinLint
   # gherkin linter
   class GherkinLint
+    DEFAULT_CONFIG = 'config/default.yml'.freeze
+
     LINTER = Linter.descendants
 
-    def initialize
+    def initialize(path = nil)
       @files = {}
       @linter = []
-      @config = Configuration.new
+      @config = Configuration.new path || DEFAULT_CONFIG
     end
 
     def enable_all

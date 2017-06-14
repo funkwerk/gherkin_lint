@@ -3,9 +3,9 @@ require 'gherkin_lint/configuration'
 require 'shared_contexts/file_exists'
 
 describe GherkinLint::Configuration do
+  subject {GherkinLint::Configuration.new file}
   let(:file) { 'default.yml' }
 
-  subject { GherkinLint::Configuration.new }
   it 'should do something' do
     expect(subject.config).to eq('')
   end
@@ -34,7 +34,7 @@ describe GherkinLint::Configuration do
     end
 
     it 'should load a file from the config path but fail to parse' do
-      expect { subject.load_configuration }.to raise_error
+      expect { subject.load_configuration}.to raise_error
       expect { subject.config }.to raise_error
     end
   end
