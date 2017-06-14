@@ -32,4 +32,9 @@ describe GherkinLint::GherkinLint do
       expect(subject.instance_variable_get(:@linter).size).to eq(1)
     end
   end
+  context '#configuration' do
+    it 'should the expected values from the config file' do
+      expect(subject.instance_variable_get(:@config).config).to eq(parent_key: 'parent_value', child_key: 'child_value')
+    end
+  end
 end

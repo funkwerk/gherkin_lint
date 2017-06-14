@@ -1,17 +1,10 @@
 require 'rspec'
 require 'gherkin_lint/linter/required_tags'
 require 'gherkin_lint'
+require 'shared_contexts/file_exists'
 
 shared_context 'a gherkin linter' do
-  before :each do
-    File.open(file, 'w') do |f|
-      f.write file_content
-    end
-  end
-
-  after :each do
-    File.delete(file) if File.exist?(file)
-  end
+  include_context 'a file exists'
 
   let(:files) { linter.analyze file }
   let(:disable_tags) { linter.disable_tags }

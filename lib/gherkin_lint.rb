@@ -33,7 +33,7 @@ require 'gherkin_lint/linter/use_background'
 require 'gherkin_lint/linter/use_outline'
 require 'multi_json'
 require 'set'
-
+require 'gherkin_lint/configuration'
 module GherkinLint
   # gherkin linter
   class GherkinLint
@@ -42,6 +42,7 @@ module GherkinLint
     def initialize
       @files = {}
       @linter = []
+      @config = Configuration.new
     end
 
     def enable_all
@@ -103,6 +104,10 @@ module GherkinLint
     def print(issues)
       puts "There are #{issues.length} Issues" unless issues.empty?
       issues.each { |issue| puts issue }
+    end
+
+    def configure
+
     end
   end
 end
