@@ -5,7 +5,6 @@ require 'shared_contexts/file_exists'
 describe GherkinLint::Configuration do
   let(:file) { 'default.yml' }
 
-
   subject { GherkinLint::Configuration.new }
   it 'should do something' do
     expect(subject.config).to eq('')

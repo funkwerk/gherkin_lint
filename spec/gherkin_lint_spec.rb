@@ -1,6 +1,7 @@
 require 'rspec'
 require 'gherkin_lint'
 require 'gherkin_lint/linter/required_tags'
+require 'shared_contexts/file_exists'
 
 describe GherkinLint::GherkinLint do
   it 'should have the constant set' do
@@ -33,6 +34,16 @@ describe GherkinLint::GherkinLint do
     end
   end
   context '#configuration' do
+    include_context 'a file exists'
+    let(:file_content) do
+      <<-content
+---
+:parent_key: parent_value
+:child_key: child_value
+      content
+    end
+    let(:file) { 'default.yml' }
+
     it 'should the expected values from the config file' do
       expect(subject.instance_variable_get(:@config).config).to eq(parent_key: 'parent_value', child_key: 'child_value')
     end
