@@ -3,7 +3,6 @@ module GherkinLint
   class Configuration
     attr_reader :config
 
-
     def initialize(path)
       @path = path
       @config = load_configuration || ''
