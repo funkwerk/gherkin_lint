@@ -6,6 +6,10 @@ module GherkinLint
   class Linter
     attr_reader :issues
 
+    def self.descendants
+      ObjectSpace.each_object(Class).select { |klass| klass < self }
+    end
+
     def initialize
       @issues = []
       @files = {}

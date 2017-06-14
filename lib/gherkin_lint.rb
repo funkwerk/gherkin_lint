@@ -1,6 +1,7 @@
 gem 'gherkin', '>=4.0.0'
 
 require 'gherkin/parser'
+require 'gherkin_lint/linter'
 require 'gherkin_lint/linter/avoid_outline_for_single_example'
 require 'gherkin_lint/linter/avoid_period'
 require 'gherkin_lint/linter/avoid_scripting'
@@ -36,37 +37,8 @@ require 'set'
 module GherkinLint
   # gherkin linter
   class GherkinLint
-    LINTER = [
-      AvoidOutlineForSingleExample,
-      AvoidPeriod,
-      AvoidScripting,
-      BackgroundDoesMoreThanSetup,
-      BackgroundRequiresMultipleScenarios,
-      BadScenarioName,
-      BeDeclarative,
-      FileNameDiffersFeatureName,
-      MissingExampleName,
-      MissingFeatureDescription,
-      MissingFeatureName,
-      MissingScenarioName,
-      MissingTestAction,
-      MissingVerification,
-      InvalidFileName,
-      InvalidStepFlow,
-      RequiredTags,
-      SameTagForAllScenarios,
-      TagUsedMultipleTimes,
-      TooClumsy,
-      TooManyDifferentTags,
-      TooManySteps,
-      TooManyTags,
-      TooLongStep,
-      UniqueScenarioNames,
-      UnknownVariable,
-      UnusedVariable,
-      UseBackground,
-      UseOutline
-    ].freeze
+   LINTER = Linter.descendants
+
 
     def initialize
       @files = {}
