@@ -31,7 +31,7 @@ InvalidFileName:
 InvalidStepFlow:
     Enabled: true
 RequiredTags:
-    Enabled: true
+    Enabled: false
 SameTagForAllScenarios:
     Enabled: true
 TagUsedMultipleTimes:

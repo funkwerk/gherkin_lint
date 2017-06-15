@@ -45,6 +45,7 @@ This will mount the current directory within the Gherkin Lint Docker Container a
  - [missing scenario name](https://github.com/funkwerk/gherkin_lint/blob/master/features/missing_scenario_name.feature)
  - [missing test action](https://github.com/funkwerk/gherkin_lint/blob/master/features/missing_test_action.feature)
  - [missing verification](https://github.com/funkwerk/gherkin_lint/blob/master/features/missing_verification.feature)
+ - [required_tag](https://github.com/funkwerk/gherkin_lint/blob/master/features/required_tag.feature) - disabled by default
  - [same tag for all scenarios](https://github.com/funkwerk/gherkin_lint/blob/master/features/same_tag_for_all_scenarios.feature)
  - [tag used multiple times](https://github.com/funkwerk/gherkin_lint/blob/master/features/tag_used_multiple_times.feature)
  - [too clumsy](https://github.com/funkwerk/gherkin_lint/blob/master/features/too_clumsy.feature)

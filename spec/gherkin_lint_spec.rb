@@ -62,6 +62,7 @@ AvoidOutlineForSingleExample:
       <<-content
 ---
 RequiredTags:
+    Enabled: true
     Member: Value
       content
     end

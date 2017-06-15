@@ -21,7 +21,7 @@ describe GherkinLint::RequiredTags do
 
   describe '#matcher' do
     it 'should raise an error when pattern is nil' do
-      expect { subject.matcher(nil) }.to raise_error("No Tags provided in the YAML")
+      expect { subject.matcher(nil) }.to raise_error('No Tags provided in the YAML')
     end
     it 'should raise an error when pattern is empty' do
       expect { subject.matcher('') }.to output("Required Tags matcher has no value\n").to_stderr
