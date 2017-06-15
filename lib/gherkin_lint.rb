@@ -68,7 +68,20 @@ module GherkinLint
         name = new_linter.class.name.split('::').last
         next unless enabled_linter.include? name
         next if disabled_linter.include? name
+        evaluate_members(linter)
         @linter.push new_linter
+      end
+    end
+
+    def evaluate_members(linter)
+      @config.config[linter.name.split('::').last].each do |member, value|
+        unless member == 'Enabled'
+          if linter.respond_to? member
+            linter.public_send(member.downcase.to_sym, value)
+          else
+            raise 'Member not found! Check the YAML'
+          end
+        end
       end
     end
 

@@ -30,6 +30,8 @@ InvalidFileName:
     Enabled: true
 InvalidStepFlow:
     Enabled: true
+RequiredTags:
+    Enabled: true
 SameTagForAllScenarios:
     Enabled: true
 TagUsedMultipleTimes:

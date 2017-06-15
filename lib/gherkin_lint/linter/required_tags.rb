@@ -5,10 +5,10 @@ module GherkinLint
   class RequiredTags < Linter
     def lint
       scenarios do |file, feature, scenario|
-        next unless tags(feature).grep(matcher).empty?
-        next unless tags(scenario).grep(matcher).empty?
+        next unless tags(feature).grep(@pattern).empty?
+        next unless tags(scenario).grep(@pattern).empty?
         references = [reference(file, feature, scenario)]
-        add_error(references, "Required Tag #{matcher} not found")
+        add_error(references, "Required Tag #{@pattern} not found")
       end
     end
 
@@ -17,8 +17,8 @@ module GherkinLint
       element[:tags].map { |a| a[:name] }
     end
 
-    def matcher
-      /PB|MCC/
+    def matcher(pattern)
+      @pattern = Regexp.new pattern
     end
   end
 end
