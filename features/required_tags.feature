@@ -34,3 +34,4 @@ Feature: Ensure Required Tags are present
         lint.feature (2): Test.A
 
       """
+      And I remove the directory "../aruba" with full force
