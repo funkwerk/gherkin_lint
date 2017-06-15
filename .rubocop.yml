@@ -20,7 +20,8 @@ Metrics/ClassLength:
 # URISchemes: http, https
 Metrics/LineLength:
   Max: 116
-
+  Exclude:
+    - "**/*_spec.rb"
 # Offense count: 1
 # Configuration parameters: CountComments.
 Metrics/MethodLength:
@@ -34,7 +35,6 @@ Style/NumericPredicate:
   Exclude:
     - 'lib/gherkin_lint/linter/file_name_differs_feature_name.rb'
 
-
 Metrics/ModuleLength:
   Exclude:
     - "**/*_spec.rb"
@@ -42,3 +42,12 @@ Metrics/ModuleLength:
 Metrics/BlockLength:
   Exclude:
     - "**/*_spec.rb"
+
+Style/IndentationWidth:
+  Exclude:
+    - "**/*_spec.rb"
+
+Style/IndentHeredoc:
+  Exclude:
+    - "**/*_spec.rb"
+

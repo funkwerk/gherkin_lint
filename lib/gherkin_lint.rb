@@ -76,11 +76,8 @@ module GherkinLint
     def evaluate_members(linter)
       @config.config[linter.name.split('::').last].each do |member, value|
         unless member == 'Enabled'
-          if linter.respond_to? member
-            linter.public_send(member.downcase.to_sym, value)
-          else
-            raise 'Member not found! Check the YAML'
-          end
+          raise 'Member not found! Check the YAML' unless linter.respond_to? member
+          linter.public_send(member.downcase.to_sym, value)
         end
       end
     end

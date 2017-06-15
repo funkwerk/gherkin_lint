@@ -42,7 +42,7 @@ describe GherkinLint::GherkinLint do
 
   context 'when user provided YAML is present' do
     include_context 'a file exists'
-    let(:file) {'.gherkin_lint.yml'}
+    let(:file) { '.gherkin_lint.yml' }
     let(:file_content) do
       <<-content
 ---
@@ -57,7 +57,7 @@ AvoidOutlineForSingleExample:
 
   context 'when linter member value is passed by the user' do
     include_context 'a file exists'
-    let(:file) {'.gherkin_lint.yml'}
+    let(:file) { '.gherkin_lint.yml' }
     let(:file_content) do
       <<-content
 ---
@@ -70,6 +70,4 @@ RequiredTags:
       expect(subject.instance_variable_get(:@config).config).to include('RequiredTags' => { 'Enabled' => true, 'Member' => 'Value' })
     end
   end
-
-
 end

@@ -1,6 +1,6 @@
 require 'yaml'
 module GherkinLint
-# gherkin_lint configuration object
+  # gherkin_lint configuration object
   class Configuration
     attr_reader :config
 
@@ -20,7 +20,13 @@ module GherkinLint
 
     def load_user_configuration
       config_file = Dir.glob(File.join(Dir.pwd, '**', '.gherkin_lint.yml')).first
-      @config.merge!(YAML.load_file(config_file)) {|key, oldval, newval| oldval.merge!(newval)} if !config_file.nil? && File.exist?(config_file)
+      merge_config(config_file) if !config_file.nil? && File.exist?(config_file)
+    end
+
+    private
+
+    def merge_config(config_file)
+      @config.merge!(YAML.load_file(config_file)) { |_key, oldval, newval| oldval.merge!(newval) }
     end
   end
 end
