@@ -14,7 +14,6 @@ OptionParser.new do |opts|
   opts.on('--disable [CHECKS]', 'Disabled checks. Separated by ","') do |checks|
     options[:disable] = checks.split(',')
   end
-  opts.on('-f [FILE/S]','--file [FILE/S]', 'Feature file or directory', default = 'features/*.feature')
 end.parse!
 
 linter = GherkinLint::GherkinLint.new
