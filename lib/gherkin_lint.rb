@@ -37,8 +37,7 @@ require 'gherkin_lint/configuration'
 module GherkinLint
   # gherkin linter
   class GherkinLint
-    DEFAULT_CONFIG = 'config/default.yml'.freeze
-
+    DEFAULT_CONFIG = Dir.glob(File.join(File.expand_path("../../", __FILE__), '**/config', 'default.yml')).first.freeze
     LINTER = Linter.descendants
 
     def initialize(path = nil)
@@ -68,16 +67,17 @@ module GherkinLint
         name = new_linter.class.name.split('::').last
         next unless enabled_linter.include? name
         next if disabled_linter.include? name
-        evaluate_members(linter)
+        evaluate_members(new_linter)
         @linter.push new_linter
       end
     end
 
     def evaluate_members(linter)
-      @config.config[linter.name.split('::').last].each do |member, value|
+      @config.config[linter.class.name.split('::').last].each do |member, value|
         unless member == 'Enabled'
+          member = member.downcase.to_sym
           raise 'Member not found! Check the YAML' unless linter.respond_to? member
-          linter.public_send(member.downcase.to_sym, value)
+          linter.public_send(member, value)
         end
       end
     end

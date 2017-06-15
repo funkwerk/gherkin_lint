@@ -10,6 +10,7 @@ shared_context 'a gherkin linter' do
   let(:disable_tags) { linter.disable_tags }
 
   before :each do
+    subject.instance_variable_set(:@pattern, /PB|MCC/)
     subject.lint_files({ file: files }, disable_tags)
   end
 end
@@ -17,6 +18,15 @@ end
 describe GherkinLint::RequiredTags do
   let(:linter) { GherkinLint::GherkinLint.new }
   let(:file) { 'lint.feature' }
+
+  describe '#matcher' do
+    it 'should raise an error when pattern is nil' do
+      expect { subject.matcher(nil) }.to raise_error("No Tags provided in the YAML")
+    end
+    it 'should raise an error when pattern is empty' do
+      expect{subject.matcher('')}.to output("Required Tags matcher has no value\n").to_stderr
+    end
+  end
 
   describe '#issues' do
     it 'should have no issue before linting' do

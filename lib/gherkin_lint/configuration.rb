@@ -19,14 +19,14 @@ module GherkinLint
     end
 
     def load_user_configuration
-      config_file = Dir.glob(File.join(Dir.pwd, '**', '.gherkin_lint.yml')).first
+      config_file = Dir.glob(File.join(File.expand_path("../../../", __FILE__), '**', '.gherkin_lint.yml')).first
       merge_config(config_file) if !config_file.nil? && File.exist?(config_file)
     end
 
     private
 
     def merge_config(config_file)
-      @config.merge!(YAML.load_file(config_file)) { |_key, oldval, newval| oldval.merge!(newval) }
+      @config.merge!(YAML.load_file(config_file)) { |_key, oldval, newval| oldval.merge!(newval) } unless @config == ''
     end
   end
 end

@@ -8,7 +8,7 @@ module GherkinLint
         next unless tags(feature).grep(@pattern).empty?
         next unless tags(scenario).grep(@pattern).empty?
         references = [reference(file, feature, scenario)]
-        add_error(references, "Required Tag #{@pattern} not found")
+        add_error(references, "Required Tag #{@pattern.source} not found")
       end
     end
 
@@ -18,6 +18,8 @@ module GherkinLint
     end
 
     def matcher(pattern)
+      raise 'No Tags provided in the YAML' if pattern.nil?
+      warn 'Required Tags matcher has no value' if pattern.empty?
       @pattern = Regexp.new pattern
     end
   end
