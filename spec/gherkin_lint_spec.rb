@@ -1,6 +1,6 @@
 require 'rspec'
 require 'gherkin_lint'
-require 'gherkin_lint/linter/required_tags'
+require 'gherkin_lint/linter/tag_constraint'
 require 'shared_contexts/file_exists'
 
 describe GherkinLint::GherkinLint do

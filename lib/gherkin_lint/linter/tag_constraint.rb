@@ -1,6 +1,6 @@
 module GherkinLint
   # service class to lint for tags used multiple times
-  module RequiredTags
+  module TagConstraint
     def lint
       scenarios do |file, feature, scenario|
         next if match_pattern? tags(feature)

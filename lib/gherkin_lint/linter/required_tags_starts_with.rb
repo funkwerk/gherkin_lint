@@ -1,11 +1,11 @@
-require 'gherkin_lint/linter/required_tags'
+require 'gherkin_lint/linter/tag_constraint'
 require 'gherkin_lint/linter'
 
 module GherkinLint
   # service class to lint for tags used multiple times
   class RequiredTagsStartsWith < Linter
 
-    include RequiredTags
+    include TagConstraint
 
     def match_pattern?(target)
       match = false
