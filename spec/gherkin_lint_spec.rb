@@ -29,7 +29,7 @@ describe GherkinLint::GherkinLint do
 
   describe '#enable' do
     it 'enables the linter passed in' do
-      subject.enable ['RequiredTags']
+      subject.enable ['RequiredTagsStartsWith']
       expect(subject.instance_variable_get(:@linter).size).to eq(1)
     end
   end

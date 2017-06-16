@@ -1,24 +1,12 @@
 require 'rspec'
-require 'gherkin_lint/linter/required_tags'
+require 'gherkin_lint/linter/required_tags_starts_with'
 require 'gherkin_lint'
-require 'shared_contexts/file_exists'
+require 'shared_contexts/gherkin_linter'
 
-shared_context 'a gherkin linter' do
-  include_context 'a file exists'
-
-  let(:files) { linter.analyze file }
-  let(:disable_tags) { linter.disable_tags }
-
-  before :each do
-    subject.instance_variable_set(:@pattern, /PB|MCC/)
-    subject.lint_files({ file: files }, disable_tags)
-  end
-end
-
-describe GherkinLint::RequiredTags do
+describe GherkinLint::RequiredTagsStartsWith do
   let(:linter) { GherkinLint::GherkinLint.new }
   let(:file) { 'lint.feature' }
-
+  let(:pattern) { '@MCC' }
   describe '#matcher' do
     it 'should raise an error when pattern is nil' do
       expect { subject.matcher(nil) }.to raise_error('No Tags provided in the YAML')

@@ -30,7 +30,7 @@ InvalidFileName:
     Enabled: true
 InvalidStepFlow:
     Enabled: true
-RequiredTags:
+RequiredTagsStartsWith:
     Enabled: false
 SameTagForAllScenarios:
     Enabled: true

@@ -7,7 +7,7 @@ module GherkinLint
     attr_reader :issues
 
     def self.descendants
-      ObjectSpace.each_object(Class).select { |klass| klass < self }
+      ObjectSpace.each_object(::Class).select { |klass| klass < self }
     end
 
     def initialize

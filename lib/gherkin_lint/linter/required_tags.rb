@@ -1,14 +1,12 @@
-require 'gherkin_lint/linter'
-
 module GherkinLint
   # service class to lint for tags used multiple times
-  class RequiredTags < Linter
+  module RequiredTags
     def lint
       scenarios do |file, feature, scenario|
-        next unless tags(feature).grep(@pattern).empty?
-        next unless tags(scenario).grep(@pattern).empty?
+        next if match_pattern? tags(feature)
+        next if match_pattern? tags(scenario)
         references = [reference(file, feature, scenario)]
-        add_error(references, "Required Tag #{@pattern.source} not found")
+        add_error(references, "Required Tag #{@pattern} not found")
       end
     end
 
@@ -18,9 +16,17 @@ module GherkinLint
     end
 
     def matcher(pattern)
-      raise 'No Tags provided in the YAML' if pattern.nil?
-      warn 'Required Tags matcher has no value' if pattern.empty?
-      @pattern = Regexp.new pattern
+      @pattern = pattern
+      validate_input
+    end
+
+    def match_pattern?(tags)
+      raise 'This is an abstract class.  Use the parent'
+    end
+
+    def validate_input
+      raise 'No Tags provided in the YAML' if @pattern.nil?
+      warn 'Required Tags matcher has no value' if @pattern.empty?
     end
   end
 end
