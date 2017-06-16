@@ -6,7 +6,7 @@ module GherkinLint
         next if match_pattern? tags(feature)
         next if match_pattern? tags(scenario)
         references = [reference(file, feature, scenario)]
-        add_error(references, "Required Tag not found")
+        add_error(references, 'Required Tag not found')
       end
     end
 
@@ -20,8 +20,8 @@ module GherkinLint
       validate_input
     end
 
-    def match_pattern?(tags)
-      raise 'This is an abstract class.  Use the parent'
+    def match_pattern?(_tags)
+      raise NoMethodError, 'This is an abstraction that must be implemented by the includer'
     end
 
     def validate_input

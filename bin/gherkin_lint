@@ -2,7 +2,6 @@
 require 'gherkin_lint'
 require 'optparse'
 
-
 options = {}
 OptionParser.new do |opts|
   opts.banner = 'Usage: gherkin_language [files]'
@@ -25,14 +24,10 @@ linter.enable_all
 linter.disable options[:disable] if options.key? :disable
 linter.enable options[:enable] if options.key? :enable
 
-options[:files] = ('features/**/*.feature') if options[:files].nil?
-files =  Dir.glob(options[:files])
+options[:files] = 'features/**/*.feature' if options[:files].nil?
+files = Dir.glob(options[:files])
 
-puts files
 files.each do |file|
-  puts "EACH FILE"
-
-  puts file
   linter.analyze file
 end
 

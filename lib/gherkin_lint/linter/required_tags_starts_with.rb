@@ -4,7 +4,6 @@ require 'gherkin_lint/linter'
 module GherkinLint
   # service class to lint for tags used multiple times
   class RequiredTagsStartsWith < Linter
-
     include TagConstraint
 
     def match_pattern?(target)
