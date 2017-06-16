@@ -6,7 +6,7 @@ require 'shared_contexts/gherkin_linter'
 describe GherkinLint::RequiredTagsStartsWith do
   let(:linter) { GherkinLint::GherkinLint.new }
   let(:file) { 'lint.feature' }
-  let(:pattern) { '@MCC' }
+  let(:pattern) { ['MCC','PB'] }
   describe '#matcher' do
     it 'should raise an error when pattern is nil' do
       expect { subject.matcher(nil) }.to raise_error('No Tags provided in the YAML')
@@ -43,7 +43,7 @@ describe GherkinLint::RequiredTagsStartsWith do
       include_context 'a gherkin linter'
       let(:file_content) do
         <<-content
-      @feature)tag
+      @feature_tag
       Feature: Test
         @MCC
         Scenario: A

@@ -9,9 +9,10 @@ module GherkinLint
 
     def match_pattern?(target)
       match = false
+
       target.each do |t|
-        match = t.start_with? @pattern
-        break if match
+        t.delete! '@'
+        match = t.start_with? *@pattern
       end
       match
     end
