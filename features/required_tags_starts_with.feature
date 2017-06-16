@@ -1,4 +1,4 @@
-Feature: Ensure Required Tags are present
+Feature: Required Tags Starts With
   As a tester I dont want to miss certain tags on my scenarios
 
   Background: Prepare Testee
@@ -25,8 +25,8 @@ Feature: Ensure Required Tags are present
       """
       Feature: Test
         Scenario: A
-          When <A>
-          Then <B>
+          When action
+          Then verification
       """
       When I run `ruby lint.rb`
       Then it should fail with exactly:
@@ -36,14 +36,14 @@ Feature: Ensure Required Tags are present
 
       """
 
-  Scenario: Scenario without required tags
+  Scenario: Scenario with PB Feature Tag
     Given a file named "lint.feature" with:
       """
       @PB-1234
       Feature: Test
         Scenario: A
-          When <A>
-          Then <B>
+          When action
+          Then verification
       """
     When I run `ruby lint.rb`
     Then it should pass with exactly:
@@ -51,14 +51,14 @@ Feature: Ensure Required Tags are present
 
       """
 
-  Scenario: Scenario without required tags
+  Scenario: Scenario with MCC feature tag
     Given a file named "lint.feature" with:
       """
       @MCC-1234
       Feature: Test
         Scenario: A
-          When <A>
-          Then <B>
+          When action
+          Then verification
       """
     When I run `ruby lint.rb`
     Then it should pass with exactly:
@@ -66,14 +66,14 @@ Feature: Ensure Required Tags are present
 
       """
 
-  Scenario: Scenario without required tags
+  Scenario: Scenario with PR Scenario tag
     Given a file named "lint.feature" with:
       """
       Feature: Test
         @PB-1234
         Scenario: A
-          When <A>
-          Then <B>
+          When action
+          Then verification
       """
     When I run `ruby lint.rb`
     Then it should pass with exactly:
@@ -81,14 +81,14 @@ Feature: Ensure Required Tags are present
 
       """
 
-  Scenario: Scenario without required tags
+  Scenario: Scenario with MCC tags
     Given a file named "lint.feature" with:
       """
       Feature: Test
         @MCC-1234
         Scenario: A
-          When <A>
-          Then <B>
+          When action
+          Then verification
       """
     When I run `ruby lint.rb`
     Then it should pass with exactly:
