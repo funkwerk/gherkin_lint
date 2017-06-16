@@ -6,7 +6,7 @@ module GherkinLint
         next if match_pattern? tags(feature)
         next if match_pattern? tags(scenario)
         references = [reference(file, feature, scenario)]
-        add_error(references, "Required Tag #{@pattern} not found")
+        add_error(references, "Required Tag not found")
       end
     end
 

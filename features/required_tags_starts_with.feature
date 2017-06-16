@@ -7,7 +7,7 @@ Feature: Ensure Required Tags are present
     ---
     RequiredTagsStartsWith:
         Enabled: true
-        Matcher: PB|MCC
+        Matcher: ['PB','MCC']
     """
     And a file named "lint.rb" with:
       """
@@ -31,7 +31,67 @@ Feature: Ensure Required Tags are present
       When I run `ruby lint.rb`
       Then it should fail with exactly:
       """
-      RequiredTagsStartsWith - Required Tag PB|MCC not found
+      RequiredTagsStartsWith - Required Tag not found
         lint.feature (2): Test.A
+
+      """
+
+  Scenario: Scenario without required tags
+    Given a file named "lint.feature" with:
+      """
+      @PB-1234
+      Feature: Test
+        Scenario: A
+          When <A>
+          Then <B>
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+      """
+
+      """
+
+  Scenario: Scenario without required tags
+    Given a file named "lint.feature" with:
+      """
+      @MCC-1234
+      Feature: Test
+        Scenario: A
+          When <A>
+          Then <B>
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+      """
+
+      """
+
+  Scenario: Scenario without required tags
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        @PB-1234
+        Scenario: A
+          When <A>
+          Then <B>
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+      """
+
+      """
+
+  Scenario: Scenario without required tags
+    Given a file named "lint.feature" with:
+      """
+      Feature: Test
+        @MCC-1234
+        Scenario: A
+          When <A>
+          Then <B>
+      """
+    When I run `ruby lint.rb`
+    Then it should pass with exactly:
+      """
 
       """
