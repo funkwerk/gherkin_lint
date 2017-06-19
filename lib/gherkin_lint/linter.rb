@@ -59,7 +59,6 @@ module GherkinLint
     def elements
       @files.each do |file, content|
         feature = content[:feature]
-
         next if feature.nil?
         next unless feature.key? :children
         feature[:children].each do |scenario|
@@ -84,7 +83,6 @@ module GherkinLint
       return {} if (data.class == Hash) && (data.include? :feature) && tag?(data[:feature], tag)
       return data unless data.respond_to? :each_pair
       result = {}
-
       data.each_pair { |key, value| result[key] = filter_tag(value, tag) }
       result
     end
@@ -102,7 +100,6 @@ module GherkinLint
 
       data.each_pair do |key, value|
         value = suppress(value, tags) if key == :tags
-
         result[key] = suppress_tags(value, tags)
       end
       result
@@ -137,11 +134,6 @@ module GherkinLint
 
     def add_warning(references, description = nil)
       @issues.push Warning.new(name, references, description)
-    end
-
-    def gather_tags(element)
-      return [] unless element.include? :tags
-      element[:tags].map { |tag| tag[:name][1..-1] }
     end
 
     def render_step(step)

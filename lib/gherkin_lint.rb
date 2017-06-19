@@ -37,7 +37,8 @@ require 'gherkin_lint/configuration'
 module GherkinLint
   # gherkin linter
   class GherkinLint
-    DEFAULT_CONFIG = Dir.glob(File.join(File.expand_path('../../', __FILE__), '**/config', 'default.yml')).first.freeze
+    default_file = File.expand_path('../../', __FILE__), '**/config', 'default.yml'
+    DEFAULT_CONFIG = Dir.glob(File.join(default_file)).first.freeze
     LINTER = Linter.descendants
 
     def initialize(path = nil)

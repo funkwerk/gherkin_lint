@@ -1,5 +1,5 @@
 module GherkinLint
-  # service class to lint for tags used multiple times
+  # Mixin to lint for tags that have certain string contraints
   module TagConstraint
     def lint
       scenarios do |file, feature, scenario|
