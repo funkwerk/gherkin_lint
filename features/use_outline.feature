@@ -11,6 +11,7 @@ Feature: Use Outline
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(UseOutline)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

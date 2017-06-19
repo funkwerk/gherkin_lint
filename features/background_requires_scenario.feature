@@ -11,6 +11,7 @@ Feature: Background Requires Scenario
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(BackgroundRequiresMultipleScenarios)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

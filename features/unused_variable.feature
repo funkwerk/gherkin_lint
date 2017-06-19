@@ -11,6 +11,7 @@ Feature: Unused Variable
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(UnusedVariable)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

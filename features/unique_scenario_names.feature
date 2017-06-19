@@ -11,6 +11,7 @@ Feature: Unique Scenario Names
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(UniqueScenarioNames)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

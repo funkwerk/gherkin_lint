@@ -22,6 +22,7 @@ end.parse!
 linter = GherkinLint::GherkinLint.new
 linter.disable options[:disable] if options.key? :disable
 linter.enable options[:enable] if options.key? :enable
+linter.set_linter
 
 options[:files] = 'features/**/*.feature' if options[:files].nil?
 files = Dir.glob(options[:files])

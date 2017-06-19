@@ -13,6 +13,7 @@ Feature: Invalid File Name
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(InvalidFileName)
+      linter.set_linter
       ARGV.each { |file| linter.analyze file }
       exit linter.report
 

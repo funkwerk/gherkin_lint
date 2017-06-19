@@ -11,6 +11,7 @@ Feature: Too Many Steps
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(TooManySteps)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

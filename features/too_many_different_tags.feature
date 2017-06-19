@@ -11,6 +11,7 @@ Feature: Too Many Different Tags
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(TooManyDifferentTags)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

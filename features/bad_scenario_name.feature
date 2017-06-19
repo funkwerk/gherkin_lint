@@ -11,6 +11,7 @@ Feature: Bad Scenario Name
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(BadScenarioName)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

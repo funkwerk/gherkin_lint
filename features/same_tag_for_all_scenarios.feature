@@ -11,6 +11,7 @@ Feature: Same Tag For All Scenarios
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(SameTagForAllScenarios)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

@@ -11,6 +11,7 @@ Feature: Avoid Scripting
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(AvoidScripting)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

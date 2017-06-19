@@ -11,6 +11,7 @@ Feature: Missing Verification
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(MissingVerification)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

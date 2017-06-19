@@ -11,6 +11,7 @@ Feature: Use Background
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(UseBackground)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

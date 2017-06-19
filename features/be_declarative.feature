@@ -11,6 +11,7 @@ Feature: Be Declarative
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(BeDeclarative)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

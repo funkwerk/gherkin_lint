@@ -11,6 +11,7 @@ Feature: Missing Feature Description
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(MissingFeatureDescription)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
