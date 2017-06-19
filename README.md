@@ -14,7 +14,7 @@ run `gherkin_lint` on a list of files
 
     gherkin_lint FEATURE_FILES
 
-With `--disable CHECK` or `--enable CHECK` it's possible to disable respectivly enable program wide checks.
+With `--disable CHECK` or `--enable CHECK` it's possible to disable respectivly enable program wide checks except when a linter requires additional values to be set in order to be valid.  Currently only RequiredTagStartsWith meets this criteria. 
 
 Checks could be disabled using tags within Feature Files. To do so, add @disableCHECK.
 Detailed usage within the [disable_tags](https://github.com/funkwerk/gherkin_lint/blob/master/features/disable_tags.feature) feature.
@@ -78,3 +78,6 @@ Install it with:
 `sudo gem install gherkin_lint`
 
 After that `gherkin_lint` executable is available.
+
+## Configuration
+If you have a custom configuration you'd like to run on a regular basis instead of passing enable and disable flags through the CLI on every run, you can configure a ```.gherkin_lint.yml``` file that will be loaded on execution.  The format and available linters are in [```config.default.yml```](config/default.yml)
