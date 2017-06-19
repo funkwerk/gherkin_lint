@@ -47,9 +47,7 @@ module GherkinLint
     end
 
     def enabled(linter_name, value)
-      if @config.config.key? linter_name
-        @config.config[linter_name]['Enabled'] = value
-      end
+      @config.config.key? linter_name if @config.config[linter_name]['Enabled'] = value
     end
 
     def enable(enabled_linters)

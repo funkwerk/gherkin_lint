@@ -5,7 +5,7 @@ Before do
 end
 
 After do
- FileUtils.rm_rf('tmp')
+  FileUtils.rm_rf('tmp')
 end
 
 def disable_linters
@@ -73,7 +73,5 @@ end
 
 Before do
   Dir.pwd
-  File.open('tmp/aruba/.gherkin_lint.yml', 'w') {|f| f.write disable_linters}
-
+  File.open('tmp/aruba/.gherkin_lint.yml', 'w') { |f| f.write disable_linters }
 end
-
