@@ -105,7 +105,6 @@ Feature: Required Tags Starts With
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-      No issue was found against 1 enabled linters
       """
 
   Scenario: Scenario with MCC feature tag
@@ -120,7 +119,6 @@ Feature: Required Tags Starts With
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-      No issue was found against 1 enabled linters
       """
 
   Scenario: Scenario with PR Scenario tag
@@ -135,7 +133,6 @@ Feature: Required Tags Starts With
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-      No issue was found against 1 enabled linters
       """
 
   Scenario: Scenario with MCC tags
@@ -150,5 +147,4 @@ Feature: Required Tags Starts With
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-      No issue was found against 1 enabled linters
       """
