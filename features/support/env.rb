@@ -5,5 +5,5 @@ Before do
 end
 
 After do
-  FileUtils.rm_rf('tmp')
+ # FileUtils.rm_rf('tmp')
 end

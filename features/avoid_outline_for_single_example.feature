@@ -4,13 +4,75 @@ Feature: Avoid Outline for single Example
   so that it's easier to reuse verification steps
 
   Background: Prepare Testee
-    Given a file named "lint.rb" with:
+    Given a file named ".gherkin_lint.yml" with:
+    """
+    AvoidOutlineForSingleExample:
+        Enabled: false
+    AvoidPeriod:
+        Enabled: false
+    AvoidScripting:
+        Enabled: false
+    BackgroundDoesMoreThanSetup:
+        Enabled: false
+    BackgroundRequiresMultipleScenarios:
+        Enabled: false
+    BadScenarioName:
+        Enabled: false
+    BeDeclarative:
+        Enabled: false
+    FileNameDiffersFeatureName:
+        Enabled: false
+    MissingExampleName:
+        Enabled: false
+    MissingFeatureDescription:
+        Enabled: false
+    MissingFeatureName:
+        Enabled: false
+    MissingScenarioName:
+        Enabled: false
+    MissingTestAction:
+        Enabled: false
+    MissingVerification:
+        Enabled: false
+    InvalidFileName:
+        Enabled: false
+    InvalidStepFlow:
+        Enabled: false
+    RequiredTagsStartsWith:
+        Enabled: false
+    SameTagForAllScenarios:
+        Enabled: false
+    TagUsedMultipleTimes:
+        Enabled: false
+    TooClumsy:
+        Enabled: false
+    TooManyDifferentTags:
+        Enabled: false
+    TooManySteps:
+        Enabled: false
+    TooManyTags:
+        Enabled: false
+    TooLongStep:
+        Enabled: false
+    UniqueScenarioNames:
+        Enabled: false
+    UnknownVariable:
+        Enabled: false
+    UnusedVariable:
+        Enabled: false
+    UseBackground:
+        Enabled: false
+    UseOutline:
+        Enabled: false
+    """
+    And a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
       require 'gherkin_lint'
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(AvoidOutlineForSingleExample)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 

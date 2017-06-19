@@ -20,19 +20,13 @@ describe GherkinLint::GherkinLint do
     end
   end
 
-  describe '#enable_all' do
-    it 'enables all the linters in the LINTER constant' do
-      subject.enable_all
-      expect(subject.instance_variable_get(:@linter).size).to eq(GherkinLint::GherkinLint::LINTER.size)
-    end
-  end
-
   describe '#enable' do
     it 'enables the linter passed in' do
       subject.enable ['RequiredTagsStartsWith']
-      expect(subject.instance_variable_get(:@linter).size).to eq(1)
+      expect(subject.instance_variable_get(:@config).config).to include('RequiredTagsStartsWith' => { 'Enabled' => true })
     end
   end
+
   context 'when user configuration is not present' do
     let(:file) { 'config/default.yml' }
     it 'should load the expected values from the config file' do

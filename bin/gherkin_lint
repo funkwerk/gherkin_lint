@@ -15,12 +15,11 @@ OptionParser.new do |opts|
     options[:disable] = checks.split(',')
   end
   opts.on('-f', '--filepath [file/s]', 'File path where features are located') do |file|
-    options[:files] << file
+    options[:files] = file
   end
 end.parse!
 
 linter = GherkinLint::GherkinLint.new
-linter.enable_all
 linter.disable options[:disable] if options.key? :disable
 linter.enable options[:enable] if options.key? :enable
 

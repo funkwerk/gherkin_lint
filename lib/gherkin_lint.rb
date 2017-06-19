@@ -46,29 +46,31 @@ module GherkinLint
       @config = Configuration.new path || DEFAULT_CONFIG
     end
 
-    def enable_all
-      disable []
+    def enabled(linter_name, value)
+      if @config.config.key? linter_name
+        @config.config[linter_name]['Enabled'] = value
+      end
     end
 
-    def enable(enabled_linter)
-      set_linter(enabled_linter)
+    def enable(enabled_linters)
+      enabled_linters.each do |linter|
+        enabled linter, true
+      end
     end
 
-    def disable(disabled_linter)
-      set_linter(LINTER.map { |linter| linter.new.name.split('::').last }, disabled_linter)
+    def disable(disabled_linters)
+      disabled_linters.each do |linter|
+        enabled linter, false
+      end
     end
 
-    def set_linter(enabled_linter, disabled_linter = [])
+    def set_linter
       @linter = []
-      enabled_linter = Set.new enabled_linter
-      disabled_linter = Set.new disabled_linter
       LINTER.each do |linter|
         new_linter = linter.new
-        name = new_linter.class.name.split('::').last
-        next unless enabled_linter.include? name
-        next if disabled_linter.include? name
-        evaluate_members(new_linter)
-        @linter.push new_linter
+        linter_enabled = @config.config[new_linter.class.name.split('::').last]['Enabled']
+        evaluate_members(new_linter) if linter_enabled
+        @linter.push new_linter if linter_enabled
       end
     end
 
