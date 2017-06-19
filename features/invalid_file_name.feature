@@ -47,5 +47,5 @@ Feature: Invalid File Name
     When I run `ruby lint.rb lint.feature`
     Then it should pass with exactly:
       """
-
+      No issue was found against 1 enabled linters
       """

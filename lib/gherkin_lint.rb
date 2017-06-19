@@ -91,10 +91,12 @@ module GherkinLint
     end
 
     def report
+      raise 'No Linters were enabled' if @linter.size == 0
       issues = @linter.map do |linter|
         linter.lint_files(@files, disable_tags)
         linter.issues
       end.flatten
+      puts "No issue was found against #{@linter.size} enabled linters" if issues.size == 0
 
       issues.each { |issue| puts issue.render }
 

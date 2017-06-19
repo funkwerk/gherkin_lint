@@ -55,7 +55,7 @@ Feature: Use Outline
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
+      No issue was found against 1 enabled linters
       """
 
   Scenario: Valid Example
@@ -75,6 +75,6 @@ Feature: Use Outline
       """
     When I run `ruby lint.rb`
     Then it should pass with exactly:
-      """
-
+       """
+      No issue was found against 1 enabled linters
       """

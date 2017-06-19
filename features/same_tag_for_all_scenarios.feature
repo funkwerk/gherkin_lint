@@ -71,7 +71,7 @@ Feature: Same Tag For All Scenarios
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
+      No issue was found against 1 enabled linters
       """
 
   Scenario: Valid Example with different Tags
@@ -86,7 +86,7 @@ Feature: Same Tag For All Scenarios
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
+      No issue was found against 1 enabled linters
       """
 
   Scenario: Valid Example with single Tag
@@ -101,7 +101,7 @@ Feature: Same Tag For All Scenarios
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
+      No issue was found against 1 enabled linters
       """
 
   Scenario: Tags for features with single scenario
@@ -114,7 +114,7 @@ Feature: Same Tag For All Scenarios
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
+      No issue was found against 1 enabled linters
       """
 
   Scenario: Outline even without Examples
@@ -130,5 +130,5 @@ Feature: Same Tag For All Scenarios
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
+      No issue was found against 1 enabled linters
       """
