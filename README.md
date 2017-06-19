@@ -12,7 +12,7 @@ This tool lints gherkin files.
 
 run `gherkin_lint` on a list of files
 
-    gherkin_lint FEATURE_FILES
+    gherkin_lint -f '<wild_card_path>' #default is `features/**/*.feature`
 
 With `--disable CHECK` or `--enable CHECK` it's possible to disable respectivly enable program wide checks except when a linter requires additional values to be set in order to be valid.  Currently only RequiredTagStartsWith meets this criteria. 
 
