@@ -25,14 +25,16 @@ module GherkinLint
     end
 
     def verbs(tagged_text)
-      verbs = [
-        :get_infinitive_verbs,
-        :get_past_tense_verbs,
-        :get_gerund_verbs,
-        :get_passive_verbs,
-        :get_present_verbs,
-        :get_base_present_verbs
-      ]
+      verbs =
+        %i[
+          get_infinitive_verbs
+          get_past_tense_verbs
+          get_gerund_verbs
+          get_passive_verbs
+          get_present_verbs
+          get_base_present_verbs
+        ]
+
       verbs.map { |verb| tagger.send(verb, tagged_text).keys }.flatten
     end
 

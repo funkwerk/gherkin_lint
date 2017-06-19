@@ -26,7 +26,7 @@ module GherkinLint
     private
 
     def merge_config(config_file)
-      @config.merge!(YAML.load_file(config_file)) { |_key, oldval, newval| oldval.merge!(newval) } unless @config == ''
+      @config.merge!(YAML.load_file(config_file)) { |_k, old, new| old.merge!(new) } unless @config.empty?
     end
   end
 end

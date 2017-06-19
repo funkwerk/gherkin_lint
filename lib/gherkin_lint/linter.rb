@@ -80,7 +80,7 @@ module GherkinLint
     end
 
     def filter_tag(data, tag)
-      return data.select { |item| !tag?(item, tag) }.map { |item| filter_tag(item, tag) } if data.class == Array
+      return data.reject { |item| tag?(item, tag) }.map { |item| filter_tag(item, tag) } if data.class == Array
       return {} if (data.class == Hash) && (data.include? :feature) && tag?(data[:feature], tag)
       return data unless data.respond_to? :each_pair
       result = {}
@@ -109,7 +109,7 @@ module GherkinLint
     end
 
     def suppress(data, tags)
-      data.select { |item| !tags.map { |tag| "@#{tag}" }.include? item[:name] }
+      data.reject { |item| tags.map { |tag| "@#{tag}" }.include? item[:name] }
     end
 
     def lint

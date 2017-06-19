@@ -36,9 +36,9 @@ task :language do
 end
 
 task :self_check do
-  disabled_checks = %w(
+  disabled_checks = %w[
     UnknownVariable
     BadScenarioName
-  )
+  ]
   sh "RUBYLIB=lib ./bin/gherkin_lint --disable #{disabled_checks.join ','} features/*.feature"
 end
