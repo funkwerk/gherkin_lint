@@ -105,6 +105,7 @@ Feature: Required Tags Starts With
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """
 
   Scenario: Scenario with MCC feature tag
@@ -119,6 +120,7 @@ Feature: Required Tags Starts With
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """
 
   Scenario: Scenario with PR Scenario tag
@@ -133,6 +135,7 @@ Feature: Required Tags Starts With
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """
 
   Scenario: Scenario with MCC tags
@@ -147,4 +150,5 @@ Feature: Required Tags Starts With
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """

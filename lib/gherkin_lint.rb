@@ -96,7 +96,9 @@ module GherkinLint
         linter.issues
       end.flatten
 
-      issues.each { |issue| puts issue.render }
+      print(issues)
+
+      #issues.each { |issue| puts issue.render }
 
       return 0 if issues.select { |issue| issue.class == Error }.empty?
       -1
@@ -114,8 +116,8 @@ module GherkinLint
     end
 
     def print(issues)
-      puts "There are #{issues.length} Issues" unless issues.empty?
-      issues.each { |issue| puts issue }
+      puts "There are no issues" if issues.empty?
+      issues.each { |issue| puts issue.render }
     end
   end
 end

@@ -45,6 +45,7 @@ Feature: Missing Test Action
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """
 
   Scenario: Empty Scenario
@@ -56,4 +57,5 @@ Feature: Missing Test Action
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """

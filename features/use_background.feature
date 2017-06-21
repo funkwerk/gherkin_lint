@@ -86,6 +86,7 @@ Feature: Use Background
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """
 
   Scenario: Valid Single Scenario
@@ -105,4 +106,5 @@ Feature: Use Background
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """

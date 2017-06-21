@@ -38,6 +38,7 @@ Feature: File Name Differs Feature Name
     When I run `ruby lint.rb lint.feature`
     Then it should pass with exactly:
       """
+      There are no issues
       """
 
     Examples: Valid Names
@@ -66,6 +67,7 @@ Feature: File Name Differs Feature Name
     When I run `ruby lint.rb lint_test.feature`
     Then it should pass with exactly:
       """
+      There are no issues
       """
 
     Examples: Valid Names

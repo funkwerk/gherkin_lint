@@ -58,6 +58,7 @@ Feature: Missing Example Name
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """
 
   Scenario: Valid Example
@@ -83,4 +84,5 @@ Feature: Missing Example Name
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """

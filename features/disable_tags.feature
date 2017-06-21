@@ -55,6 +55,7 @@ Feature: Disable Tags
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """
 
   Scenario: Disable on Feature Level
@@ -73,4 +74,5 @@ Feature: Disable Tags
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
+      There are no issues
       """
