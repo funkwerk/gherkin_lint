@@ -12,6 +12,7 @@ module GherkinLint
       target.each do |t|
         t.delete! '@'
         match = t.start_with?(*@pattern)
+        break if match
       end
       match
     end
