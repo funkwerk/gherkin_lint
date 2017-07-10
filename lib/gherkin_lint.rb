@@ -63,6 +63,13 @@ module GherkinLint
       end
     end
 
+    # Testing feature
+    def disable_all
+      @config.config.each do |member|
+        @config.config[member[0]]['Enabled'] = false
+      end
+    end
+
     def set_linter
       @linter = []
       LINTER.each do |linter|
