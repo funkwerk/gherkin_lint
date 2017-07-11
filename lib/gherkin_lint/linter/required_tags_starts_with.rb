@@ -7,7 +7,7 @@ module GherkinLint
     include TagConstraint
 
     def match_pattern?(target)
-      target.each do  |t|
+      target.each do |t|
         return true if t.delete!('@').start_with?(*@pattern)
       end
       false
