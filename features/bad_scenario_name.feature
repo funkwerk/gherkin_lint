@@ -50,5 +50,4 @@ Feature: Bad Scenario Name
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-      There are no issues
       """

@@ -44,5 +44,4 @@ Feature: Too Long Step
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-      There are no issues
       """

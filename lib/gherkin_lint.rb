@@ -45,6 +45,11 @@ module GherkinLint
       @files = {}
       @linter = []
       @config = Configuration.new path || DEFAULT_CONFIG
+      @verbose = false
+    end
+
+    def verbose(verbose)
+      @verbose = verbose
     end
 
     def enabled(linter_name, value)
@@ -103,7 +108,7 @@ module GherkinLint
         linter.issues
       end.flatten
 
-      print(issues)
+      print issues
       return 0 if issues.select { |issue| issue.class == Error }.empty?
       -1
     end
@@ -120,7 +125,7 @@ module GherkinLint
     end
 
     def print(issues)
-      puts 'There are no issues' if issues.empty?
+      puts 'There are no issues' if issues.empty? && @verbose
       issues.each { |issue| puts issue.render }
     end
   end
