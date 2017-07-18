@@ -37,6 +37,7 @@ require 'gherkin_lint/configuration'
 module GherkinLint
   # gherkin linter
   class GherkinLint
+    attr_accessor :verbose
     default_file = File.expand_path('../../', __FILE__), '**/config', 'default.yml'
     DEFAULT_CONFIG = Dir.glob(File.join(default_file)).first.freeze
     LINTER = Linter.descendants
@@ -47,11 +48,7 @@ module GherkinLint
       @config = Configuration.new path || DEFAULT_CONFIG
       @verbose = false
     end
-
-    def verbose(verbose)
-      @verbose = verbose
-    end
-
+    
     def enabled(linter_name, value)
       @config.config[linter_name]['Enabled'] = value if @config.config.key? linter_name
     end

@@ -31,4 +31,4 @@ files.each do |file|
   linter.analyze file
 end
 
-exit linter.report 
+exit linter.report
