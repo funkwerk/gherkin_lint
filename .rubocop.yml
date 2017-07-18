@@ -43,11 +43,11 @@ Metrics/BlockLength:
   Exclude:
     - "**/*_spec.rb"
 
-Style/IndentationWidth:
+Layout/IndentationWidth:
   Exclude:
     - "**/*_spec.rb"
 
-Style/IndentHeredoc:
+Layout/IndentHeredoc:
   Exclude:
     - "**/*_spec.rb"
 

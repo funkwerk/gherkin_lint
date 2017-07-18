@@ -48,7 +48,7 @@ module GherkinLint
       @config = Configuration.new path || DEFAULT_CONFIG
       @verbose = false
     end
-    
+
     def enabled(linter_name, value)
       @config.config[linter_name]['Enabled'] = value if @config.config.key? linter_name
     end
