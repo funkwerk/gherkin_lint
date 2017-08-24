@@ -8,7 +8,7 @@ module GherkinLint
         next if scenario[:name].empty?
         references = [reference(file, feature, scenario)]
         description = 'Prefer to rely just on Given and When steps when name your scenario to keep it stable'
-        bad_words = %w(test verif check)
+        bad_words = %w[test verif check]
         bad_words.each do |bad_word|
           add_error(references, description) if scenario[:name].downcase.include? bad_word
         end

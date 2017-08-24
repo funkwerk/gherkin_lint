@@ -11,6 +11,7 @@ Feature: Bad Scenario Name
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(BadScenarioName)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -49,5 +50,4 @@ Feature: Bad Scenario Name
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

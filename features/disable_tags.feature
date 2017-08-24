@@ -11,6 +11,7 @@ Feature: Disable Tags
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(InvalidStepFlow)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -54,7 +55,6 @@ Feature: Disable Tags
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """
 
   Scenario: Disable on Feature Level
@@ -73,5 +73,4 @@ Feature: Disable Tags
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

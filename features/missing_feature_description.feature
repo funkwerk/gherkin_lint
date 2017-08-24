@@ -11,6 +11,7 @@ Feature: Missing Feature Description
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(MissingFeatureDescription)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -40,5 +41,4 @@ Feature: Missing Feature Description
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

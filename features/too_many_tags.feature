@@ -11,6 +11,7 @@ Feature: Too Many Tags
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(TooManyTags)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -43,5 +44,4 @@ Feature: Too Many Tags
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

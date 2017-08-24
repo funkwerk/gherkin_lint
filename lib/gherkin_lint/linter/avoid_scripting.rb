@@ -16,7 +16,7 @@ module GherkinLint
     def filter_when_steps(steps)
       steps = steps.drop_while { |step| step[:keyword] != 'When ' }
       steps = steps.reverse.drop_while { |step| step[:keyword] != 'Then ' }.reverse
-      steps.select { |step| step[:keyword] != 'Then ' }
+      steps.reject { |step| step[:keyword] == 'Then ' }
     end
   end
 end

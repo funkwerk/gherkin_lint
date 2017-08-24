@@ -11,6 +11,7 @@ Feature: Too Many Different Tags
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(TooManyDifferentTags)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -59,5 +60,4 @@ Feature: Too Many Different Tags
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

@@ -11,6 +11,7 @@ Feature: Use Outline
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(UseOutline)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -54,7 +55,6 @@ Feature: Use Outline
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """
 
   Scenario: Valid Example
@@ -75,5 +75,4 @@ Feature: Use Outline
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

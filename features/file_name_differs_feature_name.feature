@@ -11,6 +11,7 @@ Feature: File Name Differs Feature Name
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(FileNameDiffersFeatureName)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -37,7 +38,6 @@ Feature: File Name Differs Feature Name
     When I run `ruby lint.rb lint.feature`
     Then it should pass with exactly:
       """
-
       """
 
     Examples: Valid Names
@@ -54,6 +54,7 @@ Feature: File Name Differs Feature Name
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(FileNameDiffersFeatureName)
+      linter.set_linter
       linter.analyze 'lint_test.feature'
       exit linter.report
 
@@ -65,7 +66,6 @@ Feature: File Name Differs Feature Name
     When I run `ruby lint.rb lint_test.feature`
     Then it should pass with exactly:
       """
-
       """
 
     Examples: Valid Names

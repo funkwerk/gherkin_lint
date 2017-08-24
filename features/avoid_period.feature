@@ -11,6 +11,7 @@ Feature: Avoid Period
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(AvoidPeriod)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -45,5 +46,4 @@ Feature: Avoid Period
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

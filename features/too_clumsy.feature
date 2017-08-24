@@ -11,6 +11,7 @@ Feature: Too Clumsy
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(TooClumsy)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -53,5 +54,4 @@ Feature: Too Clumsy
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

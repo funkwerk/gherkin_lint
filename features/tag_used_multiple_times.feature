@@ -11,6 +11,7 @@ Feature: Tag Used Multiple Times
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(TagUsedMultipleTimes)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -47,5 +48,4 @@ Feature: Tag Used Multiple Times
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

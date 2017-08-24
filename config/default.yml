@@ -1,0 +1,58 @@
+AvoidOutlineForSingleExample:
+    Enabled: true
+AvoidPeriod:
+    Enabled: true
+AvoidScripting:
+    Enabled: true
+BackgroundDoesMoreThanSetup:
+    Enabled: true
+BackgroundRequiresMultipleScenarios:
+    Enabled: true
+BadScenarioName:
+    Enabled: true
+BeDeclarative:
+    Enabled: true
+FileNameDiffersFeatureName:
+    Enabled: true
+MissingExampleName:
+    Enabled: true
+MissingFeatureDescription:
+    Enabled: true
+MissingFeatureName:
+    Enabled: true
+MissingScenarioName:
+    Enabled: true
+MissingTestAction:
+    Enabled: true
+MissingVerification:
+    Enabled: true
+InvalidFileName:
+    Enabled: true
+InvalidStepFlow:
+    Enabled: true
+RequiredTagsStartsWith:
+    Enabled: false
+SameTagForAllScenarios:
+    Enabled: true
+TagUsedMultipleTimes:
+    Enabled: true
+TooClumsy:
+    Enabled: true
+TooManyDifferentTags:
+    Enabled: true
+TooManySteps:
+    Enabled: true
+TooManyTags:
+    Enabled: true
+TooLongStep:
+    Enabled: true
+UniqueScenarioNames:
+    Enabled: true
+UnknownVariable:
+    Enabled: true
+UnusedVariable:
+    Enabled: true
+UseBackground:
+    Enabled: true
+UseOutline:
+    Enabled: true

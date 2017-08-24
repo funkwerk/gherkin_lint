@@ -1,6 +1,7 @@
 gem 'gherkin', '>=4.0.0'
 
 require 'gherkin/parser'
+require 'gherkin_lint/linter'
 require 'gherkin_lint/linter/avoid_outline_for_single_example'
 require 'gherkin_lint/linter/avoid_period'
 require 'gherkin_lint/linter/avoid_scripting'
@@ -17,6 +18,7 @@ require 'gherkin_lint/linter/missing_feature_name'
 require 'gherkin_lint/linter/missing_scenario_name'
 require 'gherkin_lint/linter/missing_test_action'
 require 'gherkin_lint/linter/missing_verification'
+require 'gherkin_lint/linter/required_tags_starts_with'
 require 'gherkin_lint/linter/same_tag_for_all_scenarios'
 require 'gherkin_lint/linter/tag_used_multiple_times'
 require 'gherkin_lint/linter/too_clumsy'
@@ -31,69 +33,61 @@ require 'gherkin_lint/linter/use_background'
 require 'gherkin_lint/linter/use_outline'
 require 'multi_json'
 require 'set'
-
+require 'gherkin_lint/configuration'
 module GherkinLint
   # gherkin linter
   class GherkinLint
-    LINTER = [
-      AvoidOutlineForSingleExample,
-      AvoidPeriod,
-      AvoidScripting,
-      BackgroundDoesMoreThanSetup,
-      BackgroundRequiresMultipleScenarios,
-      BadScenarioName,
-      BeDeclarative,
-      FileNameDiffersFeatureName,
-      MissingExampleName,
-      MissingFeatureDescription,
-      MissingFeatureName,
-      MissingScenarioName,
-      MissingTestAction,
-      MissingVerification,
-      InvalidFileName,
-      InvalidStepFlow,
-      SameTagForAllScenarios,
-      TagUsedMultipleTimes,
-      TooClumsy,
-      TooManyDifferentTags,
-      TooManySteps,
-      TooManyTags,
-      TooLongStep,
-      UniqueScenarioNames,
-      UnknownVariable,
-      UnusedVariable,
-      UseBackground,
-      UseOutline
-    ].freeze
+    attr_accessor :verbose
+    default_file = File.expand_path('../../', __FILE__), '**/config', 'default.yml'
+    DEFAULT_CONFIG = Dir.glob(File.join(default_file)).first.freeze
+    LINTER = Linter.descendants
 
-    def initialize
+    def initialize(path = nil)
       @files = {}
       @linter = []
-      enable_all
+      @config = Configuration.new path || DEFAULT_CONFIG
+      @verbose = false
     end
 
-    def enable_all
-      disable []
+    def enabled(linter_name, value)
+      @config.config[linter_name]['Enabled'] = value if @config.config.key? linter_name
     end
 
-    def enable(enabled_linter)
-      set_linter(enabled_linter)
+    def enable(enabled_linters)
+      enabled_linters.each do |linter|
+        enabled linter, true
+      end
     end
 
-    def disable(disabled_linter)
-      set_linter(LINTER.map { |linter| linter.new.name.split('::').last }, disabled_linter)
+    def disable(disabled_linters)
+      disabled_linters.each do |linter|
+        enabled linter, false
+      end
     end
 
-    def set_linter(enabled_linter, disabled_linter = [])
+    # Testing feature
+    def disable_all
+      @config.config.each do |member|
+        @config.config[member[0]]['Enabled'] = false
+      end
+    end
+
+    def set_linter
       @linter = []
-      enabled_linter = Set.new enabled_linter
-      disabled_linter = Set.new disabled_linter
       LINTER.each do |linter|
         new_linter = linter.new
-        name = new_linter.class.name.split('::').last
-        next unless enabled_linter.include? name
-        next if disabled_linter.include? name
-        @linter.push new_linter
+        linter_enabled = @config.config[new_linter.class.name.split('::').last]['Enabled']
+        evaluate_members(new_linter) if linter_enabled
+        @linter.push new_linter if linter_enabled
+      end
+    end
+
+    def evaluate_members(linter)
+      @config.config[linter.class.name.split('::').last].each do |member, value|
+        next if member.downcase.casecmp('enabled').zero?
+        member = member.downcase.to_sym
+        raise 'Member not found! Check the YAML' unless linter.respond_to? member
+        linter.public_send(member, value)
       end
     end
 
@@ -111,8 +105,7 @@ module GherkinLint
         linter.issues
       end.flatten
 
-      issues.each { |issue| puts issue.render }
-
+      print issues
       return 0 if issues.select { |issue| issue.class == Error }.empty?
       -1
     end
@@ -129,8 +122,8 @@ module GherkinLint
     end
 
     def print(issues)
-      puts "There are #{issues.length} Issues" unless issues.empty?
-      issues.each { |issue| puts issue }
+      puts 'There are no issues' if issues.empty? && @verbose
+      issues.each { |issue| puts issue.render }
     end
   end
 end

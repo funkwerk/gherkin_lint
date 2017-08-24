@@ -11,6 +11,7 @@ Feature: Unknown Variable
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(UnknownVariable)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -115,5 +116,4 @@ Feature: Unknown Variable
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

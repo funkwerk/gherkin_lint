@@ -4,6 +4,7 @@ Feature: Avoid Outline for single Example
   so that it's easier to reuse verification steps
 
   Background: Prepare Testee
+
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
@@ -11,6 +12,7 @@ Feature: Avoid Outline for single Example
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(AvoidOutlineForSingleExample)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -52,5 +54,4 @@ Feature: Avoid Outline for single Example
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

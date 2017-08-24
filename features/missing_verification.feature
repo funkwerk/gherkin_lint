@@ -11,6 +11,7 @@ Feature: Missing Verification
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(MissingVerification)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -44,7 +45,6 @@ Feature: Missing Verification
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """
 
   Scenario: Empty Scenario
@@ -56,5 +56,4 @@ Feature: Missing Verification
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

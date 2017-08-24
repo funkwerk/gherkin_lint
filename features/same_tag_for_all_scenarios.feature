@@ -11,6 +11,7 @@ Feature: Same Tag For All Scenarios
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(SameTagForAllScenarios)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -70,7 +71,6 @@ Feature: Same Tag For All Scenarios
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """
 
   Scenario: Valid Example with different Tags
@@ -85,7 +85,6 @@ Feature: Same Tag For All Scenarios
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """
 
   Scenario: Valid Example with single Tag
@@ -100,7 +99,6 @@ Feature: Same Tag For All Scenarios
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """
 
   Scenario: Tags for features with single scenario
@@ -113,7 +111,6 @@ Feature: Same Tag For All Scenarios
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """
 
   Scenario: Outline even without Examples
@@ -129,5 +126,4 @@ Feature: Same Tag For All Scenarios
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

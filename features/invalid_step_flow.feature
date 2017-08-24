@@ -11,6 +11,7 @@ Feature: Invalid Step Flow
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(InvalidStepFlow)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -81,5 +82,4 @@ Feature: Invalid Step Flow
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

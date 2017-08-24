@@ -11,6 +11,7 @@ Feature: Background Does More Than Setup
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(BackgroundDoesMoreThanSetup)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -42,5 +43,4 @@ Feature: Background Does More Than Setup
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

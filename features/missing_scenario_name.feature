@@ -11,6 +11,7 @@ Feature: Missing Scenario Name
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(MissingScenarioName)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -53,5 +54,4 @@ Feature: Missing Scenario Name
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

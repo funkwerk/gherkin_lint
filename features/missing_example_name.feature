@@ -11,6 +11,7 @@ Feature: Missing Example Name
 
       linter = GherkinLint::GherkinLint.new
       linter.enable %w(MissingExampleName)
+      linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
 
@@ -57,7 +58,6 @@ Feature: Missing Example Name
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """
 
   Scenario: Valid Example
@@ -83,5 +83,4 @@ Feature: Missing Example Name
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-
       """

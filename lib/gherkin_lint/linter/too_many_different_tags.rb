@@ -1,8 +1,11 @@
 require 'gherkin_lint/linter'
+require 'gherkin_lint/linter/tag_collector'
 
 module GherkinLint
   # service class to lint for too many different tags
   class TooManyDifferentTags < Linter
+    include TagCollector
+
     def lint
       overall_tags = []
       overall_references = []
