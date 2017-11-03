@@ -17,6 +17,7 @@ Feature: Missing Verification
 
       """
 
+  @disableBadScenarioName
   Scenario: Missing Verification
     Given a file named "lint.feature" with:
       """

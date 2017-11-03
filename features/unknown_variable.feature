@@ -1,3 +1,4 @@
+@disableUnknownVariable
 Feature: Unknown Variable
   As a Business Analyst
   I want to be warned about unknown variables

@@ -14,9 +14,6 @@ OptionParser.new do |opts|
   opts.on('--disable [CHECKS]', 'Disabled checks. Separated by ","') do |checks|
     options[:disable] = checks.split(',')
   end
-  opts.on('-f', '--filepath [file/s]', 'File path where features are located') do |file|
-    options[:files] = file
-  end
 end.parse!
 
 linter = GherkinLint::GherkinLint.new
@@ -24,8 +21,9 @@ linter.disable options[:disable] if options.key? :disable
 linter.enable options[:enable] if options.key? :enable
 linter.set_linter
 
-options[:files] = 'features/**/*.feature' if options[:files].nil?
-files = Dir.glob(options[:files])
+files = ARGV
+files = 'features/**/*.feature' if ARGV.empty?
+files = Dir.glob(files)
 
 files.each do |file|
   linter.analyze file
