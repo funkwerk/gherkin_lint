@@ -1,3 +1,4 @@
+@disableUnknownVariable
 Feature: Missing Example Name
   As a Customer
   I want examples to be named

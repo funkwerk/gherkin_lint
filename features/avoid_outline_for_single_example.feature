@@ -1,3 +1,4 @@
+@disableUnknownVariable
 Feature: Avoid Outline for single Example
   As a Business Analyst
   I do not want a period at the end of the scenario

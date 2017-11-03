@@ -1,3 +1,4 @@
+@disableUnknownVariable
 Feature: Unused Variable
   As a Business Analyst
   I want to be warned about unused variables

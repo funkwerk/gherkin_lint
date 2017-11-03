@@ -39,6 +39,7 @@ Feature: Use Background
 
       """
 
+  @disableUnknownVariable
   Scenario: Same Given in Outlines
     Given a file named "lint.feature" with:
       """
@@ -88,6 +89,7 @@ Feature: Use Background
       """
       """
 
+  @disableUnknownVariable
   Scenario: Valid Single Scenario
     Given a file named "lint.feature" with:
       """
