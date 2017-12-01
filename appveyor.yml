@@ -2,8 +2,6 @@ version: '1.0.{build}'
 
 environment:
   matrix:
-    - RUBY_VERSION: 193
-      BUNDLE_GEMFILE: Gemfile
     - RUBY_VERSION: 23-x64
       BUNDLE_GEMFILE: Gemfile
     - RUBY_VERSION: 23
