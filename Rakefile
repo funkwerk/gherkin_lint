@@ -46,5 +46,5 @@ task :self_check do
     UnknownVariable
     BadScenarioName
   ]
-  sh "./bin/gherkin_lint --disable #{disabled_checks.join ','} features/*.feature"
+  sh "bin/gherkin_lint --disable #{disabled_checks.join ','} features/*.feature"
 end
