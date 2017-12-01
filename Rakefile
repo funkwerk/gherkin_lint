@@ -1,5 +1,7 @@
 require 'rake/testtask'
 
+ENV['RUBYLIB'] ||= "lib:#{ENV['RUBYLIB']}"
+
 task default: :build
 
 desc 'Builds the Gem.'
@@ -44,5 +46,5 @@ task :self_check do
     UnknownVariable
     BadScenarioName
   ]
-  sh "RUBYLIB=lib ./bin/gherkin_lint --disable #{disabled_checks.join ','} features/*.feature"
+  sh "./bin/gherkin_lint --disable #{disabled_checks.join ','} features/*.feature"
 end
