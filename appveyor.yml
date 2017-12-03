@@ -1,0 +1,22 @@
+version: '1.0.{build}'
+
+environment:
+  matrix:
+    - RUBY_VERSION: 23-x64
+      BUNDLE_GEMFILE: Gemfile
+    - RUBY_VERSION: 23
+      BUNDLE_GEMFILE: Gemfile
+
+install:
+  - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
+  - bundle install
+
+build: off
+
+before_test:
+  - ruby -v
+  - gem -v
+  - bundle -v
+
+test_script:
+  - bundle exec rake
