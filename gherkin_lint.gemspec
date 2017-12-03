@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'gherkin_lint'
   s.version     = '1.2.0'
-  s.date        = '2017-11-03'
+  s.date        = '2017-11-30'
   s.summary     = 'Gherkin Lint'
   s.description = 'Lint Gherkin Files'
   s.authors     = ['Stefan Rohe', 'Nishtha Argawal', 'John Gluck']

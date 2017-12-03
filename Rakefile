@@ -26,7 +26,7 @@ end
 task test: :rubocop
 task test: :language
 task :test do
-  sh 'cucumber --tags ~@skip'
+  sh 'cucumber --tags ~@skip --guess'
 end
 
 task :format do
