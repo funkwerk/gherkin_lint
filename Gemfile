@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
+
+gemspec
+
 gem 'amatch'
 gem 'aruba', '1.0.0.pre.alpha.2'
 gem 'engtagger', '>=0.2.1'
