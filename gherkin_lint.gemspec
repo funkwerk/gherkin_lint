@@ -9,10 +9,10 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.files       = `git ls-files`.split("\n")
   s.executables = s.files.grep(%r{^bin/}) { |file| File.basename(file) }
-  s.add_runtime_dependency 'gherkin', ['>= 4.0.0']
-  s.add_runtime_dependency 'term-ansicolor', ['>= 1.3.2']
-  s.add_runtime_dependency 'amatch', ['>= 0.3.0']
-  s.add_runtime_dependency 'engtagger', ['>=0.2.0']
-  s.add_runtime_dependency 'multi_json', ['>=1.12.1']
-  s.add_development_dependency 'aruba', ['>= 0.6.2']
+  s.add_runtime_dependency 'gherkin', ['>= 4.0.0', '< 6.0']
+  s.add_runtime_dependency 'term-ansicolor', ['~> 1.3', '>= 1.3.2']
+  s.add_runtime_dependency 'amatch', ['~> 0.3', '>= 0.3.0']
+  s.add_runtime_dependency 'engtagger', ['~> 0.2', '>= 0.2.0']
+  s.add_runtime_dependency 'multi_json', ['~> 1.12', '>= 1.12.1']
+  s.add_development_dependency 'aruba', ['~> 0.6', '>= 0.6.2']
 end
