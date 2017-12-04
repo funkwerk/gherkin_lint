@@ -26,7 +26,7 @@ linter.set_linter
 
 files = ARGV.map { |pattern| Dir.glob(pattern) }.flatten
 files += Dir.glob(options[:files]) if options.key? :files
-files = Dir.glob('features/**/*.feature') if ARGV.empty? and not options.key?(:files)
+files = Dir.glob('features/**/*.feature') if ARGV.empty? && !options.key?(:files)
 
 files.each do |file|
   linter.analyze file

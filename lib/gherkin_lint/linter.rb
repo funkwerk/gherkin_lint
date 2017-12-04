@@ -24,7 +24,7 @@ module GherkinLint
     end
 
     def files
-      @files.keys.each { |file| yield file }
+      @files.each_key { |file| yield file }
     end
 
     def scenarios

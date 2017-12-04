@@ -24,13 +24,13 @@ describe GherkinLint::Configuration do
   context 'when a non-YAML config file is present' do
     include_context 'a file exists'
     let(:file_content) do
-      <<-content
+      <<-CONTENT
       foo: [
         ‘bar’, {
           baz: 42
          }
       ]'
-      content
+      CONTENT
     end
 
     it 'should load a file from the config path but fail to parse' do
@@ -41,11 +41,11 @@ describe GherkinLint::Configuration do
   context 'when a valid YAML file is present' do
     include_context 'a file exists'
     let(:file_content) do
-      <<-content
+      <<-CONTENT
 ---
 :parent_key: parent_value
 :child_key: child_value
-      content
+      CONTENT
     end
     before :each do
       subject.load_configuration

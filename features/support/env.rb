@@ -9,7 +9,7 @@ After do
 end
 
 def disable_linters
-  <<-content
+  <<-CONTENT
   AvoidOutlineForSingleExample:
       Enabled: false
   AvoidPeriod:
@@ -68,7 +68,7 @@ def disable_linters
       Enabled: false
   UseOutline:
       Enabled: false
-  content
+  CONTENT
 end
 
 Before do

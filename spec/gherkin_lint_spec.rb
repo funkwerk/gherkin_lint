@@ -38,11 +38,11 @@ describe GherkinLint::GherkinLint do
     include_context 'a file exists'
     let(:file) { '.gherkin_lint.yml' }
     let(:file_content) do
-      <<-content
+      <<-CONTENT
 ---
 AvoidOutlineForSingleExample:
     Enabled: false
-      content
+      CONTENT
     end
     it 'should load and merge the expected values from the user config file' do
       expect(subject.instance_variable_get(:@config).config).to include('AvoidOutlineForSingleExample' => { 'Enabled' => false })
@@ -53,12 +53,12 @@ AvoidOutlineForSingleExample:
     include_context 'a file exists'
     let(:file) { '.gherkin_lint.yml' }
     let(:file_content) do
-      <<-content
+      <<-CONTENT
 ---
 RequiredTags:
     Enabled: true
     Member: Value
-      content
+      CONTENT
     end
 
     it 'updates the member in the config' do

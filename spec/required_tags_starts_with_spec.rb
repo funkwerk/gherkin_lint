@@ -27,12 +27,12 @@ describe GherkinLint::RequiredTagsStartsWith do
       include_context 'a gherkin linter'
 
       let(:file_content) do
-        <<-content
+        <<-CONTENT
       @PB
       Feature: Test
         @scenario_tag
         Scenario: A
-        content
+        CONTENT
       end
       it 'should have no issues' do
         expect(subject.issues.size).to eq(0)
@@ -42,12 +42,12 @@ describe GherkinLint::RequiredTagsStartsWith do
     context 'after linting a file with a MCC tag at the scenario level' do
       include_context 'a gherkin linter'
       let(:file_content) do
-        <<-content
+        <<-CONTENT
       @feature_tag
       Feature: Test
         @MCC
         Scenario: A
-        content
+        CONTENT
       end
 
       it 'should have no issues' do
@@ -58,12 +58,12 @@ describe GherkinLint::RequiredTagsStartsWith do
     context 'after linting a file with no required tags' do
       include_context 'a gherkin linter'
       let(:file_content) do
-        <<-content
+        <<-CONTENT
       @feature_tag
       Feature: Test
         @scenario_tag
         Scenario: A
-        content
+        CONTENT
       end
 
       it 'should have issues after linting a file without PB or MCC tags' do
