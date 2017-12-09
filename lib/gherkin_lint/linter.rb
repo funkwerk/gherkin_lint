@@ -148,9 +148,9 @@ module GherkinLint
     end
 
     def render_step_argument(argument)
-      return "\n#{argument[:content]}" if argument[:type] == :DocString
-      result = argument[:rows].map do |row|
-        "|#{row[:cells].map { |cell| cell[:value] }.join '|'}|"
+      return "\n#{argument.content}" if argument.is_a?(CukeModeler::DocString)
+      result = argument.rows.map do |row|
+        "|#{row.cells.map { |cell| cell.value }.join '|'}|"
       end.join "\n"
       "\n#{result}"
     end
