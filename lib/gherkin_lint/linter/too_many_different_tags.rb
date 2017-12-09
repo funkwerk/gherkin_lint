@@ -34,8 +34,8 @@ module GherkinLint
     end
 
     def tags_for_feature(feature)
-      return [] unless feature.include? :children
-      gather_tags(feature) + feature[:children].map { |scenario| gather_tags(scenario) }.flatten
+      return [] unless feature.tests.any?
+      gather_tags(feature) + feature.tests.map { |scenario| gather_tags(scenario) }.flatten
     end
   end
 end

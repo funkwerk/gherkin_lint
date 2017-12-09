@@ -1,6 +1,6 @@
 gem 'gherkin', '>=4.0.0'
 
-require 'gherkin/parser'
+require 'cuke_modeler'
 require 'gherkin_lint/linter'
 require 'gherkin_lint/linter/avoid_outline_for_single_example'
 require 'gherkin_lint/linter/avoid_period'
@@ -92,9 +92,11 @@ module GherkinLint
     end
 
     def analyze(file)
-      @files[file] = parse file
+      @files[file] = model file
     end
 
+    #TODO: remove this method
+    # Deprecated
     def parse(file)
       to_json File.read(file)
     end
@@ -114,6 +116,8 @@ module GherkinLint
       LINTER.map { |lint| "disable#{lint.new.class.name.split('::').last}" }
     end
 
+    #TODO: remove this method
+    # Deprecated
     def to_json(input)
       parser = Gherkin::Parser.new
       scanner = Gherkin::TokenScanner.new input
@@ -125,5 +129,14 @@ module GherkinLint
       puts 'There are no issues' if issues.empty? && @verbose
       issues.each { |issue| puts issue.render }
     end
+
+
+    private
+
+
+    def model(file)
+      CukeModeler::FeatureFile.new(file)
+    end
+
   end
 end
