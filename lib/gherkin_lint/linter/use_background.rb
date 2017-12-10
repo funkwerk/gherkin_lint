@@ -61,10 +61,10 @@ module GherkinLint
 
     def expand_outlines(sentence, example)
       result = []
-      headers = example.parameter_row.cells.map { |cell| cell.value }
+      headers = example.parameter_row.cells.map(&:value)
       example.argument_rows.each do |row| # .slice(1, example[:tableBody].length).each do |row|
         modified_sentence = sentence.dup
-        headers.zip(row.cells.map { |cell| cell.value }).map do |key, value|
+        headers.zip(row.cells.map(&:value)).map do |key, value|
           modified_sentence.gsub!("<#{key}>", value)
         end
         result.push modified_sentence

@@ -15,7 +15,7 @@ module GherkinLint
 
     def tags(element)
       return [] unless element.tags.any?
-      element.tags.map { |a| a.name }
+      element.tags.map(&:name)
     end
   end
 end

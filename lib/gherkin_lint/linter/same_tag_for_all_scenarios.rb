@@ -29,7 +29,7 @@ module GherkinLint
       feature.tests.each do |scenario|
         tags = gather_same_tags_for_outline scenario
         next if tags.nil? || tags.empty?
-        next unless (scenario.is_a?(CukeModeler::Outline) && (scenario.examples.length > 1))
+        next unless scenario.is_a?(CukeModeler::Outline) && (scenario.examples.length > 1)
         references = [reference(file, feature, scenario)]
         tags.each do |tag|
           next if tag == '@skip'
@@ -44,7 +44,7 @@ module GherkinLint
       feature.children.each do |scenario|
         next if scenario.is_a? CukeModeler::Background
         return nil unless scenario.tags.any?
-        tags = scenario.tags.map { |tag| tag.name }
+        tags = scenario.tags.map(&:name)
         result = tags if result.nil?
         result &= tags
       end
@@ -56,7 +56,7 @@ module GherkinLint
       return result unless scenario.is_a?(CukeModeler::Outline)
       scenario.examples.each do |example|
         return nil unless example.tags.any?
-        tags = example.tags.map { |tag| tag.name }
+        tags = example.tags.map(&:name)
         result = tags if result.nil?
         result &= tags
       end

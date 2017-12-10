@@ -5,10 +5,10 @@ module GherkinLint
   class UnusedVariable < Linter
     def lint
       scenarios do |file, feature, scenario|
-        next unless (scenario.is_a?(CukeModeler::Outline) && scenario.examples.any?)
+        next unless scenario.is_a?(CukeModeler::Outline) && scenario.examples.any?
         scenario.examples.each do |example|
           next unless example.parameter_row
-          example.parameter_row.cells.map { |cell| cell.value }.each do |variable|
+          example.parameter_row.cells.map(&:value).each do |variable|
             references = [reference(file, feature, scenario)]
             add_error(references, "'<#{variable}>' is unused") unless used?(variable, scenario)
           end

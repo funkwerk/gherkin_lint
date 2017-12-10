@@ -12,7 +12,7 @@ module GherkinLint
 
     def tags(element)
       return [] unless element.respond_to? :tags
-      element.tags.map { |a| a.name }
+      element.tags.map(&:name)
     end
 
     def matcher(pattern)

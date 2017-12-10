@@ -95,7 +95,7 @@ module GherkinLint
       @files[file] = model file
     end
 
-    #TODO: remove this method
+    # TODO: remove this method
     # Deprecated
     def parse(file)
       to_json File.read(file)
@@ -116,7 +116,7 @@ module GherkinLint
       LINTER.map { |lint| "disable#{lint.new.class.name.split('::').last}" }
     end
 
-    #TODO: remove this method
+    # TODO: remove this method
     # Deprecated
     def to_json(input)
       parser = Gherkin::Parser.new
@@ -130,13 +130,10 @@ module GherkinLint
       issues.each { |issue| puts issue.render }
     end
 
-
     private
-
 
     def model(file)
       CukeModeler::FeatureFile.new(file)
     end
-
   end
 end

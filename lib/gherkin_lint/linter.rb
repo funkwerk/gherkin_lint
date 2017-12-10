@@ -62,9 +62,7 @@ module GherkinLint
         next if feature.nil?
         next unless feature.background || feature.tests.any?
 
-        everything = []
-        everything << feature.background if feature.background
-        everything += feature.tests
+        everything = [feature.background].compact + feature.tests
 
         everything.each do |scenario|
           yield(file, feature, scenario)
@@ -150,7 +148,7 @@ module GherkinLint
     def render_step_argument(argument)
       return "\n#{argument.content}" if argument.is_a?(CukeModeler::DocString)
       result = argument.rows.map do |row|
-        "|#{row.cells.map { |cell| cell.value }.join '|'}|"
+        "|#{row.cells.map(&:value).join '|'}|"
       end.join "\n"
       "\n#{result}"
     end
