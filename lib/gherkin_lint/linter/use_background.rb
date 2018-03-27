@@ -17,22 +17,22 @@ module GherkinLint
 
     def scenarios_with_steps(feature)
       scenarios = 0
-      return 0 unless feature.key? :children
-      feature[:children].each do |scenario|
-        next unless scenario.include? :steps
-        next if scenario[:steps].empty?
+      return 0 unless feature.tests.any?
+      feature.tests.each do |scenario|
+        next unless scenario.steps.any?
+        next if scenario.steps.empty?
         scenarios += 1
       end
       scenarios
     end
 
     def gather_givens(feature)
-      return unless feature.include? :children
+      return unless feature.tests.any?
       has_non_given_step = false
-      feature[:children].each do |scenario|
-        next unless scenario.include? :steps
-        next if scenario[:steps].empty?
-        has_non_given_step = true unless scenario[:steps].first[:keyword] == 'Given '
+      feature.tests.each do |scenario|
+        next unless scenario.respond_to? :steps
+        next if scenario.steps.empty?
+        has_non_given_step = true unless scenario.steps.first.keyword == 'Given'
       end
       return if has_non_given_step
 
@@ -42,12 +42,12 @@ module GherkinLint
     end
 
     def expanded_steps(feature)
-      feature[:children].each do |scenario|
-        next unless scenario[:type] != :Background
-        next unless scenario.include? :steps
-        next if scenario[:steps].empty?
-        prototypes = [render_step(scenario[:steps].first)]
-        prototypes = expand_examples(scenario[:examples], prototypes) if scenario.key? :examples
+      feature.children.each do |scenario|
+        next if scenario.is_a? CukeModeler::Background
+        next unless scenario.respond_to? :steps
+        next if scenario.steps.empty?
+        prototypes = [render_step(scenario.steps.first)]
+        prototypes = expand_examples(scenario.examples, prototypes) if scenario.respond_to? :examples
         prototypes.each { |prototype| yield prototype }
       end
     end
@@ -61,10 +61,10 @@ module GherkinLint
 
     def expand_outlines(sentence, example)
       result = []
-      headers = example[:tableHeader][:cells].map { |cell| cell[:value] }
-      example[:tableBody].each do |row| # .slice(1, example[:tableBody].length).each do |row|
+      headers = example.parameter_row.cells.map(&:value)
+      example.argument_rows.each do |row| # .slice(1, example[:tableBody].length).each do |row|
         modified_sentence = sentence.dup
-        headers.zip(row[:cells].map { |cell| cell[:value] }).map do |key, value|
+        headers.zip(row.cells.map(&:value)).map do |key, value|
           modified_sentence.gsub!("<#{key}>", value)
         end
         result.push modified_sentence

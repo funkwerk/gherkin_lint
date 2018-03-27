@@ -10,7 +10,7 @@ module GherkinLint
 
     def lint
       filled_scenarios do |file, feature, scenario|
-        scenario[:steps].each do |step|
+        scenario.steps.each do |step|
           references = [reference(file, feature, scenario, step)]
           add_warning(references, 'no verb') unless verb? step
         end
@@ -18,7 +18,7 @@ module GherkinLint
     end
 
     def verb?(step)
-      tagged = tagger.add_tags step[:text]
+      tagged = tagger.add_tags step.text
       step_verbs = verbs tagged
 
       !step_verbs.empty?

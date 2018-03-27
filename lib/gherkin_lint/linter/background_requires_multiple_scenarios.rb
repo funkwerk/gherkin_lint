@@ -5,7 +5,7 @@ module GherkinLint
   class BackgroundRequiresMultipleScenarios < Linter
     def lint
       backgrounds do |file, feature, background|
-        scenarios = feature[:children].reject { |element| element[:type] == :Background }
+        scenarios = feature.children.reject { |element| element.is_a?(CukeModeler::Background) }
         next if scenarios.length >= 2
 
         references = [reference(file, feature, background)]

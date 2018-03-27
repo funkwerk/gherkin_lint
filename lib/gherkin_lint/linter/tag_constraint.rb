@@ -11,8 +11,8 @@ module GherkinLint
     end
 
     def tags(element)
-      return [] unless element.include? :tags
-      element[:tags].map { |a| a[:name] }
+      return [] unless element.respond_to? :tags
+      element.tags.map(&:name)
     end
 
     def matcher(pattern)

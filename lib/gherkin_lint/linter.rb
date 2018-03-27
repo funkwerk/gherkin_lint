@@ -1,9 +1,11 @@
 require 'gherkin_lint/issue'
+require 'gherkin_lint/model_filter'
 
 # gherkin utilities
 module GherkinLint
   # base class for all linters
   class Linter
+    include ModelFilter
     attr_reader :issues
 
     def self.descendants
@@ -16,8 +18,8 @@ module GherkinLint
     end
 
     def features
-      @files.each do |file, content|
-        feature = content[:feature]
+      @files.each do |file, model|
+        feature = model.feature
         next if feature.nil?
         yield(file, feature)
       end
@@ -29,39 +31,42 @@ module GherkinLint
 
     def scenarios
       elements do |file, feature, scenario|
-        next if scenario[:type] == :Background
+        next if scenario.is_a?(CukeModeler::Background)
         yield(file, feature, scenario)
       end
     end
 
     def filled_scenarios
       scenarios do |file, feature, scenario|
-        next unless scenario.include? :steps
-        next if scenario[:steps].empty?
+        next unless scenario.respond_to? :steps
+        next if scenario.steps.empty?
         yield(file, feature, scenario)
       end
     end
 
     def steps
       elements do |file, feature, scenario|
-        next unless scenario.include? :steps
-        scenario[:steps].each { |step| yield(file, feature, scenario, step) }
+        next unless scenario.steps.any?
+        scenario.steps.each { |step| yield(file, feature, scenario, step) }
       end
     end
 
     def backgrounds
       elements do |file, feature, scenario|
-        next unless scenario[:type] == :Background
+        next unless scenario.is_a?(CukeModeler::Background)
         yield(file, feature, scenario)
       end
     end
 
     def elements
-      @files.each do |file, content|
-        feature = content[:feature]
+      @files.each do |file, model|
+        feature = model.feature
         next if feature.nil?
-        next unless feature.key? :children
-        feature[:children].each do |scenario|
+        next unless feature.background || feature.tests.any?
+
+        everything = [feature.background].compact + feature.tests
+
+        everything.each do |scenario|
           yield(file, feature, scenario)
         end
       end
@@ -71,42 +76,10 @@ module GherkinLint
       self.class.name.split('::').last
     end
 
-    def lint_files(files, tags_to_suppress)
+    def lint_files(files, _tags_to_suppress)
       @files = files
-      @files = filter_tag(@files, "disable#{name}")
-      @files = suppress_tags(@files, tags_to_suppress)
+      filter_guarded_models
       lint
-    end
-
-    def filter_tag(data, tag)
-      return data.reject { |item| tag?(item, tag) }.map { |item| filter_tag(item, tag) } if data.class == Array
-      return {} if (data.class == Hash) && (data.include? :feature) && tag?(data[:feature], tag)
-      return data unless data.respond_to? :each_pair
-      result = {}
-      data.each_pair { |key, value| result[key] = filter_tag(value, tag) }
-      result
-    end
-
-    def tag?(data, tag)
-      return false if data.class != Hash
-      return false unless data.include? :tags
-      data[:tags].map { |item| item[:name] }.include? "@#{tag}"
-    end
-
-    def suppress_tags(data, tags)
-      return data.map { |item| suppress_tags(item, tags) } if data.class == Array
-      return data unless data.class == Hash
-      result = {}
-
-      data.each_pair do |key, value|
-        value = suppress(value, tags) if key == :tags
-        result[key] = suppress_tags(value, tags)
-      end
-      result
-    end
-
-    def suppress(data, tags)
-      data.reject { |item| tags.map { |tag| "@#{tag}" }.include? item[:name] }
     end
 
     def lint
@@ -114,17 +87,17 @@ module GherkinLint
     end
 
     def reference(file, feature = nil, scenario = nil, step = nil)
-      return file if feature.nil? || feature[:name].empty?
-      result = "#{file} (#{line(feature, scenario, step)}): #{feature[:name]}"
-      result += ".#{scenario[:name]}" unless scenario.nil? || scenario[:name].empty?
-      result += " step: #{step[:text]}" unless step.nil?
+      return file if feature.nil? || feature.name.empty?
+      result = "#{file} (#{line(feature, scenario, step)}): #{feature.name}"
+      result += ".#{scenario.name}" unless scenario.nil? || scenario.name.empty?
+      result += " step: #{step.text}" unless step.nil?
       result
     end
 
     def line(feature, scenario, step)
-      line = feature.nil? ? nil : feature[:location][:line]
-      line = scenario[:location][:line] unless scenario.nil?
-      line = step[:location][:line] unless step.nil?
+      line = feature.nil? ? nil : feature.source_line
+      line = scenario.source_line unless scenario.nil?
+      line = step.source_line unless step.nil?
       line
     end
 
@@ -137,15 +110,15 @@ module GherkinLint
     end
 
     def render_step(step)
-      value = "#{step[:keyword]}#{step[:text]}"
-      value += render_step_argument step[:argument] if step.include? :argument
+      value = "#{step.keyword} #{step.text}"
+      value += render_step_argument step.block if step.block
       value
     end
 
     def render_step_argument(argument)
-      return "\n#{argument[:content]}" if argument[:type] == :DocString
-      result = argument[:rows].map do |row|
-        "|#{row[:cells].map { |cell| cell[:value] }.join '|'}|"
+      return "\n#{argument.content}" if argument.is_a?(CukeModeler::DocString)
+      result = argument.rows.map do |row|
+        "|#{row.cells.map(&:value).join '|'}|"
       end.join "\n"
       "\n#{result}"
     end

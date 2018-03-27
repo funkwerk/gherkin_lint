@@ -14,8 +14,8 @@ module GherkinLint
     end
 
     def tags(element)
-      return [] unless element.include? :tags
-      element[:tags].map { |a| a[:name] }
+      return [] unless element.tags.any?
+      element.tags.map(&:name)
     end
   end
 end
