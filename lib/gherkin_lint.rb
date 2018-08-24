@@ -34,11 +34,12 @@ require 'gherkin_lint/linter/use_outline'
 require 'multi_json'
 require 'set'
 require 'gherkin_lint/configuration'
+
 module GherkinLint
   # gherkin linter
   class GherkinLint
     attr_accessor :verbose
-    default_file = File.expand_path('../../', __FILE__), '**/config', 'default.yml'
+    default_file = File.expand_path('..', __dir__), '**/config', 'default.yml'
     DEFAULT_CONFIG = Dir.glob(File.join(default_file)).first.freeze
     LINTER = Linter.descendants
 
