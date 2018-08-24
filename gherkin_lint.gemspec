@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name        = 'gherkin_lint'
-  s.version     = '1.2.2'
+  s.version     = '1.2.3'
   s.date        = '2017-12-04'
   s.summary     = 'Gherkin Lint'
   s.description = 'Lint Gherkin Files'
-  s.authors     = ['Stefan Rohe', 'Nishtha Argawal', 'John Gluck']
+  s.authors     = ['Stefan Rohe', 'Nishtha Argawal', 'John Gluck', 'Michael J. Nohai']
   s.homepage    = 'http://github.com/funkwerk/gherkin_lint/'
   s.license     = 'MIT'
   s.files       = `git ls-files`.split("\n")
