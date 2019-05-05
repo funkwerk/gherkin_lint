@@ -8,9 +8,9 @@ Feature: Unknown Variable
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
-      require 'gherkin_lint'
+      require 'chutney'
 
-      linter = GherkinLint::GherkinLint.new
+      linter = Chutney::ChutneyLint.new
       linter.enable %w(UnknownVariable)
       linter.set_linter
       linter.analyze 'lint.feature'

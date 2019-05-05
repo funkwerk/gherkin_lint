@@ -1,9 +1,9 @@
 require 'rspec'
-require 'gherkin_lint/configuration'
+require 'chutney/configuration'
 require 'shared_contexts/file_exists'
 
-describe GherkinLint::Configuration do
-  subject { GherkinLint::Configuration.new file }
+describe Chutney::Configuration do
+  subject { Chutney::Configuration.new file }
   let(:file) { 'default.yml' }
 
   it 'should do something' do

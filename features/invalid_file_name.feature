@@ -7,11 +7,11 @@ Feature: Invalid File Name
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
-      require 'gherkin_lint'
+      require 'chutney'
       require 'optparse'
       OptionParser.new { |opts| }.parse!
 
-      linter = GherkinLint::GherkinLint.new
+      linter = Chutney::ChutneyLint.new
       linter.enable %w(InvalidFileName)
       linter.set_linter
       ARGV.each { |file| linter.analyze file }

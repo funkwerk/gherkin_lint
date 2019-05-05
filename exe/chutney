@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+require 'chutney'
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = 'Usage: gherkin_language [files]'
+  opts.on('-v', '--[no-]verbose', 'Run verbosely') do |verbose|
+    options[:verbose] = verbose
+  end
+  opts.on('--enable [CHECKS]', 'Enabled checks. Separated by ","') do |checks|
+    options[:enable] = checks.split(',')
+  end
+  opts.on('--disable [CHECKS]', 'Disabled checks. Separated by ","') do |checks|
+    options[:disable] = checks.split(',')
+  end
+  opts.on('-f', '--filepath [file/s]', 'File path where features are located') do |file|
+    options[:files] = file
+  end
+end.parse!
+
+linter = Chutney::ChutneyLint.new
+linter.disable options[:disable] if options.key? :disable
+linter.enable options[:enable] if options.key? :enable
+linter.set_linter
+
+files = ARGV.map { |pattern| Dir.glob(pattern) }.flatten
+files += Dir.glob(options[:files]) if options.key? :files
+files = Dir.glob('features/**/*.feature') if ARGV.empty? && !options.key?(:files)
+
+files.each do |file|
+  linter.analyze file
+end
+
+exit linter.report
