@@ -7,9 +7,9 @@ Feature: Precedence
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
-      require 'gherkin_lint'
+      require 'chutney'
 
-      linter = GherkinLint::GherkinLint.new
+      linter = Chutney::ChutneyLint.new
       linter.set_linter
       linter.analyze 'lint.feature'
       exit linter.report
@@ -39,9 +39,9 @@ Feature: Precedence
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
-      require 'gherkin_lint'
+      require 'chutney'
 
-      linter = GherkinLint::GherkinLint.new
+      linter = Chutney::ChutneyLint.new
       linter.enable %w(AvoidPeriod)
       linter.set_linter
       linter.analyze 'lint.feature'

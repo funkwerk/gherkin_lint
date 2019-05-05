@@ -33,7 +33,7 @@ Metrics/MethodLength:
 # SupportedStyles: predicate, comparison
 Style/NumericPredicate:
   Exclude:
-    - 'lib/gherkin_lint/linter/file_name_differs_feature_name.rb'
+    - 'lib/chutney/linter/file_name_differs_feature_name.rb'
 
 Metrics/ModuleLength:
   Exclude:

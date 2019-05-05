@@ -1,10 +1,10 @@
 require 'rspec'
-require 'gherkin_lint/linter/required_tags_starts_with'
-require 'gherkin_lint'
+require 'chutney/linter/required_tags_starts_with'
+require 'chutney'
 require 'shared_contexts/gherkin_linter'
 
-describe GherkinLint::RequiredTagsStartsWith do
-  let(:linter) { GherkinLint::GherkinLint.new }
+describe Chutney::RequiredTagsStartsWith do
+  let(:linter) { Chutney::ChutneyLint.new }
   let(:file) { 'lint.feature' }
   let(:pattern) { %w[MCC PB] }
   describe '#matcher' do

@@ -7,9 +7,9 @@ Feature: Background Requires Scenario
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
-      require 'gherkin_lint'
+      require 'chutney'
 
-      linter = GherkinLint::GherkinLint.new
+      linter = Chutney::ChutneyLint.new
       linter.enable %w(BackgroundRequiresMultipleScenarios)
       linter.set_linter
       linter.analyze 'lint.feature'

@@ -12,9 +12,9 @@ Feature: Required Tags Starts With
     And a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
-      require 'gherkin_lint'
+      require 'chutney'
 
-      linter = GherkinLint::GherkinLint.new
+      linter = Chutney::ChutneyLint.new
       linter.disable_all
       linter.enable %w(RequiredTagsStartsWith)
       linter.set_linter

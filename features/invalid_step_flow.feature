@@ -7,9 +7,9 @@ Feature: Invalid Step Flow
     Given a file named "lint.rb" with:
       """
       $LOAD_PATH << '../../lib'
-      require 'gherkin_lint'
+      require 'chutney'
 
-      linter = GherkinLint::GherkinLint.new
+      linter = Chutney::ChutneyLint.new
       linter.enable %w(InvalidStepFlow)
       linter.set_linter
       linter.analyze 'lint.feature'
