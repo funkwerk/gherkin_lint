@@ -116,7 +116,7 @@ module Chutney
     def reference(file, feature = nil, scenario = nil, step = nil)
       return file if feature.nil? || feature[:name].empty?
       result = "#{file} (#{line(feature, scenario, step)}): #{feature[:name]}"
-      result += ".#{scenario[:name]}" unless scenario.nil? || scenario[:name].empty?
+      result += " - #{scenario[:name]}" unless scenario.nil? || scenario[:name].empty?
       result += " step: #{step[:text]}" unless step.nil?
       result
     end
