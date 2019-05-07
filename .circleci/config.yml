@@ -8,5 +8,8 @@ jobs:
       - image: circleci/ruby:2.6.3-stretch-node
     steps:
       - checkout
-      - run: bundle install
+      - run: 
+        - bundle install
+        - bundle exec test
+      
         
