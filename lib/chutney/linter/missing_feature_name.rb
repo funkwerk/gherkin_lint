@@ -3,7 +3,7 @@ require 'chutney/linter'
 module Chutney
   # service class to lint for missing feature names
   class MissingFeatureName < Linter
-    MESSAGE = 'All features should have name'
+    MESSAGE = 'All features should have a name'
     
     def lint
       features do |file, feature|

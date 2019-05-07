@@ -3,7 +3,7 @@ require 'chutney/linter'
 module Chutney
   # service class to lint for missing scenario names
   class MissingScenarioName < Linter
-    MESSAGE = 'All scenarios should have name'
+    MESSAGE = 'All scenarios should have a name'
   
     def lint
       scenarios do |file, feature, scenario|

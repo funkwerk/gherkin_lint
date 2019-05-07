@@ -26,7 +26,7 @@ Feature: Missing Scenario Name
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      MissingScenarioName - All scenarios should have name
+      MissingScenarioName - All scenarios should have a name
         lint.feature (2): Test
 
       """
@@ -40,7 +40,7 @@ Feature: Missing Scenario Name
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      MissingScenarioName - All scenarios should have name
+      MissingScenarioName - All scenarios should a have name
         lint.feature (2): Test
 
       """
