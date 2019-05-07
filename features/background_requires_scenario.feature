@@ -29,9 +29,9 @@ Feature: Background Requires Scenario
           Then verification
       """
     When I run `ruby lint.rb`
-    Then it should fail with exactly:
+    Then it should fail with exactly: 
       """
-      BackgroundRequiresMultipleScenarios - There are just 1 scenarios
+      BackgroundRequiresMultipleScenarios - Avoid using Background steps for just one scenario
         lint.feature (2): Test.Preparation
 
       """

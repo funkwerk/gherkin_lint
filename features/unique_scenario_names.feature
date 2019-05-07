@@ -27,7 +27,7 @@ Feature: Unique Scenario Names
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UniqueScenarioNames - 'Unique Scenario Names.A' used 2 times
+      UniqueScenarioNames - Scenario name should be unique, 'Unique Scenario Names.A' used 2 times
         lint.feature (2): Unique Scenario Names.A
         lint.feature (3): Unique Scenario Names.A
 

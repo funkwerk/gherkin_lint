@@ -17,7 +17,7 @@ module Chutney
         similarity = determine_similarity(lhs[:text], rhs[:text])
         next unless similarity >= 0.95
         references = [lhs[:reference], rhs[:reference]]
-        add_error(references, "Scenarios are similar by #{similarity.round(3) * 100} %")
+        add_error(references, "Scenarios are similar by #{similarity.round(3) * 100} %, use Background steps to simplify")
       end
     end
 

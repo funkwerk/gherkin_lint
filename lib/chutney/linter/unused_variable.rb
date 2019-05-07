@@ -10,7 +10,7 @@ module Chutney
           next unless example.key? :tableHeader
           example[:tableHeader][:cells].map { |cell| cell[:value] }.each do |variable|
             references = [reference(file, feature, scenario)]
-            add_error(references, "'<#{variable}>' is unused") unless used?(variable, scenario)
+            add_error(references, "Variable '<#{variable}>' is unused") unless used?(variable, scenario)
           end
         end
       end

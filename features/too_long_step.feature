@@ -28,7 +28,7 @@ Feature: Too Long Step
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      TooLongStep - Used 118 characters
+      TooLongStep - This step is too long at 118 characters
         lint.feature (3): Test.A step: action is quite long so that is not very readable and people even need to scroll because it does not fit on the screen
 
       """

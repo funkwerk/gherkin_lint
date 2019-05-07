@@ -34,7 +34,7 @@ Feature: Disable Tags
       """
       InvalidStepFlow - Given after Action or Verification
         lint.feature (8): Test.Test step: setup
-      InvalidStepFlow - Missing Action
+      InvalidStepFlow - Missing Action step
         lint.feature (6): Test.Test step: check
 
       """

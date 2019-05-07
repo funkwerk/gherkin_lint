@@ -12,7 +12,9 @@ module Chutney
         next if scenario[:examples].first[:tableBody].length > 1
 
         references = [reference(file, feature, scenario)]
-        add_error(references, 'Better write a scenario')
+        add_error(references, 
+          'You have a Scenarion Outline with a single example '\
+          '- rewrite to use a Scenario')
       end
     end
   end

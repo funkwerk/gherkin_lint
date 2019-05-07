@@ -25,7 +25,7 @@ Feature: Missing Feature Name
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      MissingFeatureName - No Feature Name
+      MissingFeatureName - All features should have name
         lint.feature
 
       """

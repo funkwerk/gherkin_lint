@@ -32,7 +32,7 @@ Feature: Unused Variable
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnusedVariable - '<foo>' is unused
+      UnusedVariable - Variable '<foo>' is unused
         lint.feature (2): Test.A
 
       """
@@ -53,7 +53,7 @@ Feature: Unused Variable
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnusedVariable - '<foo>' is unused
+      UnusedVariable - Variable '<foo>' is unused
         lint.feature (2): Test.A
 
       """
@@ -75,7 +75,7 @@ Feature: Unused Variable
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnusedVariable - '<foo>' is unused
+      UnusedVariable - Variable '<foo>' is unused
         lint.feature (2): Test.A
 
       """

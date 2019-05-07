@@ -37,9 +37,9 @@ Feature: Missing Example Name
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      MissingExampleName - No Example Name
+      MissingExampleName - You have an unnamed or ambiguously named example
         lint.feature (2): Test.A
-      MissingExampleName - No Example Name
+      MissingExampleName - You have an unnamed or ambiguously named example
         lint.feature (2): Test.A
 
       """

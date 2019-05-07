@@ -38,7 +38,7 @@ Feature: Too Clumsy
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      TooClumsy - Used 401 Characters
+      TooClumsy - This scenario is too long at 401 characters
         lint.feature (2): Test.A
 
       """

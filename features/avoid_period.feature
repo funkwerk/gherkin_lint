@@ -29,7 +29,7 @@ Feature: Avoid Period
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      AvoidPeriod
+      AvoidPeriod - Avoid using a period (full-stop) in steps so that it is easier to re-use them
         lint.feature (5): Test.A step: verification.
 
       """

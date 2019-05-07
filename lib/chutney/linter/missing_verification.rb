@@ -8,7 +8,7 @@ module Chutney
         then_steps = scenario[:steps].select { |step| step[:keyword] == 'Then ' }
         next unless then_steps.empty?
         references = [reference(file, feature, scenario)]
-        add_error(references, 'No verification step')
+        add_error(references, 'No \'Then\' step')
       end
     end
   end

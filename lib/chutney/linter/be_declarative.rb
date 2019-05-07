@@ -4,6 +4,8 @@ require 'engtagger'
 module Chutney
   # service class to lint for avoiding periods
   class BeDeclarative < Linter
+    MESSAGE = "This step does not contain a verb"
+  
     def initialize
       super
     end
@@ -12,7 +14,7 @@ module Chutney
       filled_scenarios do |file, feature, scenario|
         scenario[:steps].each do |step|
           references = [reference(file, feature, scenario, step)]
-          add_warning(references, 'no verb') unless verb? step
+          add_warning(references, MESSAGE) unless verb? step
         end
       end
     end
