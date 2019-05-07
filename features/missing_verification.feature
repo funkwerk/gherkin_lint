@@ -29,7 +29,7 @@ Feature: Missing Verification
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      MissingVerification - No verification step
+      MissingVerification - No 'Then' step
         lint.feature (2): Test.A
 
       """

@@ -25,7 +25,7 @@ Feature: Missing Feature Description
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      MissingFeatureDescription - Favor a user story as description
+      MissingFeatureDescription - Features should have a description so that its purpose is clear
         lint.feature (1): Test
 
       """

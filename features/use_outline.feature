@@ -35,7 +35,7 @@ Feature: Use Outline
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UseOutline - Scenarios are similar by 97.8 %
+      UseOutline - Scenarios are similar by 97.8 %, use Background steps to simplify
         lint.feature (5): Test.A
         lint.feature (9): Test.B
 

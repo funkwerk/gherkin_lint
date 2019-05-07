@@ -32,7 +32,7 @@ module Chutney
       steps.each do |step|
         break if step[:keyword] == 'When '
         references = [reference(file, feature, scenario, step)]
-        add_error(references, 'Missing Action') if step[:keyword] == 'Then '
+        add_error(references, 'Missing Action step') if step[:keyword] == 'Then '
       end
     end
   end

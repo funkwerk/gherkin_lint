@@ -34,7 +34,7 @@ Feature: Avoid Outline for single Example
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      AvoidOutlineForSingleExample - Better write a scenario
+      AvoidOutlineForSingleExample - You have a Scenarion Outline with a single example - rewrite to use a Scenario
         lint.feature (2): Test.A
 
       """

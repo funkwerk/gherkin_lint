@@ -32,7 +32,7 @@ Feature: Unknown Variable
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnknownVariable - '<baz>' is unknown
+      UnknownVariable - Variable '<baz>' is unknown
         lint.feature (2): Test.A
 
       """
@@ -47,9 +47,9 @@ Feature: Unknown Variable
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnknownVariable - '<baz>' is unknown
+      UnknownVariable - Variable '<baz>' is unknown
         lint.feature (2): Test.A
-      UnknownVariable - '<bar>' is unknown
+      UnknownVariable - Variable '<bar>' is unknown
         lint.feature (2): Test.A
 
       """
@@ -70,7 +70,7 @@ Feature: Unknown Variable
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnknownVariable - '<baz>' is unknown
+      UnknownVariable - Variable '<baz>' is unknown
         lint.feature (2): Test.A
 
       """
@@ -92,7 +92,7 @@ Feature: Unknown Variable
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      UnknownVariable - '<baz>' is unknown
+      UnknownVariable - Variable '<baz>' is unknown
         lint.feature (2): Test.A
 
       """

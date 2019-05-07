@@ -28,7 +28,7 @@ Feature: Background Does More Than Setup
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      BackgroundDoesMoreThanSetup - Just Given Steps allowed
+      BackgroundDoesMoreThanSetup - A Feature's Background should just contain 'Given' steps
         lint.feature (4): Test.Preparation step: test
 
       """

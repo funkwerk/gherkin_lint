@@ -30,7 +30,7 @@ Feature: Avoid Scripting
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      AvoidScripting - Multiple Actions
+      AvoidScripting - You have multiple (2) 'When' actions in your steps - you should only have one
         lint.feature (2): Test.A
 
       """
@@ -49,7 +49,7 @@ Feature: Avoid Scripting
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      AvoidScripting - Multiple Actions
+      AvoidScripting - You have multiple (2) 'When' actions in your steps - you should only have one
         lint.feature (2): Test.A
 
       """

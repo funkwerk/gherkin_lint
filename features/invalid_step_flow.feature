@@ -28,7 +28,7 @@ Feature: Invalid Step Flow
     When I run `ruby lint.rb`
     Then it should fail with exactly:
       """
-      InvalidStepFlow - Missing Action
+      InvalidStepFlow - Missing Action step
         lint.feature (4): Test.A step: verify
 
       """

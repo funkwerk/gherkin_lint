@@ -30,9 +30,9 @@ Feature: Be Declarative
     When I run `ruby lint.rb`
     Then it should pass with exactly:
       """
-      BeDeclarative (Warning) - no verb
+      BeDeclarative (Warning) - This step does not contain a verb
         lint.feature (3): Test.A step: a number 1
-      BeDeclarative (Warning) - no verb
+      BeDeclarative (Warning) - This step does not contain a verb
         lint.feature (4): Test.A step: another number 2
 
       """
