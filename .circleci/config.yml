@@ -5,6 +5,9 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.4.2-jessie-node
+      - image: circleci/ruby:2.6.3-stretch-node
     steps:
       - checkout
+      - run:
+        command: bundle install
+        
