@@ -15,7 +15,7 @@ Feature: Precedence
       exit linter.report
 
       """
-    And a file named ".gherkin_lint.yml" with:
+    And a file named ".chutney.yml" with:
       """
       ---
       AvoidPeriod:
@@ -48,7 +48,7 @@ Feature: Precedence
       exit linter.report
 
       """
-    And a file named ".gherkin_lint.yml" with:
+    And a file named ".chutney.yml" with:
       """
       ---
       AvoidPeriod:

@@ -32,6 +32,7 @@ require 'chutney/linter/use_outline'
 require 'multi_json'
 require 'set'
 require 'chutney/configuration'
+
 module Chutney
   # gherkin linter
   class ChutneyLint

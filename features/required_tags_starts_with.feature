@@ -2,7 +2,7 @@ Feature: Required Tags Starts With
   As a tester I dont want to miss certain tags on my scenarios
 
   Background: Prepare Testee
-    Given a file named ".gherkin_lint.yml" with:
+    Given a file named ".chutney.yml" with:
       """
       ---
       RequiredTagsStartsWith:

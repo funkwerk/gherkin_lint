@@ -81,4 +81,4 @@ Install it with:
 After that `gherkin_lint` executable is available.
 
 ## Configuration
-If you have a custom configuration you'd like to run on a regular basis instead of passing enable and disable flags through the CLI on every run, you can configure a ```.gherkin_lint.yml``` file that will be loaded on execution.  The format and available linters are in [```config/default.yml```](config/default.yml)
+If you have a custom configuration you'd like to run on a regular basis instead of passing enable and disable flags through the CLI on every run, you can configure a ```.chutney.yml``` file that will be loaded on execution.  The format and available linters are in [```config/default.yml```](config/default.yml)

@@ -19,7 +19,7 @@ module Chutney
     end
 
     def load_user_configuration
-      config_file = Dir.glob(File.join(Dir.pwd, '**', '.gherkin_lint.yml')).first
+      config_file = Dir.glob(File.join(Dir.pwd, '**', '.chutney.yml')).first
       merge_config(config_file) if !config_file.nil? && File.exist?(config_file)
     end
 

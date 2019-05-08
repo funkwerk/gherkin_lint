@@ -36,7 +36,7 @@ describe Chutney::ChutneyLint do
 
   context 'when user provided YAML is present' do
     include_context 'a file exists'
-    let(:file) { '.gherkin_lint.yml' }
+    let(:file) { '.chutney.yml' }
     let(:file_content) do
       <<-CONTENT
 ---
@@ -51,7 +51,7 @@ AvoidOutlineForSingleExample:
 
   context 'when linter member value is passed by the user' do
     include_context 'a file exists'
-    let(:file) { '.gherkin_lint.yml' }
+    let(:file) { '.chutney.yml' }
     let(:file_content) do
       <<-CONTENT
 ---
