@@ -14,6 +14,7 @@ module Chutney
         overall_tags += tags
         references = [reference(file, feature)]
         overall_references += references unless tags.empty?
+        
         warn_single_feature(references, tags)
       end
       warn_across_all_features(overall_references, overall_tags)
@@ -23,6 +24,7 @@ module Chutney
       tags.uniq!
       references.uniq!
       return false unless tags.length >= 3
+      
       add_error(references, "Used #{tags.length} Tags within single Feature")
     end
 
@@ -30,11 +32,13 @@ module Chutney
       tags.uniq!
       references.uniq!
       return false unless tags.length >= 10
+      
       add_error(references, "Used #{tags.length} Tags across all Features")
     end
 
     def tags_for_feature(feature)
       return [] unless feature.include? :children
+      
       gather_tags(feature) + feature[:children].map { |scenario| gather_tags(scenario) }.flatten
     end
   end

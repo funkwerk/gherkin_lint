@@ -1,5 +1,5 @@
 # Disable rubocop checks for the .gemspec
-# I'll take the output from 'bundle gem new' to be authoritative 
+# I'll take the output from 'bundle gem new' to be authoritative
 # rubocop:disable all
 
 lib = File.expand_path('../lib', __FILE__)

@@ -37,7 +37,7 @@ module Chutney
   # gherkin linter
   class ChutneyLint
     attr_accessor :verbose
-    default_file = File.expand_path('../../', __FILE__), '**/config', 'default.yml'
+    default_file = File.expand_path('..', __dir__), '**/config', 'default.yml'
     DEFAULT_CONFIG = Dir.glob(File.join(default_file)).first.freeze
     LINTER = Linter.descendants
 
@@ -84,8 +84,10 @@ module Chutney
     def evaluate_members(linter)
       @config.config[linter.class.name.split('::').last].each do |member, value|
         next if member.downcase.casecmp('enabled').zero?
+        
         member = member.downcase.to_sym
         raise 'Member not found! Check the YAML' unless linter.respond_to? member
+        
         linter.public_send(member, value)
       end
     end
@@ -106,6 +108,7 @@ module Chutney
 
       print issues
       return 0 if issues.select { |issue| issue.class == Error }.empty?
+      
       -1
     end
 

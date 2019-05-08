@@ -3,7 +3,7 @@ require 'chutney/linter'
 module Chutney
   # service class to lint for avoiding periods
   class AvoidPeriod < Linter
-    MESSAGE = 'Avoid using a period (full-stop) in steps so that it is easier to re-use them'
+    MESSAGE = 'Avoid using a period (full-stop) in steps so that it is easier to re-use them'.freeze
     
     def lint
       scenarios do |file, feature, scenario|

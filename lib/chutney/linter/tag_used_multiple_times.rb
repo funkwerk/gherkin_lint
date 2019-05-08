@@ -9,12 +9,14 @@ module Chutney
         total_tags = tags(feature) + tags(scenario)
         double_used_tags = total_tags.find_all { |a| total_tags.count(a) > 1 }.uniq!
         next if double_used_tags.nil?
+        
         add_error(references, "Tag #{double_used_tags.join(' and ')} used multiple times")
       end
     end
 
     def tags(element)
       return [] unless element.include? :tags
+      
       element[:tags].map { |a| a[:name] }
     end
   end

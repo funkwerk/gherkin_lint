@@ -3,6 +3,7 @@ module Chutney
   module TagCollector
     def gather_tags(element)
       return [] unless element.include? :tags
+      
       element[:tags].map { |tag| tag[:name][1..-1] }
     end
   end

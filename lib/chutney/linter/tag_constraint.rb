@@ -5,6 +5,7 @@ module Chutney
       scenarios do |file, feature, scenario|
         next if match_pattern? tags(feature)
         next if match_pattern? tags(scenario)
+        
         references = [reference(file, feature, scenario)]
         add_error(references, 'Required Tag not found')
       end
@@ -12,6 +13,7 @@ module Chutney
 
     def tags(element)
       return [] unless element.include? :tags
+      
       element[:tags].map { |a| a[:name] }
     end
 
@@ -26,6 +28,7 @@ module Chutney
 
     def validate_input
       raise 'No Tags provided in the YAML' if @pattern.nil?
+      
       warn 'Required Tags matcher has no value' if @pattern.empty?
     end
   end
