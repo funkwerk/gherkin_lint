@@ -34,8 +34,8 @@ describe Chutney::Configuration do
     end
 
     it 'should load a file from the config path but fail to parse' do
-      expect { subject.load_configuration }.to raise_error
-      expect { subject.config }.to raise_error
+      expect { subject.load_configuration }.to raise_error Psych::SyntaxError
+      expect { subject.config }.to raise_error Psych::SyntaxError
     end
   end
   context 'when a valid YAML file is present' do

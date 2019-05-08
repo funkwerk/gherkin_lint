@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
 
   spec.summary     = 'A linter for English language Gherkin'
   spec.description = 'A fork of gherkin_lint (https://github.com/funkwerk/gherkin_lint) '  \
-                  'which is no-longer being actively maintained'
+                      'which is no-longer being actively maintained'
 
   spec.homepage    = 'https://github.com/BillyRuffian/chutney'
   spec.license     = 'MIT'
@@ -50,5 +50,6 @@ Gem::Specification.new do |spec|
   
   spec.add_development_dependency 'aruba', '~> 0.14.0'
   spec.add_development_dependency 'rubocop', '~> 0.68.0'
+  spec.add_development_dependency 'rspec', '~> 3.8'
   
 end
