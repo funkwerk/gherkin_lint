@@ -1,5 +1,3 @@
-gem 'gherkin', '>=4.0.0'
-
 require 'gherkin/parser'
 require 'chutney/linter'
 require 'chutney/linter/avoid_outline_for_single_example'
