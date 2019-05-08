@@ -51,3 +51,5 @@ Layout/IndentHeredoc:
   Exclude:
     - "**/*_spec.rb"
 
+Layout/TrailingWhitespace:
+  Enabled: false

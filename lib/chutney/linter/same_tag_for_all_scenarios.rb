@@ -17,6 +17,7 @@ module Chutney
       return if tags.nil?
       return if tags.empty?
       return unless feature[:children].length > 1
+      
       references = [reference(file, feature)]
       tags.each do |tag|
         next if tag == '@skip'
@@ -30,6 +31,7 @@ module Chutney
         tags = gather_same_tags_for_outline scenario
         next if tags.nil? || tags.empty?
         next unless scenario[:examples].length > 1
+        
         references = [reference(file, feature, scenario)]
         tags.each do |tag|
           next if tag == '@skip'
@@ -44,8 +46,10 @@ module Chutney
       feature[:children].each do |scenario|
         next if scenario[:type] == :Background
         return nil unless scenario.include? :tags
+        
         tags = scenario[:tags].map { |tag| tag[:name] }
         result = tags if result.nil?
+        
         result &= tags
       end
       result
@@ -54,10 +58,13 @@ module Chutney
     def gather_same_tags_for_outline(scenario)
       result = nil
       return result unless scenario.include? :examples
+      
       scenario[:examples].each do |example|
         return nil unless example.include? :tags
+        
         tags = example[:tags].map { |tag| tag[:name] }
         result = tags if result.nil?
+        
         result &= tags
       end
       result

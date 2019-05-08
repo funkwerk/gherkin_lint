@@ -19,6 +19,7 @@ module Chutney
       @files.each do |file, content|
         feature = content[:feature]
         next if feature.nil?
+        
         yield(file, feature)
       end
     end
@@ -30,6 +31,7 @@ module Chutney
     def scenarios
       elements do |file, feature, scenario|
         next if scenario[:type] == :Background
+        
         yield(file, feature, scenario)
       end
     end
@@ -38,6 +40,7 @@ module Chutney
       scenarios do |file, feature, scenario|
         next unless scenario.include? :steps
         next if scenario[:steps].empty?
+        
         yield(file, feature, scenario)
       end
     end
@@ -45,6 +48,7 @@ module Chutney
     def steps
       elements do |file, feature, scenario|
         next unless scenario.include? :steps
+        
         scenario[:steps].each { |step| yield(file, feature, scenario, step) }
       end
     end
@@ -52,6 +56,7 @@ module Chutney
     def backgrounds
       elements do |file, feature, scenario|
         next unless scenario[:type] == :Background
+        
         yield(file, feature, scenario)
       end
     end
@@ -61,6 +66,7 @@ module Chutney
         feature = content[:feature]
         next if feature.nil?
         next unless feature.key? :children
+        
         feature[:children].each do |scenario|
           yield(file, feature, scenario)
         end
@@ -82,6 +88,7 @@ module Chutney
       return data.reject { |item| tag?(item, tag) }.map { |item| filter_tag(item, tag) } if data.class == Array
       return {} if (data.class == Hash) && (data.include? :feature) && tag?(data[:feature], tag)
       return data unless data.respond_to? :each_pair
+      
       result = {}
       data.each_pair { |key, value| result[key] = filter_tag(value, tag) }
       result
@@ -90,12 +97,14 @@ module Chutney
     def tag?(data, tag)
       return false if data.class != Hash
       return false unless data.include? :tags
+      
       data[:tags].map { |item| item[:name] }.include? "@#{tag}"
     end
 
     def suppress_tags(data, tags)
       return data.map { |item| suppress_tags(item, tags) } if data.class == Array
       return data unless data.class == Hash
+      
       result = {}
 
       data.each_pair do |key, value|
@@ -115,6 +124,7 @@ module Chutney
 
     def reference(file, feature = nil, scenario = nil, step = nil)
       return file if feature.nil? || feature[:name].empty?
+      
       result = "#{file} (#{line(feature, scenario, step)}): #{feature[:name]}"
       result += ".#{scenario[:name]}" unless scenario.nil? || scenario[:name].empty?
       result += " step: #{step[:text]}" unless step.nil?
@@ -144,6 +154,7 @@ module Chutney
 
     def render_step_argument(argument)
       return "\n#{argument[:content]}" if argument[:type] == :DocString
+      
       result = argument[:rows].map do |row|
         "|#{row[:cells].map { |cell| cell[:value] }.join '|'}|"
       end.join "\n"

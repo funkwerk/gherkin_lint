@@ -4,7 +4,7 @@ require 'engtagger'
 module Chutney
   # service class to lint for avoiding periods
   class BeDeclarative < Linter
-    MESSAGE = "This step does not contain a verb"
+    MESSAGE = 'This step does not contain a verb'.freeze
   
     def initialize
       super
