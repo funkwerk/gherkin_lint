@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'engtagger', '~> 0.2'
   spec.add_runtime_dependency 'cucumber', '~> 3.0'
   spec.add_runtime_dependency 'multi_json', '~> 1.0'
-  spec.add_runtime_dependency 'term-ansicolor', '1.7.0'
+  spec.add_runtime_dependency 'term-ansicolor', '1.7.1'
   
   spec.add_development_dependency 'aruba', '~> 0.14.0'
   spec.add_development_dependency 'rubocop', '~> 0.68.0'
