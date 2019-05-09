@@ -1,11 +1,7 @@
 # Lint Gherkin Files
 
-[![Build Status](https://travis-ci.org/funkwerk/gherkin_lint.svg)](https://travis-ci.org/funkwerk/gherkin_lint)
-[![Build status](https://ci.appveyor.com/api/projects/status/31w2m0x1b9484jbi/branch/master?svg=true)](https://ci.appveyor.com/project/lindt/gherkin-lint/branch/master)
-[![Code Climate](https://codeclimate.com/github/funkwerk/gherkin_lint/badges/gpa.svg)](https://codeclimate.com/github/funkwerk/gherkin_lint)
-[![Docker Build](https://img.shields.io/docker/automated/gherkin/lint.svg)](https://hub.docker.com/r/gherkin/lint/)
-[![Downloads](https://img.shields.io/gem/dt/gherkin_lint.svg)](https://rubygems.org/gems/gherkin_lint)
-[![Latest Tag](https://img.shields.io/github/tag/funkwerk/gherkin_lint.svg)](https://rubygems.org/gems/gherkin_lint)
+![CircleCI branch](https://img.shields.io/circleci/project/github/BillyRuffian/chutney/master.svg?style=flat-square)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/BillyRuffian/chutney.svg?style=flat-square)
 
 This tool lints gherkin files.
 
