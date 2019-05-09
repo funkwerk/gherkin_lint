@@ -1,7 +1,7 @@
 # Lint Gherkin Files
 
 ![CircleCI branch](https://img.shields.io/circleci/project/github/BillyRuffian/chutney/master.svg?style=flat-square)
-[![CodeFactor](https://www.codefactor.io/repository/github/billyruffian/chutney/badge)](https://www.codefactor.io/repository/github/billyruffian/chutney)
+[![CodeFactor](https://www.codefactor.io/repository/github/billyruffian/chutney/badge?style=flat-square)](https://www.codefactor.io/repository/github/billyruffian/chutney)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/BillyRuffian/chutney.svg?style=flat-square)
 
 This tool lints gherkin files.
