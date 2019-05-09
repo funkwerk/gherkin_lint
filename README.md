@@ -9,7 +9,7 @@ This tool lints gherkin files.
 
 This gem is a fork of [gherkin_lint](https://github.com/funkwerk/gherkin_lint) which seems to have been abandoned. There's a lot of good stuff in that gem, hence this fork. I've dusted it off, bumped the dependencies (we now depend on the Cucumber 3.x version's monogem) and pushed it to RubyGems as `chutney`.
 
-See also (cuke_linter)[https://github.com/enkessler/cuke_linter] as a promising linter.
+See also [cuke_linter](https://github.com/enkessler/cuke_linter) as a promising linter.
 
 ## Usage
 
