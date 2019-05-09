@@ -10,5 +10,3 @@ jobs:
       - checkout
       - run: bundle install
       - run: bundle exec rake test
-      
-        
