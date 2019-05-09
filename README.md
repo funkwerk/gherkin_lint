@@ -5,6 +5,12 @@
 
 This tool lints gherkin files.
 
+## Background
+
+This gem is a fork of [gherkin_lint](https://github.com/funkwerk/gherkin_lint) which seems to have been abandoned. There's a lot of good stuff in that gem, hence this fork. I've dusted it off, bumped the dependencies (we now depend on the Cucumber 3.x version's monogem) and pushed it to RubyGems as `chutney`.
+
+See also (cuke_linter)[https://github.com/enkessler/cuke_linter] as a promising linter.
+
 ## Usage
 
 run `chutney` on a list of files
@@ -42,7 +48,6 @@ This will mount the current directory within the Gherkin Lint Docker Container a
  - [missing scenario name](https://github.com/BillyRuffian/chutney/blob/master/features/missing_scenario_name.feature)
  - [missing test action](https://github.com/BillyRuffian/chutney/blob/master/features/missing_test_action.feature)
  - [missing verification](https://github.com/BillyRuffian/chutney/blob/master/features/missing_verification.feature)
- - [required tag starts with](https://github.com/BillyRuffian/chutney/blob/master/features/required_tag_starts_with.feature) - disabled by default
  - [same tag for all scenarios](https://github.com/BillyRuffian/chutney/blob/master/features/same_tag_for_all_scenarios.feature)
  - [tag used multiple times](https://github.com/BillyRuffian/chutney/blob/master/features/tag_used_multiple_times.feature)
  - [too clumsy](https://github.com/BillyRuffian/chutney/blob/master/features/too_clumsy.feature)
@@ -72,9 +77,9 @@ If there is at least one error, the returncode will be set to ERROR (!= 0).
 
 Install it with:
 
-`sudo gem install gherkin_lint`
+`sudo gem install chutney`
 
-After that `gherkin_lint` executable is available.
+After that `chutney` executable is available.
 
 ## Configuration
 If you have a custom configuration you'd like to run on a regular basis instead of passing enable and disable flags through the CLI on every run, you can configure a ```.chutney.yml``` file that will be loaded on execution.  The format and available linters are in [```config/default.yml```](config/default.yml)
